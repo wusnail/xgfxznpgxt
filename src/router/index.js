@@ -8,8 +8,7 @@ import Train from '@/components/Train'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
@@ -23,14 +22,22 @@ export default new Router({
       path: '/patient',
       name: 'patient',
       component: patient
-    },{
-    path: '/Split',
-    name: 'Split',
-    component: Split
-  }, {
-    path: '/Train',
-    name: 'Train',
-    component: Train
-  }
+    }, {
+      path: '/Split',
+      name: 'Split',
+      component: Split
+    }, {
+      path: '/Train',
+      name: 'Train',
+      component: Train
+    }, {
+      path: '/Forgetpwd',
+      name: 'Forgetpwd',
+      component: Forgetpwd
+    }, {
+      path: '/Register',
+      name: 'Register',
+      component: Register
+    }
   ]
 })

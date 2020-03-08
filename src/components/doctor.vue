@@ -11,14 +11,13 @@
              src="../assets/images/logo2.jpg" />
       </div>
     </div>
-    <div  class="weui_cell_bd weui_cell_primary">
-      <span align="center" style="color:#07C160;font-size:20px;">新冠风险智能评估系统</span><br>
-      <span align="center" style="color:#07C160;font-size:20px;">医生登录</span>
-    </div><br>
+    <div class="weui_cell_bd weui_cell_primary">
+      <span style="color:#07C160;font-size:20px;">新冠风险智能评估系统</span>
+    </div>
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
         <div class="weui-cell__hd">
-          <label class="weui-label">手机号</label>
+          <label class="weui-label">用户名</label>
         </div>
         <div class="weui-cell__bd weui-cell_primary">
           <input v-model="LoginForm.username"
@@ -39,16 +38,30 @@
         </div>
       </div>
     </div>
-   <!--  <label for="weuiAgree"
+    <!-- <label for="weuiAgree"
            class="weui-agree">
       <input id="weuiAgree"
              type="checkbox"
              v-model="termAgree"
              class="weui-agree__checkbox" />
       <span class="weui-agree__text">
-        阅读并同意《相关条款》
+        阅读并同意
+        <a href>《相关条款》</a>
       </span>
     </label> -->
+    <div class="weui-flex "
+         style="margin:5px">
+      <div class="weui-flex__item">
+        <a href="#/Forgetpwd">
+          忘记密码
+        </a>
+      </div>
+      <div class="weui-flex__item">
+        <a href="#/Register">
+          去注册
+        </a>
+      </div>
+    </div>
     <div class="weui-btn-area">
       <a class="weui-btn weui-btn_primary"
          @click="handelLogin()">确&nbsp;&nbsp;&nbsp;定</a>
@@ -72,15 +85,14 @@
 
 <script>
 import axios from 'axios';
-import global from './global.vue'
+
 export default {
   name: 'Login',
   data() {
     return {
       tips: "",
-      termAgree: false,
+      // termAgree: false,
       loginresult: false,
-      token:'',
       LoginForm: {
         username: "",
         password: ""
@@ -96,10 +108,10 @@ export default {
         this.loginresult = true;
         this.tips = "请输入正确的手机号";
       }
-      else if (!this.termAgree) {
-        this.loginresult = true;
-        this.tips = "请阅读并同意《相关条款》";
-      }
+      // else if (!this.termAgree) {
+      //   this.loginresult = true;
+      //   this.tips = "请阅读并同意《相关条款》";
+      // }
       // else if (this.LoginForm.password.length < 6) {
       //   this.loginresult = true;
       //   this.tips = "密码不能小于6位";
@@ -110,10 +122,7 @@ export default {
           pwd: this.LoginForm.password
         }).then((response) => {
           if (response.data.results == "密码正确") {
-            this.loginresult = true;
-            this.tips = "登录成功";
-            window.localStorage.setItem("Token",response.data.token)
-            this.$router.push({ name: "Split" ,params:{token:this.token}});
+            this.$router.push({ name: "Split" });
           }
           else {
             this.loginresult = true;
