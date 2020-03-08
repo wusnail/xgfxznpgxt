@@ -31,6 +31,20 @@
         </div>
       </div>
     </div>
+
+     <div class="weui-flex "
+         style="margin:5px">
+      <div class="weui-flex__item">
+        <a href="#/PatForgetpwd">
+          忘记密码
+        </a>
+      </div>
+      <div class="weui-flex__item">
+        <a href="#/PatRegister">
+          去注册
+        </a>
+      </div>
+    </div>
     <!-- <label for="weuiAgree" class="weui-agree">
       <input id="weuiAgree" type="checkbox" class="weui-agree__checkbox" />
       <span class="weui-agree__text">
