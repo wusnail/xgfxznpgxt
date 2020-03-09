@@ -127,8 +127,8 @@ export default {
     getCode:function (e){
       console.log("获取验证码");
       this.tips = ''
-      var phoneReg = /^1[34578]\d{9}$/.test(this.RegisterForm.phoneNumber)
-      var pwdReg = ((this.RegisterForm.passward == this.RegisterForm.confirmpwd) && this.RegisterForm.passward != '') ? true : false
+       var phoneReg = /^1[34578]\d{9}$/.test(this.ForgetpwdForm.phoneNumber)
+      var pwdReg = ((this.ForgetpwdForm.passward == this.ForgetpwdForm.confirmpwd) && this.ForgetpwdForm.passward != '') ? true : false
       //  var vcodeRge=
       if (!phoneReg) {
         this.showDialog = true
