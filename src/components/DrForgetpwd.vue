@@ -125,24 +125,41 @@ export default {
     },
     getCode:function (e){
       console.log("获取验证码");
-      this.setTime();
+
+      this.tips = ''
+      var phoneReg = /^1[34578]\d{9}$/.test(this.RegisterForm.phoneNumber)
+      var pwdReg = ((this.RegisterForm.passward == this.RegisterForm.confirmpwd) && this.RegisterForm.passward != '') ? true : false
+      //  var vcodeRge=
+      if (!phoneReg) {
+        this.showDialog = true
+        this.tips = "请确认输入手机号是否正确！"
+      } else if (!pwdReg) {
+        this.showDialog = true
+        this.tips = "请确认输入密码是否正确！"
+      }
+      else{
+        this.setTime();
+      }
+     
     },
     setTime:function (){
       let time = 60;
       let i = 0;
       let that = this;
+      that.codeTextisdisabled=true
+      that.getVerificationCode();
       //1.在60秒之内，button上倒计时60秒，并显示
       //2.向controller请求验证码，并发送到指定的手机号上面
       let set = setInterval(function() {
         that.codeText = (--time)+"秒后重发";
         i++;	
         //此变量用于标识只调用一次获取验证码的函数
-        if (i==1) {
-          console.log("get code start1 ... ");
-          //使获取验证码按钮不可点击
-          that.codeTextisdisabled=true
-          that.getVerificationCode();
-        }
+        // if (i==1) {
+        //   console.log("get code start1 ... ");
+       
+        //   that.codeTextisdisabled=true
+        //   that.getVerificationCode();
+        // }
 		}, 1000);
 			//60秒之后需要做的事情
       setTimeout(function() {
