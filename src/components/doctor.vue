@@ -52,12 +52,12 @@
     <div class="weui-flex "
          style="margin:5px">
       <div class="weui-flex__item">
-        <a href="#/Forgetpwd">
+        <a href="#/DrForgetpwd">
           忘记密码
         </a>
       </div>
       <div class="weui-flex__item">
-        <a href="#/Register">
+        <a href="#/DrRegister">
           去注册
         </a>
       </div>
