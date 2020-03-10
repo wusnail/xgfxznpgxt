@@ -169,7 +169,7 @@ export default {
       Verphone: ''
     }
   },
-  created() {
+  mounted() {
     this.getUnitList()
   },
   methods: {
@@ -333,4 +333,10 @@ export default {
 </script>
 
 <style>
+.weui-label {
+  text-align: left;
+}
+.weui-input {
+  text-align: left;
+}
 </style>
