@@ -26,7 +26,7 @@
                        placeholder="请填写姓名" />
               </div>
             </div>
-            <div class="weui-cell weui-cell_active">
+            <div class="weui-cell weui-cell_active  weui-cell_select weui-cell_select-after">
               <div class="weui-cell__hd"><label class="weui-label">性别</label></div>
               <div class="weui-cell__bd">
                 <select class="weui-select"
@@ -47,7 +47,7 @@
                        placeholder="请填写年龄" />
               </div>
             </div>
-            <div class="weui-cell weui-cell_active">
+            <div class="weui-cell weui-cell_active  weui-cell_select weui-cell_select-after">
               <div class="weui-cell__hd"><label class="weui-label">单位</label></div>
               <div class="weui-cell__bd">
                 <select class="weui-select"
