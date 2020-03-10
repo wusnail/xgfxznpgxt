@@ -74,6 +74,7 @@ export default {
       }).then((response) => {
         if (response.status == 200) {
           this.token=response.data.token
+          console.log(this.token)
         }
       }).catch(function (error) {
         console.log("error", error);
