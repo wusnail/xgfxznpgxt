@@ -123,6 +123,7 @@ export default {
           pwd: this.LoginForm.password
         }).then((response) => {
           if (response.data.results == "密码正确") {
+            window.localStorage.setItem("DocId",this.LoginForm.username)
             this.$router.push({ name: "Split" });
           }
           else {
