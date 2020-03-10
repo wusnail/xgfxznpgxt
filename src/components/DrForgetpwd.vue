@@ -252,4 +252,10 @@ export default {
 </script>
 
 <style>
+.weui-label {
+  text-align: left;
+}
+.weui-input {
+  text-align: left;
+}
 </style>
