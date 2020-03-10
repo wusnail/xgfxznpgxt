@@ -58,11 +58,20 @@
               </div>
               <div class="weui-cell__ft">
                 <button class="weui-btn weui-btn_default weui-vcode-btn"
+                        style="width:120px"
                         @click="getCode"
                         :disabled="codeTextisdisabled">{{codeText}}</button>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="weui-flex "
+           style="margin:5px">
+        <div class="weui-flex__item">
+          <a href="#/patient">
+            去登录
+          </a>
         </div>
       </div>
       <div class="weui-btn-area">
