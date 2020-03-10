@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    <div class="weui-flex "
+     <div class="weui-flex "
          style="margin:5px">
       <div class="weui-flex__item">
         <a href="#/PatForgetpwd">

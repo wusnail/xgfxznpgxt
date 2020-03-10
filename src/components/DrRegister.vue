@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="weui_cell_bd weui_cell_primary">
-      <span style="color:#07C160;font-size:20px;">注&nbsp;&nbsp;&nbsp;册</span>
+      <span style="color:#07C160;font-size:20px;">医&nbsp;生&nbsp;注&nbsp;册</span>
     </div>
     <div class="weui-form">
       <div class="weui-form__control-area">
