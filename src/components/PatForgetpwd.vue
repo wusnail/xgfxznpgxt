@@ -86,6 +86,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: 'Forgetpwd',
   data() {
@@ -98,52 +99,101 @@ export default {
         confirmpwd: '',
         vcode: ''
       },
-       codeText: '获取验证码',
+      codeText: '获取验证码',
       codeTextisdisabled:false,
+      VerCode:'',//验证码
     }
   },
   methods: {
+   
+    //患者端重置密码，还要检查验证码
     Forgetpwd() {
       this.tips = ''
       var phoneReg = /^1[34578]\d{9}$/.test(this.ForgetpwdForm.phoneNumber)
       var pwdReg = ((this.ForgetpwdForm.passward == this.ForgetpwdForm.confirmpwd) && this.ForgetpwdForm.passward != '') ? true : false
+      var vcodeReg=((this.ForgetpwdForm.vcode == this.VerCode) && this.ForgetpwdForm.vcode != '') ? true : false
       //  var vcodeRge=
       if (!phoneReg) {
         this.showDialog = true
-        this.tips = "请确认输入手机号是否正确！"
+        this.tips = "请确认输入手机号是否正确！"           
       } else if (!pwdReg) {
         this.showDialog = true
-        this.tips = "请确认输入密码是否正确！"
+        this.tips = "请确认输入密码是否正确！"       
+      } 
+      else if(!vcodeReg){
+        this.showDialog = true
+        this.tips = "请确认输入验证码是否正确！"   
       }
-      // else if(!vcodeReg){
-      //   this.showDialog=true
-      //   this.tips="验证码输入有误！"
-      // }
       else {
-
+        this.checkpat()
       }
+     
+     
+      
       //向后端请求数据
     },
-    getCode:function (e){
-      console.log("获取验证码");
-      this.setTime();
+    checkpat(){
+      axios.post("/getPatientInfo", {            
+           "phone":this.ForgetpwdForm.phoneNumber
+          })
+          .then(response => {      
+            if (response.data.results.length>0) {         
+                  axios.post("/changePatPwd", {            
+                    "phone":this.ForgetpwdForm.phoneNumber,
+                    "pwd":this.ForgetpwdForm.passward
+                  })
+                  .then(response =>{
+                   if (response.data.results == "修改成功") {              
+                      this.tips = "修改成功";
+                      this.showDialog = true                    
+                    } else{
+                      this.tips = "修改失败";
+                      this.showDialog = true                                    
+                    }
+
+                  }
+
+                  )
+                  .catch(function(error) {
+                    console.log("error", error);
+                  })
+
+            } else{
+              this.tips = "用户不存在";    
+              this.showDialog = true               
+            }
+          })
+          .catch(function(error) {
+            console.log("error", error);
+          });
+
     },
+    //患者端获取验证码，只检查验证码是否正确
+    getCode:function (e){    
+      console.log("获取验证码");
+      this.tips = ''
+      var phoneReg = /^1[34578]\d{9}$/.test(this.ForgetpwdForm.phoneNumber)      
+      if (!phoneReg) {
+        this.showDialog = true
+        this.tips = "请确认输入手机号是否正确！"
+      } 
+      else{
+        this.setTime();
+      }
+      
+    },
+    //设置60s倒计时时钟
     setTime:function (){
       let time = 60;
       let i = 0;
       let that = this;
+       that.codeTextisdisabled=true
+      that.getVerificationCode();
       //1.在60秒之内，button上倒计时60秒，并显示
       //2.向controller请求验证码，并发送到指定的手机号上面
       let set = setInterval(function() {
         that.codeText = (--time)+"秒后重发";
-        i++;	
-        //此变量用于标识只调用一次获取验证码的函数
-        if (i==1) {
-          console.log("get code start1 ... ");
-          //使获取验证码按钮不可点击
-          that.codeTextisdisabled=true
-          that.getVerificationCode();
-        }
+        i++;	       
 		}, 1000);
 			//60秒之后需要做的事情
       setTimeout(function() {
@@ -154,8 +204,22 @@ export default {
       }, time * 1000); //60000  
     },
      getVerificationCode: function(){
-	  	//向服务器获取验证码
-		  console.log("get code start2 ... ");
+      //向服务器获取验证码
+        axios.post("/getVerificationCode", {            
+           "phone":this.ForgetpwdForm.phoneNumber
+          })
+          .then(response => {      
+            if (response.data.results) {         
+              this.tips = response.data.results;    
+              this.showDialog = true                       
+            } else{
+              this.VerCode=response.data.code;//暂时存储后端传回的验证码
+            }
+          })
+          .catch(function(error) {
+            console.log("error", error);
+          });
+		 
 	  }
   }
 
