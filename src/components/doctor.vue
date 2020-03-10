@@ -12,7 +12,8 @@
       </div>
     </div>
     <div class="weui_cell_bd weui_cell_primary">
-      <span style="color:#07C160;font-size:20px;">新冠风险智能评估系统</span>
+      <span style="color:#07C160;font-size:20px;">新冠风险智能评估系统</span><br>
+      <span style="color:#07C160;font-size:20px;">医生登录</span>
     </div>
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
@@ -133,6 +134,7 @@ export default {
           pwd: this.LoginForm.password
         }).then((response) => {
           if (response.data.results == "密码正确") {
+            window.localStorage.setItem("DocId",this.LoginForm.username)
             this.$router.push({ name: "Split" });
           }
           else {

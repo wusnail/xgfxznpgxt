@@ -57,15 +57,29 @@
 
 <script>
   import global from './global.vue'
+  import axios from 'axios';
 export default {
   name: 'Split',
   data() {
     return {
-      token:window.localStorage.getItem("Token"),
+      token:'',
       doctorSystemURL:''
     }
   },
   mounted() {
+     axios
+        .post("/newDoctorToken", {
+          userId:window.localStorage.getItem("DocId")
+        
+      }).then((response) => {
+        if (response.status == 200) {
+          this.token=response.data.token
+          console.log(this.token)
+        }
+      }).catch(function (error) {
+        console.log("error", error);
+      });
+    
   },
   methods:{
     goSystem(){
