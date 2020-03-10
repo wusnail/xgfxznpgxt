@@ -67,17 +67,23 @@
       <a class="weui-btn weui-btn_primary"
          @click="handelLogin()">确&nbsp;&nbsp;&nbsp;定</a>
     </div>
-    <div class="js_dialog"
+    <!-- <div class="js_dialog"
          id="iosDialog2"
          v-show="loginresult"
+         style="display: none;"> -->
+    <div class="js_dialog"
+         id="iosDialog2"
          style="display: none;">
       <div class="weui-mask"></div>
       <div class="weui-dialog">
         <div class="weui-dialog__bd">{{tips}}</div>
         <div class="weui-dialog__ft">
+          <!-- <a href="javascript:;"
+             class="weui-dialog__btn weui-dialog__btn_primary"
+             @click="loginresult=false">确定</a> -->
           <a href="javascript:;"
              class="weui-dialog__btn weui-dialog__btn_primary"
-             @click="loginresult=false">确定</a>
+             @click="dialog.fadeIn(200)">确定</a>
         </div>
       </div>
     </div>
@@ -93,12 +99,16 @@ export default {
     return {
       tips: "",
       // termAgree: false,
-      loginresult: false,
+      // loginresult: false,
       LoginForm: {
         username: "",
         password: ""
       },
     }
+  },
+  mounted() {
+    this.dialog = document.querySelector('#iosDialog2')
+    this.dialog.fadeIn(200);
   },
   methods: {
     handelLogin() {
@@ -106,7 +116,8 @@ export default {
       var phoneReg = /^1[34578]\d{9}$/.test(this.LoginForm.username)
 
       if (!phoneReg) {
-        this.loginresult = true;
+        // this.loginresult = true;
+        this.dialog.fadeOut(200);
         this.tips = "请输入正确的手机号";
       }
       // else if (!this.termAgree) {
