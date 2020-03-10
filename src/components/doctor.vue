@@ -70,7 +70,7 @@
     <div class="js_dialog"
          id="iosDialog2"
          v-show="loginresult"
-         style="display: none; z-index:1;">
+         style="display: none; z-index:999;">
       <div class="weui-mask"></div>
       <div class="weui-dialog">
         <div class="weui-dialog__bd">{{tips}}</div>
