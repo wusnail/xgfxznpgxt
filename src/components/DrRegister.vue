@@ -34,7 +34,7 @@
                   <option v-for="item in genders"
                           :key="item.value"
                           :label="item.label"
-                          :value="item.value"></option>
+                          :value="item.value">{{item.label}}</option>
                 </select>
               </div>
             </div>
@@ -55,7 +55,7 @@
                   <option v-for="item in units"
                           :key="item.value"
                           :label="item.label"
-                          :value="item.value"></option>
+                          :value="item.value">{{item.label}}</option>
                 </select>
               </div>
             </div>
