@@ -1,11 +1,14 @@
 <template>
   <div class="page">
-    <div class="weui-flex" style="margin:30px;">
+    <div class="weui-flex"
+         style="margin:30px;">
       <div class="weui-flex__item">
-        <img style="height:60px;" src="../assets/images/logo1_1.png" />
+        <img style="height:60px;"
+             src="../assets/images/logo1_1.png" />
       </div>
       <div class="weui-flex__item">
-        <img style="height:60px;" src="../assets/images/logo2.jpg" />
+        <img style="height:60px;"
+             src="../assets/images/logo2.jpg" />
       </div>
     </div>
     <div class="weui_cell_bd weui_cell_primary">
@@ -18,46 +21,65 @@
             <div class="weui-cell weui-cell_active">
               <div class="weui-cell__hd"><label class="weui-label">手机号</label></div>
               <div class="weui-cell__bd">
-                <input class="weui-input" type="number" pattern="[0-9]*" v-model="ForgetpwdForm.phoneNumber"
-                  placeholder="请输入手机号" />
+                <input class="weui-input"
+                       type="number"
+                       pattern="[0-9]*"
+                       v-model="ForgetpwdForm.phoneNumber"
+                       placeholder="请输入手机号" />
               </div>
             </div>
             <div class="weui-cell weui-cell_active">
               <div class="weui-cell__hd"><label class="weui-label">新密码</label></div>
               <div class="weui-cell__bd">
-                <input class="weui-input" v-model="ForgetpwdForm.passward" placeholder="请输入密码" />
+                <input class="weui-input"
+                       v-model="ForgetpwdForm.passward"
+                       placeholder="请输入密码" />
               </div>
             </div>
             <div class="weui-cell weui-cell_active">
               <div class="weui-cell__hd"><label class="weui-label">确认密码</label></div>
               <div class="weui-cell__bd">
-                <input class="weui-input" v-model="ForgetpwdForm.confirmpwd" placeholder="请再次输入密码" />
+                <input class="weui-input"
+                       v-model="ForgetpwdForm.confirmpwd"
+                       placeholder="请再次输入密码" />
               </div>
             </div>
             <div class="weui-cell weui-cell_active weui-cell_vcode">
               <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
               <div class="weui-cell__bd">
-                <input autofocus class="weui-input" type="text" pattern="[0-9]*" id="js_input" placeholder="输入验证码"
-                  v-model="ForgetpwdForm.vcode" maxlength="6" />
+                <input autofocus
+                       class="weui-input"
+                       type="text"
+                       pattern="[0-9]*"
+                       id="js_input"
+                       placeholder="输入验证码"
+                       v-model="ForgetpwdForm.vcode"
+                       maxlength="4" />
               </div>
               <div class="weui-cell__ft">
-                <button class="weui-btn weui-btn_default weui-vcode-btn" @click="getCode"
-                  :disabled="codeTextisdisabled">{{codeText}}</button>
+                <button class="weui-btn weui-btn_default weui-vcode-btn"
+                        @click="getCode"
+                        :disabled="codeTextisdisabled">{{codeText}}</button>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="weui-btn-area">
-        <a class="weui-btn weui-btn_primary " @click="Forgetpwd()">确定</a>
+        <a class="weui-btn weui-btn_primary "
+           @click="Forgetpwd()">确定</a>
       </div>
     </div>
-    <div class="js_dialog" id="iosDialog2" v-show="showDialog" style="display: none;">
+    <div class="js_dialog"
+         id="iosDialog2"
+         v-show="showDialog"
+         style="display: none;">
       <div class="weui-mask"></div>
       <div class="weui-dialog">
         <div class="weui-dialog__bd">{{tips}}</div>
         <div class="weui-dialog__ft">
-          <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="showDialog=false">确定</a>
+          <a class="weui-dialog__btn weui-dialog__btn_primary"
+             @click="checkSuccess()">确定</a>
         </div>
       </div>
     </div>
@@ -67,9 +89,10 @@
 <script>
 import axios from "axios";
 export default {
-  name: 'Forgetpwd',
-  data () {
+  name: 'DrForgetpwd',
+  data() {
     return {
+      ifSuccess: false,
       showDialog: false,
       tips: "",
       ForgetpwdForm: {
@@ -81,15 +104,19 @@ export default {
       codeText: '获取验证码',
       codeTextisdisabled: false,
       VerCode: '',//验证码
+      Verphone: '',//获取验证码的手机号
     }
   },
   methods: {
-    Forgetpwd () {
+    Forgetpwd() {
+      this.ifSuccess = false
       this.tips = ''
       var phoneReg = /^1[34578]\d{9}$/.test(this.ForgetpwdForm.phoneNumber)
       var pwdReg = ((this.ForgetpwdForm.passward == this.ForgetpwdForm.confirmpwd) && this.ForgetpwdForm.passward != '') ? true : false
       var vcodeReg = ((this.ForgetpwdForm.vcode == this.VerCode) && this.ForgetpwdForm.vcode != '') ? true : false
       //  var vcodeRge=
+      this.VerCode = ''//清除储存的验证码
+      var VerphoneReg = (this.ForgetpwdForm.phoneNumber == this.Verphone) ? true : false
       if (!phoneReg) {
         this.showDialog = true
         this.tips = "请确认输入手机号是否正确！"
@@ -102,11 +129,15 @@ export default {
         this.showDialog = true
         this.tips = "请确认输入验证码是否正确！"
       }
+      else if (!VerphoneReg) {
+        this.showDialog = true;
+        this.tips = "请确认输入手机号与获取验证码手机号是否相符并重新获取验证码！";
+      }
       else {
         this.checkdoc()
       }
     },
-    checkdoc () {
+    checkdoc() {
       axios.post("/getDoctorInfo", {
         "phone": this.ForgetpwdForm.phoneNumber
       })
@@ -118,8 +149,9 @@ export default {
             })
               .then(response => {
                 if (response.data.results == "修改成功") {
-                  this.tips = "修改成功";
+                  this.tips = "修改成功,确认后跳转到登录页面重新登录";
                   this.showDialog = true
+                  this.ifSuccess = true
                 } else {
                   this.tips = "修改失败";
                   this.showDialog = true
@@ -182,6 +214,7 @@ export default {
     },
     getVerificationCode: function () {
       //向服务器获取验证码
+      this.Verphone = this.ForgetpwdForm.phoneNumber
       axios.post("/getVerificationCode", {
         "phone": this.ForgetpwdForm.phoneNumber
       })
@@ -196,8 +229,15 @@ export default {
         .catch(function (error) {
           console.log("error", error);
         });
-    }
+    },
+    checkSuccess() {
+      this.showDialog = false
+      if (this.ifSuccess) {
+        this.$router.push({ name: "doctor" });
+      }
+    },
   }
+
 
 }
 </script>
