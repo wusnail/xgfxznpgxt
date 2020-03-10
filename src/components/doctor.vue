@@ -23,7 +23,8 @@
         <div class="weui-cell__bd weui-cell_primary">
           <input v-model="LoginForm.username"
                  class="weui-input"
-                 placeholder="请输入" />
+                 placeholder="请输入"
+                 @blur="animateWidth()" />
         </div>
       </div>
       <div class="weui-cell">
@@ -35,7 +36,8 @@
                  class="weui-input"
                  show-password
                  type="password"
-                 placeholder="请输入" />
+                 placeholder="请输入"
+                 @blur="animateWidth()" />
         </div>
       </div>
     </div>
@@ -134,6 +136,9 @@ export default {
           console.log("error", error);
         });
       }
+    },
+    animateWidth() {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
   }
 
