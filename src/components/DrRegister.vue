@@ -169,7 +169,7 @@ export default {
       Verphone: ''
     }
   },
-  created() {
+  mounted() {
     this.getUnitList()
   },
   methods: {
