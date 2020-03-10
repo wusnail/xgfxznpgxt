@@ -23,7 +23,8 @@
         <div class="weui-cell__bd weui-cell_primary">
           <input v-model="LoginForm.username"
                  class="weui-input"
-                 placeholder="请输入" />
+                 placeholder="请输入"
+                 @blur="animateWidth()" />
         </div>
       </div>
       <div class="weui-cell">
@@ -35,7 +36,8 @@
                  class="weui-input"
                  show-password
                  type="password"
-                 placeholder="请输入" />
+                 placeholder="请输入"
+                 @blur="animateWidth()" />
         </div>
       </div>
     </div>
@@ -70,7 +72,7 @@
     <div class="js_dialog"
          id="iosDialog2"
          v-show="loginresult"
-         style="display: none; z-index:1;">
+         style="display: none; z-index:999;">
       <div class="weui-mask"></div>
       <div class="weui-dialog">
         <div class="weui-dialog__bd">{{tips}}</div>
@@ -134,6 +136,9 @@ export default {
           console.log("error", error);
         });
       }
+    },
+    animateWidth() {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
   }
 
