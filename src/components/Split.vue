@@ -18,22 +18,22 @@
       <div class="weui-flex ">
         <div class="weui-flex__item">
           <div @click='goSystem()'
-             style="float:right;margin:20px ">
-            <img style="height:90px;"
+             style="float:right;margin:25px ">
+            <img style="height:80px;"
                  src="../assets/images/xitong.png" />
             <div style="color:black ">智能评估</div>
           </div>
         </div>
         <div class="weui-flex__item">
           <a href="#/Train"
-             style="float:left;margin:20px ">
-            <img style="height:90px;"
+             style="float:left;margin:25px ">
+            <img style="height:80px;"
                  src="../assets/images/peixun.png" />
             <div style="color:black">在线培训</div>
           </a>
         </div>
       </div>
-      <div class="weui-flex">
+     <!--  <div class="weui-flex">
         <div class="weui-flex__item">
           <div
              style="float:right;margin:20px ">
@@ -50,7 +50,7 @@
             <div style="color:black">待添加</div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
