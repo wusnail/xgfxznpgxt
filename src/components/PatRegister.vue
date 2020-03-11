@@ -127,6 +127,7 @@ export default {
   },
   methods: {
     Register() {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
       this.tips = "";
       this.ifSuccess = false
       var phoneReg = /^1[34578]\d{9}$/.test(this.RegisterForm.phoneNumber);
@@ -193,6 +194,7 @@ export default {
       var phoneReg = /^1[34578]\d{9}$/.test(this.RegisterForm.phoneNumber);
 
       if (!phoneReg) {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
         this.showDialog = true;
         this.tips = "请确认输入手机号是否正确！";
       } else {
@@ -227,6 +229,7 @@ export default {
         })
         .then(response => {
           if (response.data.results) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
             this.tips = response.data.results;
             this.showDialog = true;
           } else {

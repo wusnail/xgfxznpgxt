@@ -40,7 +40,7 @@
       </div>
     </div>
 
-     <div class="weui-flex "
+    <div class="weui-flex "
          style="margin:5px">
       <div class="weui-flex__item">
         <a href="#/PatForgetpwd">
@@ -101,6 +101,7 @@ export default {
       var phoneReg = /^1[34578]\d{9}$/.test(this.loginForm.username);
 
       if (!phoneReg) {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
         this.tips = "请输入正确的手机号";
         this.showtips = true;
       }
@@ -121,6 +122,7 @@ export default {
               window.location.href = global.patientSystemURL + '?token=' + this.token;
             } else {
               // this.loginresult = true;
+              document.body.scrollTop = document.documentElement.scrollTop = 0;
               this.showtips = true;
               this.tips = response.data.results;
 

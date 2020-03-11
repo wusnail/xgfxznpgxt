@@ -118,6 +118,7 @@ export default {
   },
   methods: {
     Forgetpwd() {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
       this.ifSuccess = false
       this.tips = ''
       var phoneReg = /^1[34578]\d{9}$/.test(this.ForgetpwdForm.phoneNumber)
@@ -192,6 +193,7 @@ export default {
       var phoneReg = /^1[34578]\d{9}$/.test(this.ForgetpwdForm.phoneNumber)
 
       if (!phoneReg) {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
         this.showDialog = true
         this.tips = "请确认输入手机号是否正确！"
       }
@@ -229,6 +231,7 @@ export default {
       })
         .then(response => {
           if (response.data.results) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
             this.tips = response.data.results;
             this.showDialog = true
           } else {
