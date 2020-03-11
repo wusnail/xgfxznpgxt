@@ -23,8 +23,7 @@
         <div class="weui-cell__bd weui-cell_primary">
           <input v-model="LoginForm.username"
                  class="weui-input"
-                 placeholder="请输入"
-                 @blur="animateWidth()" />
+                 placeholder="请输入" />
         </div>
       </div>
       <div class="weui-cell">
@@ -36,8 +35,7 @@
                  class="weui-input"
                  show-password
                  type="password"
-                 placeholder="请输入"
-                 @blur="animateWidth()" />
+                 placeholder="请输入" />
         </div>
       </div>
     </div>
@@ -106,7 +104,7 @@ export default {
     handelLogin() {
       this.loginresult = false;
       var phoneReg = /^1[34578]\d{9}$/.test(this.LoginForm.username)
-
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
       if (!phoneReg) {
         this.loginresult = true;
         this.tips = "请输入正确的手机号";
@@ -137,9 +135,6 @@ export default {
         });
       }
     },
-    animateWidth() {
-      document.body.scrollTop = document.documentElement.scrollTop = 0;
-    }
   }
 
 }
