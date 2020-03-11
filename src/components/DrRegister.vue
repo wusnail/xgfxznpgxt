@@ -31,6 +31,10 @@
               <div class="weui-cell__bd">
                 <select class="weui-select"
                         v-model="RegisterForm.gender">
+                  <option style="display: none;"
+                          value=""
+                          disabled
+                          selected>请选择</option>
                   <option v-for="item in genders"
                           :key="item.value"
                           :label="item.label"
@@ -52,6 +56,10 @@
               <div class="weui-cell__bd">
                 <select class="weui-select"
                         v-model="RegisterForm.unitID">
+                  <option style="display: none;"
+                          value=""
+                          disabled
+                          selected>请选择</option>
                   <option v-for="item in units"
                           :key="item.value"
                           :label="item.label"

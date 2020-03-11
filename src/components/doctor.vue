@@ -104,7 +104,7 @@ export default {
     handelLogin() {
       this.loginresult = false;
       var phoneReg = /^1[34578]\d{9}$/.test(this.LoginForm.username)
-
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
       if (!phoneReg) {
         this.loginresult = true;
         this.tips = "请输入正确的手机号";
@@ -134,7 +134,7 @@ export default {
           console.log("error", error);
         });
       }
-    }
+    },
   }
 
 }
