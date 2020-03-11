@@ -96,7 +96,7 @@
             <div class="weui-cell weui-cell_active weui-cell_vcode">
               <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
               <div class="weui-cell__bd">
-                <input autofocus
+                <input 
                        class="weui-input"
                        type="text"
                        pattern="[0-9]*"

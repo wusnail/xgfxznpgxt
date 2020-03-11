@@ -55,8 +55,7 @@
                 <label class="weui-label">验证码</label>
               </div>
               <div class="weui-cell__bd">
-                <input autofocus
-                       class="weui-input"
+                <input class="weui-input"
                        type="text"
                        pattern="[0-9]*"
                        id="js_input"
