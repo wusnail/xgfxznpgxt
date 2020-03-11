@@ -182,6 +182,7 @@ export default {
   },
   methods: {
     Register() {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
       this.tips = ''
       this.ifSuccess = false
       var phoneReg = /^1[34578]\d{9}$/.test(this.RegisterForm.phoneNumber)
@@ -194,22 +195,22 @@ export default {
       this.VerCode = ''//清除储存的验证码
       var VerphoneReg = (this.RegisterForm.phoneNumber == this.Verphone) ? true : false
       if (!nameReg || !genderReg || !ageReg || !unitIDReg) {
-        this.showDialog = true
         this.tips = "请确认基本信息填写完整！"
+        this.showDialog = true
       } else if (!phoneReg) {
-        this.showDialog = true
         this.tips = "请确认输入手机号是否正确！"
-      } else if (!pwdReg) {
         this.showDialog = true
+      } else if (!pwdReg) {
         this.tips = "请确认输入密码是否正确！"
+        this.showDialog = true
       }
       else if (!vcodeReg) {
-        this.showDialog = true;
         this.tips = "请确认输入验证码是否正确！";
+        this.showDialog = true;
       }
       else if (!VerphoneReg) {
-        this.showDialog = true;
         this.tips = "请确认输入手机号与获取验证码手机号是否相符并重新获取验证码！";
+        this.showDialog = true;
       }
       else {
         this.checkdoc();
@@ -260,6 +261,7 @@ export default {
       this.tips = ''
       var phoneReg = /^1[34578]\d{9}$/.test(this.RegisterForm.phoneNumber)
       if (!phoneReg) {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
         this.showDialog = true
         this.tips = "请确认输入手机号是否正确！"
       }
@@ -304,6 +306,7 @@ export default {
       })
         .then(response => {
           if (response.data.results) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
             this.tips = response.data.results;
             this.showDialog = true
           } else {

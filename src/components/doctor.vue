@@ -104,10 +104,10 @@ export default {
     handelLogin() {
       this.loginresult = false;
       var phoneReg = /^1[34578]\d{9}$/.test(this.LoginForm.username)
-      document.body.scrollTop = document.documentElement.scrollTop = 0;
       if (!phoneReg) {
         this.loginresult = true;
         this.tips = "请输入正确的手机号";
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
       }
       // else if (!this.termAgree) {
       //   this.loginresult = true;
@@ -127,8 +127,9 @@ export default {
             this.$router.push({ name: "Split" });
           }
           else {
-            this.loginresult = true;
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
             this.tips = response.data.results
+            this.loginresult = true;
           }
         }).catch(function (error) {
           console.log("error", error);
