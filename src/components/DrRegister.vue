@@ -48,6 +48,7 @@
                 <input class="weui-input"
                        v-model="RegisterForm.age"
                        pattern="[0-9]*"
+                       type="number" 
                        placeholder="请填写年龄" />
               </div>
             </div>
@@ -311,7 +312,7 @@ export default {
             this.showDialog = true
           } else {
             this.VerCode = response.data.code;//暂时存储后端传回的验证码
-            console.log(this.VerCode)
+            // console.log(this.VerCode)
           }
         })
         .catch(function (error) {

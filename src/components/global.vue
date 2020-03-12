@@ -1,6 +1,6 @@
 <script type="text/javascript">
     // 定义一些公共的属性和方法
-
+// 
     var nowversion = '1.0'
     var doctorURL = 'http://frznflxt.zhejianglab.com/#/doctor'
     var patientURL = 'http://frznflxt.zhejianglab.com/#/patient'
