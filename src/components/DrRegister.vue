@@ -48,7 +48,7 @@
                 <input class="weui-input"
                        v-model="RegisterForm.age"
                        pattern="[0-9]*"
-                       type="number" 
+                       type="number"
                        placeholder="请填写年龄" />
               </div>
             </div>
@@ -83,6 +83,9 @@
               <div class="weui-cell__bd">
                 <input class="weui-input"
                        v-model="RegisterForm.passward"
+                       show-password
+                       clearable
+                       type="password"
                        placeholder="请输入密码" />
               </div>
             </div>
@@ -91,15 +94,17 @@
               <div class="weui-cell__bd">
                 <input class="weui-input"
                        v-model="RegisterForm.confirmpwd"
+                       show-password
+                       clearable
+                       type="password"
                        placeholder="请再次输入密码" />
               </div>
             </div>
             <div class="weui-cell weui-cell_active weui-cell_vcode">
               <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
               <div class="weui-cell__bd">
-                <input 
-                       class="weui-input"
-                       type="text"
+                <input class="weui-input"
+                       type="number"
                        pattern="[0-9]*"
                        id="js_input"
                        placeholder="输入验证码"
@@ -119,7 +124,8 @@
       <div class="weui-flex "
            style="margin:5px">
         <div class="weui-flex__item">
-          <a href="#/doctor">
+          <a href="#/doctor"
+             style="float:left;font-size:15px;padding:12px">
             去登录
           </a>
         </div>

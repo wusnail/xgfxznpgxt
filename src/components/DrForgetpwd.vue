@@ -33,6 +33,9 @@
               <div class="weui-cell__bd">
                 <input class="weui-input"
                        v-model="ForgetpwdForm.passward"
+                       show-password
+                       clearable
+                       type="password"
                        placeholder="请输入密码" />
               </div>
             </div>
@@ -41,6 +44,9 @@
               <div class="weui-cell__bd">
                 <input class="weui-input"
                        v-model="ForgetpwdForm.confirmpwd"
+                       show-password
+                       clearable
+                       type="password"
                        placeholder="请再次输入密码" />
               </div>
             </div>
@@ -48,7 +54,7 @@
               <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
               <div class="weui-cell__bd">
                 <input class="weui-input"
-                       type="text"
+                       type="number"
                        pattern="[0-9]*"
                        id="js_input"
                        placeholder="输入验证码"
@@ -68,7 +74,8 @@
       <div class="weui-flex "
            style="margin:5px">
         <div class="weui-flex__item">
-          <a href="#/doctor">
+          <a href="#/doctor"
+             style="float:left;font-size:15px;padding:12px">
             去登录
           </a>
         </div>
@@ -247,6 +254,16 @@ export default {
         this.$router.push({ name: "doctor" });
       }
     },
+    //需要submit才能显示
+    // checkPhoneNumber() {
+    //   var inputphone = document.getElementById('inputphone');
+    //   var phoneReg = /^1[34578]\d{9}$/.test(this.ForgetpwdForm.phoneNumber)
+    //   inputphone.setCustomValidity('')
+    //   if (!phoneReg) {
+    //     inputphone.setCustomValidity('请输入正确的手机号');
+    //     inputphone.checkValidity
+    //   }
+    // },
   }
 
 

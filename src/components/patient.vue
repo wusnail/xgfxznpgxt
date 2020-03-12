@@ -23,7 +23,8 @@
         <div class="weui-cell__bd weui-cell_primary">
           <input v-model="loginForm.username"
                  class="weui-input"
-                 placeholder="请输入" />
+                 type="number"
+                 placeholder="请输入手机号" />
         </div>
       </div>
       <div class="weui-cell">
@@ -34,8 +35,9 @@
           <input v-model="loginForm.password"
                  class="weui-input"
                  show-password
+                 clearable
                  type="password"
-                 placeholder="请输入" />
+                 placeholder="请输入密码" />
         </div>
       </div>
     </div>
