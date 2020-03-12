@@ -48,6 +48,7 @@
                 <input class="weui-input"
                        v-model="RegisterForm.age"
                        pattern="[0-9]*"
+                       type="number"
                        placeholder="请填写年龄" />
               </div>
             </div>
@@ -82,6 +83,9 @@
               <div class="weui-cell__bd">
                 <input class="weui-input"
                        v-model="RegisterForm.passward"
+                       show-password
+                       clearable
+                       type="password"
                        placeholder="请输入密码" />
               </div>
             </div>
@@ -90,15 +94,17 @@
               <div class="weui-cell__bd">
                 <input class="weui-input"
                        v-model="RegisterForm.confirmpwd"
+                       show-password
+                       clearable
+                       type="password"
                        placeholder="请再次输入密码" />
               </div>
             </div>
             <div class="weui-cell weui-cell_active weui-cell_vcode">
               <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
               <div class="weui-cell__bd">
-                <input 
-                       class="weui-input"
-                       type="text"
+                <input class="weui-input"
+                       type="number"
                        pattern="[0-9]*"
                        id="js_input"
                        placeholder="输入验证码"
@@ -311,7 +317,6 @@ export default {
             this.showDialog = true
           } else {
             this.VerCode = response.data.code;//暂时存储后端传回的验证码
-            console.log(this.VerCode)
           }
         })
         .catch(function (error) {

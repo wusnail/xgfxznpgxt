@@ -18,11 +18,12 @@
     <div class="weui-cells weui-cells_form">
       <div class="weui-cell">
         <div class="weui-cell__hd">
-          <label class="weui-label">用户名</label>
+          <label class="weui-label">手机号</label>
         </div>
         <div class="weui-cell__bd weui-cell_primary">
           <input v-model="LoginForm.username"
                  class="weui-input"
+                 type="number"
                  placeholder="请输入" />
         </div>
       </div>
@@ -34,6 +35,7 @@
           <input v-model="LoginForm.password"
                  class="weui-input"
                  show-password
+                 clearable
                  type="password"
                  placeholder="请输入" />
         </div>

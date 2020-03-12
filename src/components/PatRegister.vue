@@ -37,6 +37,9 @@
               <div class="weui-cell__bd">
                 <input class="weui-input"
                        v-model="RegisterForm.passward"
+                       show-password
+                       clearable
+                       type="password"
                        placeholder="请输入密码" />
               </div>
             </div>
@@ -47,6 +50,9 @@
               <div class="weui-cell__bd">
                 <input class="weui-input"
                        v-model="RegisterForm.confirmpwd"
+                       show-password
+                       clearable
+                       type="password"
                        placeholder="请再次输入密码" />
               </div>
             </div>
@@ -56,7 +62,7 @@
               </div>
               <div class="weui-cell__bd">
                 <input class="weui-input"
-                       type="text"
+                       type="number"
                        pattern="[0-9]*"
                        id="js_input"
                        placeholder="输入验证码"
