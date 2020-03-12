@@ -74,7 +74,8 @@
       <div class="weui-flex "
            style="margin:5px">
         <div class="weui-flex__item">
-          <a href="#/doctor">
+          <a href="#/doctor"
+             style="float:left;font-size:15px;padding:12px">
             去登录
           </a>
         </div>
@@ -253,6 +254,16 @@ export default {
         this.$router.push({ name: "doctor" });
       }
     },
+    //需要submit才能显示
+    // checkPhoneNumber() {
+    //   var inputphone = document.getElementById('inputphone');
+    //   var phoneReg = /^1[34578]\d{9}$/.test(this.ForgetpwdForm.phoneNumber)
+    //   inputphone.setCustomValidity('')
+    //   if (!phoneReg) {
+    //     inputphone.setCustomValidity('请输入正确的手机号');
+    //     inputphone.checkValidity
+    //   }
+    // },
   }
 
 

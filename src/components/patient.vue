@@ -37,7 +37,7 @@
                  show-password
                  clearable
                  type="password"
-                 placeholder="请输入" />
+                 placeholder="请输入密码" />
         </div>
       </div>
     </div>

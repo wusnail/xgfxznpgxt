@@ -48,10 +48,8 @@
                 <input class="weui-input"
                        v-model="RegisterForm.age"
                        pattern="[0-9]*"
-                       <<<<<<<
-                       HEAD
-                       type="number"=======type="number">>>>>>> 3d581f5f860163e089c8ad96906f6baf70bc9277
-                placeholder="请填写年龄" />
+                       type="number"
+                       placeholder="请填写年龄" />
               </div>
             </div>
             <div class="weui-cell weui-cell_active  weui-cell_select weui-cell_select-after">
@@ -126,7 +124,8 @@
       <div class="weui-flex "
            style="margin:5px">
         <div class="weui-flex__item">
-          <a href="#/doctor">
+          <a href="#/doctor"
+             style="float:left;font-size:15px;padding:12px">
             去登录
           </a>
         </div>

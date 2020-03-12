@@ -82,7 +82,8 @@
       <div class="weui-flex "
            style="margin:5px">
         <div class="weui-flex__item">
-          <a href="#/patient">
+          <a href="#/patient"
+             style="float:left;font-size:15px;padding:12px">
             去登录
           </a>
         </div>
