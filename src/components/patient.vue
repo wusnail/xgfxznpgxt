@@ -94,13 +94,14 @@ export default {
 
       tips: "",
       showtips: false,
-      token: ''
+      token: '',
+      loading:''
     };
   },
   methods: {
     handelLogin() {
       this.showtips = false;
-      var phoneReg = /^1[34578]\d{9}$/.test(this.loginForm.username);
+      var phoneReg = /^1[3456789]\d{9}$/.test(this.loginForm.username);
 
       if (!phoneReg) {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -109,24 +110,32 @@ export default {
       }
 
       else {
+        var that = this
+        that.loading =weui.loading('loading');
+        setTimeout(function () {
+          that.loading.hide(function() {
+            weui.topTips('请填写正确的字段', 2000);
+          });
+        }, 5000);
         axios.post("/checkPatientPassword", {
-          userId: this.loginForm.username,
-          pwd: this.loginForm.password
+          userId: that.loginForm.username,
+          pwd: that.loginForm.password
         })
           .then(response => {
+            that.loading.hide()
             // 登录成功
             if (response.data.results == "密码正确") {
               // this.loginresult = true;
-              this.tips = "登录成功";
-              this.token = response.data.token;
+              that.tips = "登录成功";
+              that.token = response.data.token;
               // this.$router.push("/MainPage");
               // console.log(global.patientURL)
-              window.location.href = global.patientSystemURL + '?token=' + this.token;
+              window.location.href = global.patientSystemURL + '?token=' + that.token;
             } else {
               // this.loginresult = true;
               document.body.scrollTop = document.documentElement.scrollTop = 0;
-              this.showtips = true;
-              this.tips = response.data.results;
+              that.showtips = true;
+              that.tips = response.data.results;
 
             }
           })

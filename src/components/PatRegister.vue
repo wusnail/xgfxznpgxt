@@ -128,7 +128,8 @@ export default {
       codeTextisdisabled: false,
       VerCode: "", //验证码
       ifSuccess: false,//确认是否注册成功
-      Verphone: ""
+      Verphone: "",
+      loading:''
     };
   },
   methods: {
@@ -136,7 +137,7 @@ export default {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
       this.tips = "";
       this.ifSuccess = false
-      var phoneReg = /^1[34578]\d{9}$/.test(this.RegisterForm.phoneNumber);
+      var phoneReg = /^1[3456789]\d{9}$/.test(this.RegisterForm.phoneNumber);
       var pwdReg = ((this.RegisterForm.passward == this.RegisterForm.confirmpwd && this.RegisterForm.passward != "")) ? true : false;
       var vcodeReg = ((this.RegisterForm.vcode == this.VerCode && this.RegisterForm.vcode != "")) ? true : false;
       //  var vcodeRge=
@@ -159,28 +160,37 @@ export default {
       }
     },
     checkpat() {
+      var that = this
+        that.loading =weui.loading('loading');
+        setTimeout(function () {
+          that.loading.hide(function() {
+            weui.topTips('请填写正确的字段', 2000);
+          });
+        }, 5000);
       axios
         .post("/getPatientInfo", {
-          phone: this.RegisterForm.phoneNumber
+          phone: that.RegisterForm.phoneNumber
         })
         .then(response => {
           if (response.data.results.length > 0) {
-            this.tips = "用户已存在";
-            this.showDialog = true;
+            that.loading.hide()
+            that.tips = "用户已存在";
+            that.showDialog = true;
           } else {
             axios
               .post("/newPatient", {
-                phone: this.RegisterForm.phoneNumber,
-                pwd: this.RegisterForm.passward
+                phone: that.RegisterForm.phoneNumber,
+                pwd: that.RegisterForm.passward
               })
               .then(response => {
+                that.loading.hide()
                 if (response.data.results == "新建成功") {
-                  this.tips = "注册成功,确认后跳转到登录页面重新登录";
-                  this.showDialog = true;
-                  this.ifSuccess = true;
+                  that.tips = "注册成功,确认后跳转到登录页面重新登录";
+                  that.showDialog = true;
+                  that.ifSuccess = true;
                 } else {
-                  this.tips = "注册失败";
-                  this.showDialog = true;
+                  that.tips = "注册失败";
+                  that.showDialog = true;
                 }
               })
               .catch(function (error) {
@@ -197,7 +207,7 @@ export default {
     getCode: function (e) {
       console.log("获取验证码");
       this.tips = "";
-      var phoneReg = /^1[34578]\d{9}$/.test(this.RegisterForm.phoneNumber);
+      var phoneReg = /^1[3456789]\d{9}$/.test(this.RegisterForm.phoneNumber);
 
       if (!phoneReg) {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
