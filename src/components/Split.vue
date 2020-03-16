@@ -18,22 +18,25 @@
       <div class="weui-flex ">
         <div class="weui-flex__item">
           <div @click='goSystem()'
-             style="float:right;margin:20px ">
-            <img style="height:90px;"
-                 src="../assets/images/xitong.png" />
-            <div style="color:black ">智能评估</div>
-          </div>
-        </div>
-        <div class="weui-flex__item">
-          <a href="#/Train"
-             style="float:left;margin:20px ">
-            <img style="height:90px;"
-                 src="../assets/images/peixun.png" />
-            <div style="color:black">在线培训</div>
-          </a>
+          style="margin: 0px 50px 20px 50px; padding:25px;border:1px solid #BFBFBF;border-radius: 10px;box-shadow:2px 2px 3px #aaaaaa; ">
+          <img style="height:80px;"
+          src="../assets/images/评估.png" />
+          <div style="color:#5fc3f3; ">智能评估</div>
         </div>
       </div>
-      <div class="weui-flex">
+    </div>
+    <div class="weui-flex ">
+      <div class="weui-flex__item">
+        <div @click = "gotrain()"
+        style="margin: 0px 50px 10px 50px; padding:25px;border:1px solid #BFBFBF;border-radius: 10px;box-shadow:2px 2px 3px #aaaaaa; ">
+        <img style="height:80px;"
+        src="../assets/images/学习.png" />
+        <div style="color:#f19601;">在线培训</div>
+      
+    </div>
+    </div>
+  </div>
+      <!-- <div class="weui-flex">
         <div class="weui-flex__item">
           <div
              style="float:right;margin:20px ">
@@ -50,26 +53,43 @@
             <div style="color:black">待添加</div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
   import global from './global.vue'
+  import axios from 'axios';
 export default {
   name: 'Split',
   data() {
     return {
-      token:window.localStorage.getItem("Token"),
+      token:'',
       doctorSystemURL:''
     }
   },
   mounted() {
+     axios
+        .post("/newDoctorToken", {
+          userId:window.localStorage.getItem("DocId")
+        
+      }).then((response) => {
+        if (response.status == 200) {
+          this.token=response.data.token
+          console.log(this.token)
+        }
+      }).catch(function (error) {
+        console.log("error", error);
+      });
+    
   },
   methods:{
     goSystem(){
       window.location.href = global.doctorSystemURL+'?token='+this.token;
+    },
+    gotrain(){
+      this.$router.push({ name: "Train" });
     }
   }
   

@@ -1,11 +1,14 @@
 <template>
   <div>
-    <div class="weui-flex" style="margin:30px;">
+    <div class="weui-flex"
+         style="margin:30px;">
       <div class="weui-flex__item">
-        <img style="height:60px;" src="../assets/images/logo1_1.png" />
+        <img style="height:60px;"
+             src="../assets/images/logo1_1.png" />
       </div>
       <div class="weui-flex__item">
-        <img style="height:60px;" src="../assets/images/logo2.jpg" />
+        <img style="height:60px;"
+             src="../assets/images/logo2.jpg" />
       </div>
     </div>
     <div class="weui_cell_bd weui_cell_primary">
@@ -18,7 +21,10 @@
           <label class="weui-label">手机号</label>
         </div>
         <div class="weui-cell__bd weui-cell_primary">
-          <input v-model="loginForm.username" class="weui-input" placeholder="请输入" />
+          <input v-model="loginForm.username"
+                 class="weui-input"
+                 type="number"
+                 placeholder="请输入手机号" />
         </div>
       </div>
       <div class="weui-cell">
@@ -26,9 +32,27 @@
           <label class="weui-label">密码</label>
         </div>
         <div class="weui-cell__bd weui-cell_primary">
-          <input v-model="loginForm.password" class="weui-input" show-password
-                 type="password" placeholder="请输入" />
+          <input v-model="loginForm.password"
+                 class="weui-input"
+                 show-password
+                 clearable
+                 type="password"
+                 placeholder="请输入密码" />
         </div>
+      </div>
+    </div>
+
+    <div class="weui-flex "
+         style="margin:5px">
+      <div class="weui-flex__item">
+        <a href="#/PatForgetpwd">
+          忘记密码
+        </a>
+      </div>
+      <div class="weui-flex__item">
+        <a href="#/PatRegister">
+          去注册
+        </a>
       </div>
     </div>
     <!-- <label for="weuiAgree" class="weui-agree">
@@ -38,7 +62,8 @@
       </span>
     </label> -->
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary" @click="handelLogin()">确&nbsp;&nbsp;&nbsp;定</a>
+      <a class="weui-btn weui-btn_primary"
+         @click="handelLogin()">确&nbsp;&nbsp;&nbsp;定</a>
     </div>
     <div class="js_dialog"
          id="iosDialog2"
@@ -69,41 +94,52 @@ export default {
 
       tips: "",
       showtips: false,
-      token:''
+      token: '',
+      loading:''
     };
   },
   methods: {
     handelLogin() {
       this.showtips = false;
-      var phoneReg = /^1[34578]\d{9}$/.test(this.loginForm.username);
+      var phoneReg = /^1[3456789]\d{9}$/.test(this.loginForm.username);
 
       if (!phoneReg) {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
         this.tips = "请输入正确的手机号";
         this.showtips = true;
       }
-      
+
       else {
+        var that = this
+        that.loading =weui.loading('loading');
+        setTimeout(function () {
+          that.loading.hide(function() {
+            weui.topTips('网络异常请稍后再试', 2000);
+          });
+        }, 5000);
         axios.post("/checkPatientPassword", {
-            userId: this.loginForm.username,
-            pwd: this.loginForm.password
-          })
+          userId: that.loginForm.username,
+          pwd: that.loginForm.password
+        })
           .then(response => {
+            that.loading.hide()
             // 登录成功
             if (response.data.results == "密码正确") {
               // this.loginresult = true;
-              this.tips = "登录成功";
-              this.token = response.data.token;
+              that.tips = "登录成功";
+              that.token = response.data.token;
               // this.$router.push("/MainPage");
               // console.log(global.patientURL)
-              window.location.href = global.patientSystemURL+'?token='+this.token;
-            } else{
+              window.location.href = global.patientSystemURL + '?token=' + that.token;
+            } else {
               // this.loginresult = true;
-              this.showtips = true;
-              this.tips = response.data.results;
-              
+              document.body.scrollTop = document.documentElement.scrollTop = 0;
+              that.showtips = true;
+              that.tips = response.data.results;
+
             }
           })
-          .catch(function(error) {
+          .catch(function (error) {
             console.log("error", error);
           });
       }
@@ -116,5 +152,11 @@ export default {
   font-size: 14px;
   color: red;
   margin-bottom: 5px;
+}
+.weui-label {
+  text-align: left;
+}
+.weui-input {
+  text-align: left;
 }
 </style>
