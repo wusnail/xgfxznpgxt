@@ -121,6 +121,7 @@ export default {
       codeTextisdisabled: false,
       VerCode: '',//验证码
       Verphone: '',//获取验证码的手机号
+      loading:''
     }
   },
   methods: {
@@ -130,7 +131,7 @@ export default {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
       this.ifSuccess = false
       this.tips = ''
-      var phoneReg = /^1[34578]\d{9}$/.test(this.ForgetpwdForm.phoneNumber)
+      var phoneReg = /^1[3456789]\d{9}$/.test(this.ForgetpwdForm.phoneNumber)
       var pwdReg = ((this.ForgetpwdForm.passward == this.ForgetpwdForm.confirmpwd) && this.ForgetpwdForm.passward != '') ? true : false
       var vcodeReg = ((this.ForgetpwdForm.vcode == this.VerCode) && this.ForgetpwdForm.vcode != '') ? true : false
       //  var vcodeRge=
@@ -160,23 +161,31 @@ export default {
       //向后端请求数据
     },
     checkpat() {
+      var that = this
+        that.loading =weui.loading('loading');
+        setTimeout(function () {
+          that.loading.hide(function() {
+            weui.topTips('网络异常请稍后再试', 2000);
+          });
+        }, 5000);
       axios.post("/getPatientInfo", {
-        "phone": this.ForgetpwdForm.phoneNumber
+        "phone": that.ForgetpwdForm.phoneNumber
       })
         .then(response => {
           if (response.data.results.length > 0) {
             axios.post("/changePatPwd", {
-              "phone": this.ForgetpwdForm.phoneNumber,
-              "pwd": this.ForgetpwdForm.passward
+              "phone": that.ForgetpwdForm.phoneNumber,
+              "pwd": that.ForgetpwdForm.passward
             })
               .then(response => {
+                that.loading.hide()
                 if (response.data.results == "修改成功") {
-                  this.tips = "修改成功,确认后跳转到登录页面重新登录";
-                  this.showDialog = true
-                  this.ifSuccess = true
+                  that.tips = "修改成功,确认后跳转到登录页面重新登录";
+                  that.showDialog = true
+                  that.ifSuccess = true
                 } else {
-                  this.tips = "修改失败";
-                  this.showDialog = true
+                  that.tips = "修改失败";
+                  that.showDialog = true
                 }
 
               }
@@ -187,8 +196,9 @@ export default {
               })
 
           } else {
-            this.tips = "用户不存在";
-            this.showDialog = true
+            that.loading.hide()
+            that.tips = "用户不存在";
+            that.showDialog = true
           }
         })
         .catch(function (error) {
@@ -200,7 +210,7 @@ export default {
     getCode: function (e) {
       console.log("获取验证码");
       this.tips = ''
-      var phoneReg = /^1[34578]\d{9}$/.test(this.ForgetpwdForm.phoneNumber)
+      var phoneReg = /^1[3456789]\d{9}$/.test(this.ForgetpwdForm.phoneNumber)
       if (!phoneReg) {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
         this.showDialog = true
