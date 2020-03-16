@@ -164,7 +164,7 @@ export default {
         that.loading =weui.loading('loading');
         setTimeout(function () {
           that.loading.hide(function() {
-            weui.topTips('请填写正确的字段', 2000);
+            weui.topTips('网络异常请稍后再试', 2000);
           });
         }, 5000);
       axios
