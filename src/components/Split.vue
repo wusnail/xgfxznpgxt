@@ -18,12 +18,12 @@
       <div class="weui-flex ">
         <div class="weui-flex__item">
           <div @click='goSystem()'
-               style="margin: 0px 50px 20px 50px;height:90px; padding:25px;border:1px solid #BFBFBF;border-radius: 10px;box-shadow:2px 2px 3px #aaaaaa; ">
-            <div style="float:left; display:inline; margin-top:0;margin-left:15px ">
+               style="display: flex;justify-content: center;align-items: center;margin: 0px 50px 20px 50px;height:80px; padding:15px;border:1px solid #BFBFBF;border-radius: 10px;box-shadow:2px 2px 3px #aaaaaa; ">
+            <div style="float:left; display:inline; ">
               <img style="height:80px;"
                    src="../assets/images/评估.png" />
             </div>
-            <div style="float:left; display:inline; margin-top:30px;margin-left:10px;font-size:18px;color:#5fc3f3 ">
+            <div style="float:left; display:inline;margin-left:10px;font-size:18px;color:#5fc3f3 ">
               智能评估
             </div>
           </div>
@@ -32,12 +32,12 @@
       <div class="weui-flex ">
         <div class="weui-flex__item">
           <div @click="gotrain()"
-               style="margin: 0px 50px 20px 50px;height:90px; padding:25px;border:1px solid #BFBFBF;border-radius: 10px;box-shadow:2px 2px 3px #aaaaaa; ">
-            <div style="float:left; display:inline; margin-top:0;margin-left:15px ">
+               style="display: flex;justify-content: center;align-items: center;margin: 0px 50px 20px 50px;height:80px; padding:15px;border:1px solid #BFBFBF;border-radius: 10px;box-shadow:2px 2px 3px #aaaaaa; ">
+            <div style="float:left; display:inline; ">
               <img style="height:80px;"
                    src="../assets/images/学习.png" />
             </div>
-            <div style="float:left; display:inline; margin-top:30px;margin-left:10px;font-size:18px;color:#f19601;">
+            <div style="float:left; display:inline;margin-left:10px;font-size:18px;color:#f19601;">
               在线培训</div>
           </div>
         </div>
@@ -45,12 +45,12 @@
       <div class="weui-flex ">
         <div class="weui-flex__item">
           <div @click='gostatistics()'
-               style="margin: 0px 50px 20px 50px;height:90px; padding:25px;border:1px solid #BFBFBF;border-radius: 10px;box-shadow:2px 2px 3px #aaaaaa; ">
-            <div style="float:left; display:inline; margin-top:0;margin-left:15px ">
+               style="display: flex;justify-content: center;align-items: center;margin: 0px 50px 20px 50px;height:80px; padding:15px;border:1px solid #BFBFBF;border-radius: 10px;box-shadow:2px 2px 3px #aaaaaa; ">
+            <div style="float:left; display:inline; ">
               <img style="height:80px;"
                    src="../assets/images/统计.png" />
             </div>
-            <div style="float:left; display:inline; margin-top:30px;margin-left:10px;font-size:18px;color:#53C891 ">
+            <div style="float:left; display:inline;margin-left:10px;font-size:18px;color:#53C891 ">
               社区统计
             </div>
           </div>
