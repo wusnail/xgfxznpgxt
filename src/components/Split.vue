@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="weui_cell_bd weui_cell_primary">
-      <span style="color:#07C160;font-size:20px;">新冠风险智能评估系统</span>
+      <span style="color:#07C160;font-size:20px;">新冠肺炎风险智能评估系统</span>
     </div>
     <div style="margin-top:50px">
       <div class="weui-flex ">
