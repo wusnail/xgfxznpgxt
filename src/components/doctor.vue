@@ -101,7 +101,14 @@
         username: "",
         password: ""
       },
+      pageParams:{}
     }
+  },
+  mounted(){
+    this.pageParams= this.$route.query
+    
+    
+
   },
   methods: {
     handelLogin() {
@@ -136,8 +143,14 @@
         }).then((response) => {
           that.loading.hide()
           if (response.data.results == "密码正确") {
+            this.token = response.data.token
             window.localStorage.setItem("DocId", that.LoginForm.username)
-            that.$router.push({ name: "Split" });
+            if(this.pageParams.hasOwnProperty("p")){
+              window.location.href = global.doctorSystemURL+'?token='+this.token+'&p='+this.pageParams.p;
+            }else{
+              that.$router.push({ name: "Split" });
+            }
+
           }
           else {
             document.body.scrollTop = document.documentElement.scrollTop = 0;
