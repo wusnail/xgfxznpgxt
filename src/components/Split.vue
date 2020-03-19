@@ -57,7 +57,7 @@
         </div>
       </div>
     </div>
-    <div class="weui-flex ">
+    <!-- <div class="weui-flex ">
       <div class="weui-flex__item">
         <div @click="gotrain()"
              style="margin: 0px 50px 10px 50px; padding:25px;border:1px solid #BFBFBF;border-radius: 10px;box-shadow:2px 2px 3px #aaaaaa; ">
@@ -67,7 +67,7 @@
 
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- <div class="weui-flex">
         <div class="weui-flex__item">
           <div

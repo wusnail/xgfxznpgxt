@@ -44,7 +44,7 @@
     </div>
   </div> -->
   <div class="wrapper">
-    <div class="header">
+    <!-- <div class="header">
       <div class="user">
         <img style="height:40px;vertical-align: middle;"
              src="../assets/images/用户.png">
@@ -56,9 +56,10 @@
         <img style="height:30px;vertical-align: middle;"
              src="../assets/images/设置.png">
       </div>
-    </div>
+    </div> -->
+    <app-header></app-header>
     <div class="section">section</div>
-    <div class="footer">
+    <!-- <div class="footer">
       <div class="weui-tabbar">
         <div class="weui-tabbar__item weui-bar__item_on">
           <div style="display: inline-block; position: relative;">
@@ -76,14 +77,20 @@
         </div>
 
       </div>
-    </div>
+    </div> -->
+    <app-footer></app-footer>
   </div>
 
 </template>
 
 <script>
+import footer from './common/footer'
+import header from './common/header'
 export default {
-
+  components: {
+    'app-footer': footer,
+    'app-header': header
+  }
 }
 </script>
 
@@ -97,12 +104,12 @@ body {
   flex-direction: column;
   min-height: 100%;
 }
-.header {
+/* .header {
   flex: 0;
   color: black;
   height: 80px;
   background: #f7f7f7;
-}
+} */
 .section {
   flex: 1;
   display: -webkit-box;
@@ -110,16 +117,16 @@ body {
   height: 2rem;
   background: #fff;
 }
-.footer {
+/* .footer {
   flex: 0;
   background: #f7f7f7;
-}
+} */
 /* header {
   color: black;
   height: 80px;
   background: white;
 } */
-.user {
+/* .user {
   vertical-align: middle;
   height: 100%;
   width: 20%;
@@ -146,7 +153,7 @@ body {
   line-height: 80px;
   text-align: right;
   padding-right: 4%;
-}
+} */
 /* section {
   display: -webkit-box;
   width: 100%;
