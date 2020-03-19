@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="user">
-      <img style="height:40px;vertical-align: middle;"
+      <img style="height:35px;vertical-align: middle;"
            src="../../assets/images/用户.png">
     </div>
     <div class="userinfo">
@@ -25,8 +25,8 @@ export default {
 .header {
   flex: 0;
   color: black;
-  height: 80px;
-  background: #f7f7f7;
+  height: 60px;
+  background: white;
 }
 .user {
   vertical-align: middle;
