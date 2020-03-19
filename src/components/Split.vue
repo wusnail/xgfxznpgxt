@@ -51,7 +51,7 @@
                    src="../assets/images/统计.png" />
             </div>
             <div style="float:left; display:inline;margin-left:10px;font-size:18px;color:#53C891 ">
-              社区统计
+              平台统计
             </div>
           </div>
         </div>

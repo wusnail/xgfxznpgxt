@@ -5,10 +5,12 @@ import App from './App'
 import router from './router'
 import global_ from './components/global.vue'
 import '../settings.js';
-import weui from 'weui.js' 
+import weui from 'weui.js'
 import 'weui'
 Vue.prototype.$weui = weui
 import axios from 'axios';
+import echarts from "echarts";
+Vue.prototype.$echarts = echarts;
 
 axios.defaults.timeout = 5000;
 axios.defaults.withCredentials = true;
