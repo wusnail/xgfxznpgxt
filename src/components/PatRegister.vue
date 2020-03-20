@@ -129,7 +129,7 @@ export default {
       VerCode: "", //验证码
       ifSuccess: false,//确认是否注册成功
       Verphone: "",
-      loading:''
+      loading: ''
     };
   },
   methods: {
@@ -161,12 +161,12 @@ export default {
     },
     checkpat() {
       var that = this
-        that.loading =weui.loading('loading');
-        setTimeout(function () {
-          that.loading.hide(function() {
-            weui.topTips('网络异常请稍后再试', 2000);
-          });
-        }, 5000);
+      that.loading = weui.loading('loading');
+      setTimeout(function () {
+        that.loading.hide(function () {
+          weui.topTips('网络异常请稍后再试', 2000);
+        });
+      }, 5000);
       axios
         .post("/getPatientInfo", {
           phone: that.RegisterForm.phoneNumber

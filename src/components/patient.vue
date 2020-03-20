@@ -95,7 +95,7 @@ export default {
       tips: "",
       showtips: false,
       token: '',
-      loading:''
+      loading: ''
     };
   },
   methods: {
@@ -111,9 +111,9 @@ export default {
 
       else {
         var that = this
-        that.loading =weui.loading('loading');
+        that.loading = weui.loading('loading');
         setTimeout(function () {
-          that.loading.hide(function() {
+          that.loading.hide(function () {
             weui.topTips('网络异常请稍后再试', 2000);
           });
         }, 5000);
@@ -130,7 +130,8 @@ export default {
               that.token = response.data.token;
               // this.$router.push("/MainPage");
               // console.log(global.patientURL)
-              window.location.href = global.patientSystemURL + '?token=' + that.token;
+              // window.location.href = global.patientSystemURL + '?token=' + that.token;
+              this.$router.push({ name: "/patient/check" });
             } else {
               // this.loginresult = true;
               document.body.scrollTop = document.documentElement.scrollTop = 0;

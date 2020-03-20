@@ -1,176 +1,176 @@
 <template>
   <div class="page">
     <div class="weui-flex"
-    style="margin:30px;">
-    <div class="weui-flex__item">
-      <img style="height:60px;"
-      src="../assets/images/logo1_1.png" />
+         style="margin:30px;">
+      <div class="weui-flex__item">
+        <img style="height:60px;"
+             src="../assets/images/logo1_1.png" />
+      </div>
+      <div class="weui-flex__item">
+        <img style="height:60px;"
+             src="../assets/images/logo2.jpg" />
+      </div>
     </div>
-    <div class="weui-flex__item">
-      <img style="height:60px;"
-      src="../assets/images/logo2.jpg" />
+    <div class="weui_cell_bd weui_cell_primary">
+      <span style="color:#07C160;font-size:20px;">医&nbsp;生&nbsp;注&nbsp;册</span>
     </div>
-  </div>
-  <div class="weui_cell_bd weui_cell_primary">
-    <span style="color:#07C160;font-size:20px;">医&nbsp;生&nbsp;注&nbsp;册</span>
-  </div>
-  <div class="weui-form">
-    <div class="weui-form__control-area">
-      <div class="weui-cells__group weui-cells__group_form">
-        <div class="weui-cells weui-cells_form">
-          <div class="weui-cell weui-cell_active">
-            <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
-            <div class="weui-cell__bd">
-              <input class="weui-input"
-              v-model="RegisterForm.name"
-              placeholder="请填写姓名" />
+    <div class="weui-form">
+      <div class="weui-form__control-area">
+        <div class="weui-cells__group weui-cells__group_form">
+          <div class="weui-cells weui-cells_form">
+            <div class="weui-cell weui-cell_active">
+              <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+              <div class="weui-cell__bd">
+                <input class="weui-input"
+                       v-model="RegisterForm.name"
+                       placeholder="请填写姓名" />
+              </div>
+            </div>
+            <div class="weui-cell weui-cell_active  weui-cell_select weui-cell_select-after">
+              <div class="weui-cell__hd"><label class="weui-label">性别</label></div>
+              <div class="weui-cell__bd">
+                <select class="weui-select"
+                        v-model="RegisterForm.gender">
+                  <option style="display: none;"
+                          value=""
+                          disabled
+                          selected>请选择</option>
+                  <option v-for="item in genders"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value">{{item.label}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="weui-cell weui-cell_active">
+              <div class="weui-cell__hd"><label class="weui-label">年龄</label></div>
+              <div class="weui-cell__bd">
+                <input class="weui-input"
+                       v-model="RegisterForm.age"
+                       pattern="[0-9]*"
+                       type="number"
+                       placeholder="请填写年龄" />
+              </div>
+            </div>
+            <div class="weui-cell weui-cell_active  weui-cell_select weui-cell_select-after">
+              <div class="weui-cell__hd"><label class="weui-label">单位</label></div>
+              <div class="weui-cell__bd">
+                <select class="weui-select"
+                        v-model="RegisterForm.unitID">
+                  <option style="display: none;"
+                          value=""
+                          disabled
+                          selected>请选择</option>
+                  <option v-for="item in units"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value">{{item.label}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="weui-cell weui-cell_active">
+              <div class="weui-cell__hd"><label class="weui-label">手机号</label></div>
+              <div class="weui-cell__bd">
+                <input class="weui-input"
+                       type="number"
+                       pattern="[0-9]*"
+                       v-model="RegisterForm.phoneNumber"
+                       placeholder="请输入手机号" />
+              </div>
+            </div>
+            <div class="weui-cell weui-cell_active">
+              <div class="weui-cell__hd"><label class="weui-label">密码</label></div>
+              <div class="weui-cell__bd">
+                <input class="weui-input"
+                       v-model="RegisterForm.passward"
+                       show-password
+                       clearable
+                       type="password"
+                       placeholder="请输入密码" />
+              </div>
+            </div>
+            <div class="weui-cell weui-cell_active">
+              <div class="weui-cell__hd"><label class="weui-label">确认密码</label></div>
+              <div class="weui-cell__bd">
+                <input class="weui-input"
+                       v-model="RegisterForm.confirmpwd"
+                       show-password
+                       clearable
+                       type="password"
+                       placeholder="请再次输入密码" />
+              </div>
+            </div>
+            <div class="weui-cell weui-cell_active weui-cell_vcode">
+              <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
+              <div class="weui-cell__bd">
+                <input class="weui-input"
+                       type="number"
+                       pattern="[0-9]*"
+                       id="js_input"
+                       placeholder="输入验证码"
+                       v-model="RegisterForm.vcode"
+                       maxlength="4" />
+              </div>
+              <div class="weui-cell__ft">
+                <button class="weui-btn weui-btn_default weui-vcode-btn"
+                        style="width:120px"
+                        @click="getCode"
+                        :disabled="codeTextisdisabled">{{codeText}}</button>
+              </div>
             </div>
           </div>
-          <div class="weui-cell weui-cell_active  weui-cell_select weui-cell_select-after">
-            <div class="weui-cell__hd"><label class="weui-label">性别</label></div>
-            <div class="weui-cell__bd">
-              <select class="weui-select"
-              v-model="RegisterForm.gender">
-              <option style="display: none;"
-              value=""
-              disabled
-              selected>请选择</option>
-              <option v-for="item in genders"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">{{item.label}}</option>
-            </select>
-          </div>
-        </div>
-        <div class="weui-cell weui-cell_active">
-          <div class="weui-cell__hd"><label class="weui-label">年龄</label></div>
-          <div class="weui-cell__bd">
-            <input class="weui-input"
-            v-model="RegisterForm.age"
-            pattern="[0-9]*"
-            type="number"
-            placeholder="请填写年龄" />
-          </div>
-        </div>
-        <div class="weui-cell weui-cell_active  weui-cell_select weui-cell_select-after">
-          <div class="weui-cell__hd"><label class="weui-label">单位</label></div>
-          <div class="weui-cell__bd">
-            <select class="weui-select"
-            v-model="RegisterForm.unitID">
-            <option style="display: none;"
-            value=""
-            disabled
-            selected>请选择</option>
-            <option v-for="item in units"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">{{item.label}}</option>
-          </select>
         </div>
       </div>
-      <div class="weui-cell weui-cell_active">
-        <div class="weui-cell__hd"><label class="weui-label">手机号</label></div>
-        <div class="weui-cell__bd">
-          <input class="weui-input"
-          type="number"
-          pattern="[0-9]*"
-          v-model="RegisterForm.phoneNumber"
-          placeholder="请输入手机号" />
+      <div class="weui-flex "
+           style="margin:5px">
+        <div class="weui-flex__item">
+          <a href="#/doctor"
+             style="float:left;font-size:15px;padding:12px">
+            去登录
+          </a>
         </div>
       </div>
-      <div class="weui-cell weui-cell_active">
-        <div class="weui-cell__hd"><label class="weui-label">密码</label></div>
-        <div class="weui-cell__bd">
-          <input class="weui-input"
-          v-model="RegisterForm.passward"
-          show-password
-          clearable
-          type="password"
-          placeholder="请输入密码" />
-        </div>
+      <div class="weui-btn-area">
+        <a class="weui-btn weui-btn_primary "
+           @click="Register()">确定</a>
       </div>
-      <div class="weui-cell weui-cell_active">
-        <div class="weui-cell__hd"><label class="weui-label">确认密码</label></div>
-        <div class="weui-cell__bd">
-          <input class="weui-input"
-          v-model="RegisterForm.confirmpwd"
-          show-password
-          clearable
-          type="password"
-          placeholder="请再次输入密码" />
-        </div>
-      </div>
-      <div class="weui-cell weui-cell_active weui-cell_vcode">
-        <div class="weui-cell__hd"><label class="weui-label">验证码</label></div>
-        <div class="weui-cell__bd">
-          <input class="weui-input"
-          type="number"
-          pattern="[0-9]*"
-          id="js_input"
-          placeholder="输入验证码"
-          v-model="RegisterForm.vcode"
-          maxlength="4" />
-        </div>
-        <div class="weui-cell__ft">
-          <button class="weui-btn weui-btn_default weui-vcode-btn"
-          style="width:120px"
-          @click="getCode"
-          :disabled="codeTextisdisabled">{{codeText}}</button>
+    </div>
+    <div class="js_dialog"
+         id="iosDialog2"
+         v-show="showDialog"
+         style="display: none;">
+      <div class="weui-mask"></div>
+      <div class="weui-dialog">
+        <div class="weui-dialog__bd">{{tips}}</div>
+        <div class="weui-dialog__ft">
+          <a class="weui-dialog__btn weui-dialog__btn_primary"
+             @click="checkSuccess()">确定</a>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div class="weui-flex "
-style="margin:5px">
-<div class="weui-flex__item">
-  <a href="#/doctor"
-  style="float:left;font-size:15px;padding:12px">
-  去登录
-</a>
-</div>
-</div>
-<div class="weui-btn-area">
-  <a class="weui-btn weui-btn_primary "
-  @click="Register()">确定</a>
-</div>
-</div>
-<div class="js_dialog"
-id="iosDialog2"
-v-show="showDialog"
-style="display: none;">
-<div class="weui-mask"></div>
-<div class="weui-dialog">
-  <div class="weui-dialog__bd">{{tips}}</div>
-  <div class="weui-dialog__ft">
-    <a class="weui-dialog__btn weui-dialog__btn_primary"
-    @click="checkSuccess()">确定</a>
-  </div>
-</div>
-</div>
-</div>
 </template>
 
 <script>
-  import axios from "axios";
-  export default {
-    name: 'DrRegister',
-    data() {
-      return {
-        showDialog: false,
-        tips: "",
-        RegisterForm: {
-          name: '',
-          gender: '',
-          age: '',
-          unitID: '',
-          phoneNumber: '',
-          passward: '',
-          confirmpwd: '',
-          vcode: ''
-        },
-        codeText: '获取验证码',
-        codeTextisdisabled: false,
+import axios from "axios";
+export default {
+  name: 'DrRegister',
+  data() {
+    return {
+      showDialog: false,
+      tips: "",
+      RegisterForm: {
+        name: '',
+        gender: '',
+        age: '',
+        unitID: '',
+        phoneNumber: '',
+        passward: '',
+        confirmpwd: '',
+        vcode: ''
+      },
+      codeText: '获取验证码',
+      codeTextisdisabled: false,
       VerCode: '',//验证码
       genders: [{
         value: 1,
@@ -182,7 +182,7 @@ style="display: none;">
       units: [],
       ifSuccess: false,//确认是否注册成功
       Verphone: '',
-      loading:""
+      loading: ""
     }
   },
   mounted() {
@@ -226,24 +226,24 @@ style="display: none;">
     },
     checkdoc() {
       var that = this
-        that.loading =weui.loading('loading');
-        setTimeout(function () {
-          that.loading.hide(function() {
-            weui.topTips('网络异常请稍后再试', 2000);
-          });
-        }, 5000);
+      that.loading = weui.loading('loading');
+      setTimeout(function () {
+        that.loading.hide(function () {
+          weui.topTips('网络异常请稍后再试', 2000);
+        });
+      }, 5000);
       axios
-      .post("/getDoctorInfo", {
-        phone: that.RegisterForm.phoneNumber
-      })
-      .then(response => {
-        if (response.data.results.length > 0) {
-          that.loading.hide()
-          that.tips = "用户已存在";
-          that.showDialog = true;
-        } else {
-          axios
-          .post("/newDoctor", {
+        .post("/getDoctorInfo", {
+          phone: that.RegisterForm.phoneNumber
+        })
+        .then(response => {
+          if (response.data.results.length > 0) {
+            that.loading.hide()
+            that.tips = "用户已存在";
+            that.showDialog = true;
+          } else {
+            axios
+              .post("/newDoctor", {
                 // phone: this.RegisterForm.phoneNumber,
                 // pwd: this.RegisterForm.passward
                 name: that.RegisterForm.name,
@@ -253,25 +253,25 @@ style="display: none;">
                 pwd: that.RegisterForm.passward,
                 unitID: that.RegisterForm.unitID
               })
-          .then(response => {
-            that.loading.hide()
-            if (response.data.results == "新建成功") {
-              that.tips = "注册成功,确认后跳转到登录页面重新登录";
-              that.showDialog = true;
-              that.ifSuccess = true;
-            } else {
-              that.tips = "注册失败";
-              that.showDialog = true;
-            }
-          })
-          .catch(function (error) {
-            console.log("error", error);
-          });
-        }
-      })
-      .catch(function (error) {
-        console.log("error", error);
-      });
+              .then(response => {
+                that.loading.hide()
+                if (response.data.results == "新建成功") {
+                  that.tips = "注册成功,确认后跳转到登录页面重新登录";
+                  that.showDialog = true;
+                  that.ifSuccess = true;
+                } else {
+                  that.tips = "注册失败";
+                  that.showDialog = true;
+                }
+              })
+              .catch(function (error) {
+                console.log("error", error);
+              });
+          }
+        })
+        .catch(function (error) {
+          console.log("error", error);
+        });
     },
     getCode: function (e) {
       console.log("获取验证码");
@@ -321,33 +321,33 @@ style="display: none;">
       axios.post("/getVerificationCode", {
         "phone": this.RegisterForm.phoneNumber
       })
-      .then(response => {
-        if (response.data.results) {
-          document.body.scrollTop = document.documentElement.scrollTop = 0;
-          this.tips = response.data.results;
-          this.showDialog = true
-        } else {
+        .then(response => {
+          if (response.data.results) {
+            document.body.scrollTop = document.documentElement.scrollTop = 0;
+            this.tips = response.data.results;
+            this.showDialog = true
+          } else {
             this.VerCode = response.data.code;//暂时存储后端传回的验证码
             // console.log(this.VerCode)
           }
         })
-      .catch(function (error) {
-        console.log("error", error);
-      });
+        .catch(function (error) {
+          console.log("error", error);
+        });
     },
     getUnitList() {
       axios
-      .get("/getUnitList", {
+        .get("/getUnitList", {
           // phone: this.RegisterForm.phoneNumber   
         })
-      .then(response => {
-        for (var i in response.data.results) {
-          this.units.push({ value: response.data.results[i].UnitID, label: response.data.results[i].UnitName })
-        }
-      })
-      .catch(function (error) {
-        console.log("error", error);
-      });
+        .then(response => {
+          for (var i in response.data.results) {
+            this.units.push({ value: response.data.results[i].UnitID, label: response.data.results[i].UnitName })
+          }
+        })
+        .catch(function (error) {
+          console.log("error", error);
+        });
     },
     checkSuccess() {
       this.showDialog = false
@@ -361,10 +361,10 @@ style="display: none;">
 </script>
 
 <style>
-  .weui-label {
-    text-align: left;
-  }
-  .weui-input {
-    text-align: left;
-  }
+.weui-label {
+  text-align: left;
+}
+.weui-input {
+  text-align: left;
+}
 </style>
