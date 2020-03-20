@@ -57,7 +57,7 @@
         </div>
       </div>
 
-  </div>
+    </div>
   </div>
 </template>
 
@@ -89,7 +89,8 @@ export default {
   },
   methods: {
     goSystem() {
-      window.location.href = global.doctorSystemURL + '?token=' + this.token;
+      // window.location.href = global.doctorSystemURL + '?token=' + this.token;
+      this.$router.push({ name: "/doctor/home" });
     },
     gotrain() {
       this.$router.push({ name: "Train" });
