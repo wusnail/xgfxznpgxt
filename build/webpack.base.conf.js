@@ -68,7 +68,20 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
+      },
+      {
+        test: /\.css$/,
+        include: [
+          /src/,
+          '/node_modules/mint-ui/lib/'
+        ],
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader" },
+        ]
+
       }
+
     ]
   },
   node: {

@@ -5,10 +5,15 @@ import App from './App'
 import router from './router'
 import global_ from './components/global.vue'
 import '../settings.js';
-import weui from 'weui.js' 
+import weui from 'weui.js'
 import 'weui'
 Vue.prototype.$weui = weui
 import axios from 'axios';
+
+import MintUI from 'mint-ui'
+// import 'style-loader!css-loader!../node_modules/mint-ui/lib/style.css';
+import 'mint-ui/lib/style.css'
+Vue.use(MintUI)
 
 axios.defaults.timeout = 5000;
 axios.defaults.withCredentials = true;
