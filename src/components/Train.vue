@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="page__hd">
-      <h1 align="center" style="color:#07C160;font-size:20px;margin-bottom: 30px" class="page__title">在线培训</h1>
+      <h1 align="center" style="color:#07C160;font-size:20px;margin-top: 30px" class="page__title">在线培训</h1>
       <!-- <p class="page__desc">资料列表</p> -->
     </div>
     <div class="page__bd page__bd_spacing">

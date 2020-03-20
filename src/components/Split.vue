@@ -12,9 +12,9 @@
       </div>
     </div>
     <div class="weui_cell_bd weui_cell_primary">
-      <span style="color:#07C160;font-size:20px;">新冠风险智能评估系统</span>
+      <span style="color:#07C160;font-size:20px;">新冠肺炎风险智能评估系统</span>
     </div>
-    <div style="margin-top:50px">
+    <div style="margin-top:30px">
       <div class="weui-flex ">
         <div class="weui-flex__item">
           <div @click='goSystem()'
@@ -51,41 +51,12 @@
                    src="../assets/images/统计.png" />
             </div>
             <div style="float:left; display:inline;margin-left:10px;font-size:18px;color:#53C891 ">
-              社区统计
+              平台统计
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- <div class="weui-flex ">
-      <div class="weui-flex__item">
-        <div @click="gotrain()"
-             style="margin: 0px 50px 10px 50px; padding:25px;border:1px solid #BFBFBF;border-radius: 10px;box-shadow:2px 2px 3px #aaaaaa; ">
-          <img style="height:80px;"
-               src="../assets/images/学习.png" />
-          <div style="color:#f19601;">在线培训</div>
 
-        </div>
-      </div>
-    </div> -->
-    <!-- <div class="weui-flex">
-        <div class="weui-flex__item">
-          <div
-             style="float:right;margin:20px ">
-            <img style="height:90px;"
-                 src="../assets/images/tongji.png" />
-            <div style="color:black">信息统计</div>
-          </div>
-        </div>
-        <div class="weui-flex__item">
-          <div
-             style="float:left;margin:20px ">
-            <img style="height:90px;"
-                 src="../assets/images/jiahao.png" />
-            <div style="color:black">待添加</div>
-          </div>
-        </div>
-      </div> -->
   </div>
   </div>
 </template>
@@ -122,6 +93,9 @@ export default {
     },
     gotrain() {
       this.$router.push({ name: "Train" });
+    },
+    gostatistics() {
+      this.$router.push({ name: "Statistics" });
     }
   }
 

@@ -9,6 +9,8 @@ import weui from 'weui.js'
 import 'weui'
 Vue.prototype.$weui = weui
 import axios from 'axios';
+import echarts from "echarts";
+Vue.prototype.$echarts = echarts;
 
 import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css'

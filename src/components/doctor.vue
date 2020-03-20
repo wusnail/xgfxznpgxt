@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="weui_cell_bd weui_cell_primary">
-    <span style="color:#07C160;font-size:20px;">新冠风险智能评估系统</span><br>
+    <span style="color:#07C160;font-size:20px;">新冠肺炎风险智能评估系统</span><br>
     <span style="color:#07C160;font-size:20px;">医生登录</span>
   </div>
   <div class="weui-cells weui-cells_form">
@@ -40,6 +40,7 @@
         placeholder="请输入密码" />
       </div>
     </div>
+    <a id='link' style="display: none;" href="#"></a>
   </div>
     <!-- <label for="weuiAgree"
            class="weui-agree">
@@ -88,7 +89,7 @@
 
 <script>
   import axios from 'axios';
-
+import global from './global.vue'
   export default {
     name: 'Login',
     data() {
@@ -101,7 +102,14 @@
         username: "",
         password: ""
       },
+      pageParams:{}
     }
+  },
+  mounted(){
+    this.pageParams= this.$route.query
+    
+    
+
   },
   methods: {
     handelLogin() {
@@ -136,8 +144,18 @@
         }).then((response) => {
           that.loading.hide()
           if (response.data.results == "密码正确") {
+            console.log(response)
+            this.token = response.data.token
             window.localStorage.setItem("DocId", that.LoginForm.username)
-            that.$router.push({ name: "Split" });
+            if(this.pageParams.hasOwnProperty("p")){
+              var obj = document.getElementById('link');
+      obj.href = global.doctorSystemURL+'?token='+this.token+'&p='+this.pageParams.p;
+     obj.click();
+              // window.location.href = global.doctorSystemURL+'?token='+this.token+'&p='+this.pageParams.p;
+            }else{
+              that.$router.push({ name: "Split" });
+            }
+
           }
           else {
             document.body.scrollTop = document.documentElement.scrollTop = 0;
