@@ -51,12 +51,32 @@
                    src="../assets/images/统计.png" />
             </div>
             <div style="float:left; display:inline;margin-left:10px;font-size:18px;color:#53C891 ">
+<<<<<<< HEAD
               平台统计
+=======
+              社区统计
+>>>>>>> 6e920fb60c72c0c4a20d50555b4e21935e24d202
             </div>
           </div>
         </div>
       </div>
+<<<<<<< HEAD
       <!-- <div class="weui-flex">
+=======
+    </div>
+    <!-- <div class="weui-flex ">
+      <div class="weui-flex__item">
+        <div @click="gotrain()"
+             style="margin: 0px 50px 10px 50px; padding:25px;border:1px solid #BFBFBF;border-radius: 10px;box-shadow:2px 2px 3px #aaaaaa; ">
+          <img style="height:80px;"
+               src="../assets/images/学习.png" />
+          <div style="color:#f19601;">在线培训</div>
+
+        </div>
+      </div>
+    </div> -->
+    <!-- <div class="weui-flex">
+>>>>>>> 6e920fb60c72c0c4a20d50555b4e21935e24d202
         <div class="weui-flex__item">
           <div
              style="float:right;margin:20px ">
@@ -74,7 +94,7 @@
           </div>
         </div>
       </div> -->
-    </div>
+  </div>
   </div>
 </template>
 

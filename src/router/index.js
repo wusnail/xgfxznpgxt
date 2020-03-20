@@ -10,6 +10,7 @@ import PatRegister from '@/components/PatRegister'
 import DrForgetpwd from '@/components/DrForgetpwd'
 import DrRegister from '@/components/DrRegister'
 import Statistics from '@/components/Statistics'
+import structure from '@/components/structure'
 Vue.use(Router)
 
 export default new Router({
@@ -56,6 +57,10 @@ export default new Router({
     path: '/Statistics',
     name: 'Statistics',
     component: Statistics
-  },
+  },{
+    path: '/structure',
+    name: 'structure',
+    component: structure
+  }
   ]
 })

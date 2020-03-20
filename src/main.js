@@ -12,6 +12,10 @@ import axios from 'axios';
 import echarts from "echarts";
 Vue.prototype.$echarts = echarts;
 
+import Mint from 'mint-ui';
+import 'mint-ui/lib/style.css'
+Vue.use(Mint);
+
 axios.defaults.timeout = 5000;
 axios.defaults.withCredentials = true;
 axios.defaults.headers.post['Content-Type'] =
