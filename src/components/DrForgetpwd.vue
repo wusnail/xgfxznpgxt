@@ -120,7 +120,7 @@ export default {
       codeTextisdisabled: false,
       VerCode: '',//验证码
       Verphone: '',//获取验证码的手机号
-      loading:''
+      loading: ''
     }
   },
   methods: {
@@ -156,12 +156,12 @@ export default {
     },
     checkdoc() {
       var that = this
-        that.loading =weui.loading('loading');
-        setTimeout(function () {
-          that.loading.hide(function() {
-            weui.topTips('网络异常请稍后再试', 2000);
-          });
-        }, 5000);
+      that.loading = weui.loading('loading');
+      setTimeout(function () {
+        that.loading.hide(function () {
+          weui.topTips('网络异常请稍后再试', 2000);
+        });
+      }, 5000);
       axios.post("/getDoctorInfo", {
         "phone": that.ForgetpwdForm.phoneNumber
       })

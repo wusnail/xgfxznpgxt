@@ -9,11 +9,12 @@ import weui from 'weui.js'
 import 'weui'
 Vue.prototype.$weui = weui
 import axios from 'axios';
+import echarts from "echarts";
+Vue.prototype.$echarts = echarts;
 
-import MintUI from 'mint-ui'
-// import 'style-loader!css-loader!../node_modules/mint-ui/lib/style.css';
+import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css'
-Vue.use(MintUI)
+Vue.use(Mint);
 
 axios.defaults.timeout = 5000;
 axios.defaults.withCredentials = true;
