@@ -9,48 +9,54 @@ import PatForgetpwd from '@/components/PatForgetpwd'
 import PatRegister from '@/components/PatRegister'
 import DrForgetpwd from '@/components/DrForgetpwd'
 import DrRegister from '@/components/DrRegister'
+import structure from '@/components/structure'
 Vue.use(Router)
 
 export default new Router({
   routes: [{
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    },
-    {
-      path: '/doctor',
-      name: 'doctor',
-      component: doctor
-    },
-    {
-      path: '/patient',
-      name: 'patient',
-      component: patient
-    }, {
-      path: '/Split',
-      name: 'Split',
-      component: Split
-    }, {
-      path: '/Train',
-      name: 'Train',
-      component: Train
-    }, {
-      path: '/PatForgetpwd',
-      name: 'PatForgetpwd',
-      component:  PatForgetpwd
-    }, {
-      path: '/PatRegister',
-      name: 'PatRegister',
-      component:  PatRegister
-    },
-    {
-      path: '/DrForgetpwd',
-      name: 'DrForgetpwd',
-      component:  DrForgetpwd
-    }, {
-      path: '/DrRegister',
-      name: 'DrRegister',
-      component: DrRegister
-    }
+    path: '/',
+    name: 'HelloWorld',
+    component: HelloWorld
+  },
+  {
+    path: '/doctor',
+    name: 'doctor',
+    component: doctor
+  },
+  {
+    path: '/patient',
+    name: 'patient',
+    component: patient
+  }, {
+    path: '/Split',
+    name: 'Split',
+    component: Split
+  }, {
+    path: '/Train',
+    name: 'Train',
+    component: Train
+  }, {
+    path: '/PatForgetpwd',
+    name: 'PatForgetpwd',
+    component: PatForgetpwd
+  }, {
+    path: '/PatRegister',
+    name: 'PatRegister',
+    component: PatRegister
+  },
+  {
+    path: '/DrForgetpwd',
+    name: 'DrForgetpwd',
+    component: DrForgetpwd
+  }, {
+    path: '/DrRegister',
+    name: 'DrRegister',
+    component: DrRegister
+  }
+    , {
+    path: '/structure',
+    name: 'structure',
+    component: structure
+  }
   ]
 })
