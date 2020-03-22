@@ -1,0 +1,107 @@
+{
+  "id": "1704646",
+  "name": "微信公众号项目",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "2964715",
+      "name": "右键",
+      "font_class": "youjian",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "12544563",
+      "name": "竖杠",
+      "font_class": "shugang",
+      "unicode": "e69b",
+      "unicode_decimal": 59035
+    },
+    {
+      "icon_id": "10138931",
+      "name": "预约记录",
+      "font_class": "yuyuejilu1",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "13385949",
+      "name": "预约",
+      "font_class": "yuyue",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "9480769",
+      "name": "风险",
+      "font_class": "fengxian",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "11745801",
+      "name": "风险",
+      "font_class": "fengxian1",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "13608794",
+      "name": "我的记录",
+      "font_class": "myreport",
+      "unicode": "e7b1",
+      "unicode_decimal": 59313
+    },
+    {
+      "icon_id": "1831268",
+      "name": "我的报告",
+      "font_class": "My-report",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
+      "icon_id": "3370262",
+      "name": "医生",
+      "font_class": "yisheng",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "6753532",
+      "name": "我的报告",
+      "font_class": "wodebaogao",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
+      "icon_id": "6900655",
+      "name": "记录",
+      "font_class": "jilu",
+      "unicode": "e7a0",
+      "unicode_decimal": 59296
+    },
+    {
+      "icon_id": "12837804",
+      "name": "我的记录",
+      "font_class": "wodejilu",
+      "unicode": "e64c",
+      "unicode_decimal": 58956
+    },
+    {
+      "icon_id": "12941127",
+      "name": "温度计",
+      "font_class": "temperature",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "9012601",
+      "name": "编辑",
+      "font_class": "bianji",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    }
+  ]
+}

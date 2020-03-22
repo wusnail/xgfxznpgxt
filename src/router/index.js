@@ -22,6 +22,9 @@ import PatapptDetail from '@/components/patientfolder/apptDetail'
 import PathospitalList from '@/components/patientfolder/hospitalList'
 import PatdoctorList from '@/components/patientfolder/doctorList'
 import PatRiskDetail from '@/components/patientfolder/PatRiskdetail'
+import PatMainpage from '@/components/patientcombination/pmainpage'
+
+
 
 Vue.use(Router)
 
@@ -73,12 +76,17 @@ export default new Router({
     name: '/doctor/patientList',
     component: DrpatientList
   },
-
   {
     path: '/patient',
     name: 'patient',
     component: patient
-  }, {
+  },
+  {
+    path: '/patient/main',
+    name: '/patient/main',
+    component: PatMainpage
+  },
+  {
     path: '/patient/check',
     name: '/patient/check',
     component: PatCheck
