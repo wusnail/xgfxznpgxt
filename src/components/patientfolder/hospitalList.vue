@@ -23,14 +23,53 @@
     </div>
 
     <div>
-      患者主页预约问诊
-      <mt-button type="default"
-                 size="small"
-                 @click.native="$router.push("/patient/appt")">跳转医生选择
-                 </mt-button>
+        <div class="weui-panel weui-panel_access">
+          <div class="weui-panel__bd">
+              <a href="javascript:void(0);" @click="doctorappt()" class="weui-media-box weui-media-box_appmsg" >
+                <div class="weui-media-box__hd">
+                  <img slot="icon" class="weui-media-box__thumb lazy" style="height:70%;width:70%;vertical-align:middle" src="../../assets/images/redcross.png" alt="">
                  </div>
-                 <div
-                 @click="JumpPage()">
+                <div class="weui-media-box__bd">
+                  <p class="weui-media-box__desc" style="color:blue;text-align:left">浙江大学医学院附属第一医院</p>
+                  <p class="weui-media-box__desc" style="text-align:left">地址：杭州市上城区庆春路79号</p>
+                </div>
+                <div class="arrow"></div>
+              </a>
+
+              <a href="javascript:void(0);" @click="doctorappt()" class="weui-media-box weui-media-box_appmsg">
+                <div class="weui-media-box__hd">
+                  <img slot="icon" class="weui-media-box__thumb lazy" style="height:70%;width:70%;vertical-align:middle" src="../../assets/images/redcross.png" alt="">
+                 </div>
+                <div class="weui-media-box__bd">
+                  <p class="weui-media-box__desc" style="color:blue;text-align:left">浙江大学医学院附属第二医院（解放路院区）</p>
+                  <p class="weui-media-box__desc" style="text-align:left">地址：杭州市上城区解放路88号</p>
+                </div>
+                <div class="arrow"></div>
+              </a>
+
+              <a href="javascript:void(0);" @click="doctorappt()" class="weui-media-box weui-media-box_appmsg">
+                <div class="weui-media-box__hd">
+                  <img slot="icon" class="weui-media-box__thumb lazy" style="height:70%;width:70%;vertical-align:middle" src="../../assets/images/redcross.png" alt="">
+                </div>
+                <div class="weui-media-box__bd">
+                  <p class="weui-media-box__desc" style="color:blue;text-align:left">杭州市第一人民医院</p>
+                  <p class="weui-media-box__desc" style="text-align:left">地址：杭州市上城区浣纱路261号</p>
+                </div>
+                <div class="arrow"></div>
+              </a>
+
+              <a href="javascript:void(0);" @click="doctorappt()" class="weui-media-box weui-media-box_appmsg">
+                <div class="weui-media-box__hd">
+                  <img slot="icon" class="weui-media-box__thumb lazy" style="height:70%;width:70%;vertical-align:middle" src="../../assets/images/redcross.png" alt="">
+                </div>
+                <div class="weui-media-box__bd">
+                  <p class="weui-media-box__desc" style="color:blue;text-align:left">浙江大学医学院附属邵逸夫医院（庆春院区）</p>
+                  <p class="weui-media-box__desc" style="text-align:left">地址：杭州市江干区庆春东路3号</p>
+                </div>
+                <div class="arrow"></div>
+              </a> 
+          </div>
+        </div>          
         <mt-tabbar v-model="selectedAppointment">
           <mt-tab-item id="1">
             <img slot="icon"
@@ -67,9 +106,19 @@ export default {
         this.$router.push("/patient/appt/record");
       }
     },
+    doctorappt(){
+      this.$router.push("/patient/appt");
+    }
   }
 }
 </script>
 
 <style>
+ .arrow{
+         width:12px;
+         height:12px;
+         border-top:2px solid;
+         border-right:2px solid;
+         transform: rotate(45deg);
+        }
 </style>
