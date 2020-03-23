@@ -1,14 +1,11 @@
 <template>
   <div>
-    <div class="weui-flex"
-         style="margin:30px;">
+    <div class="weui-flex" style="margin:30px;">
       <div class="weui-flex__item">
-        <img style="height:60px;"
-             src="../assets/images/logo1_1.png" />
+        <img style="height:60px;" src="../assets/images/logo1_1.png" />
       </div>
       <div class="weui-flex__item">
-        <img style="height:60px;"
-             src="../assets/images/logo2.jpg" />
+        <img style="height:60px;" src="../assets/images/logo2.jpg" />
       </div>
     </div>
     <div class="weui_cell_bd weui_cell_primary">
@@ -21,10 +18,7 @@
           <label class="weui-label">手机号</label>
         </div>
         <div class="weui-cell__bd weui-cell_primary">
-          <input v-model="loginForm.username"
-                 class="weui-input"
-                 type="number"
-                 placeholder="请输入手机号" />
+          <input v-model="loginForm.username" class="weui-input" type="number" placeholder="请输入手机号" />
         </div>
       </div>
       <div class="weui-cell">
@@ -32,18 +26,13 @@
           <label class="weui-label">密码</label>
         </div>
         <div class="weui-cell__bd weui-cell_primary">
-          <input v-model="loginForm.password"
-                 class="weui-input"
-                 show-password
-                 clearable
-                 type="password"
-                 placeholder="请输入密码" />
+          <input v-model="loginForm.password" class="weui-input" show-password clearable type="password"
+            placeholder="请输入密码" />
         </div>
       </div>
     </div>
 
-    <div class="weui-flex "
-         style="margin:5px">
+    <div class="weui-flex " style="margin:5px">
       <div class="weui-flex__item">
         <a href="#/PatForgetpwd">
           忘记密码
@@ -62,20 +51,14 @@
       </span>
     </label> -->
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary"
-         @click="handelLogin()">确&nbsp;&nbsp;&nbsp;定</a>
+      <a class="weui-btn weui-btn_primary" @click="handelLogin()">确&nbsp;&nbsp;&nbsp;定</a>
     </div>
-    <div class="js_dialog"
-         id="iosDialog2"
-         v-show="showtips"
-         style="display: none;">
+    <div class="js_dialog" id="iosDialog2" v-show="showtips" style="display: none;">
       <div class="weui-mask"></div>
       <div class="weui-dialog">
         <div class="weui-dialog__bd">{{tips}}</div>
         <div class="weui-dialog__ft">
-          <a href="javascript:;"
-             class="weui-dialog__btn weui-dialog__btn_primary"
-             @click="showtips=false">确定</a>
+          <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="showtips=false">确定</a>
         </div>
       </div>
     </div>
@@ -85,7 +68,7 @@
 import axios from "axios";
 import global from './global.vue'
 export default {
-  data() {
+  data () {
     return {
       loginForm: {
         username: "",
@@ -99,7 +82,7 @@ export default {
     };
   },
   methods: {
-    handelLogin() {
+    handelLogin () {
       this.showtips = false;
       var phoneReg = /^1[3456789]\d{9}$/.test(this.loginForm.username);
 
@@ -131,7 +114,8 @@ export default {
               // this.$router.push("/MainPage");
               // console.log(global.patientURL)
               // window.location.href = global.patientSystemURL + '?token=' + that.token;
-              this.$router.push({ name: "/patient/check" });
+              // this.$router.push({ name: "/patient/check" });
+              this.$router.push("/patient/main")
             } else {
               // this.loginresult = true;
               document.body.scrollTop = document.documentElement.scrollTop = 0;
