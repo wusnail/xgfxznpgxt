@@ -8,7 +8,8 @@
                    @click.native="$router.back(-1)">返回</mt-button>
       </router-link>
     </mt-header>
-    <div>浙江大学医学院附属第一医院</div>
+    <div>{{this.$route.params.hospitalname}}</div>
+
     <div>
         <div class="weui-panel weui-panel_access">
           <div class="weui-panel__bd">
@@ -114,7 +115,14 @@
 
 <script>
   export default {
-    
+    data(){
+      return{
+
+      }
+    },
+    methods: {
+      
+    }
 
   }
 </script>
