@@ -7,13 +7,18 @@
       <div class="reportcard">
         <div class="reportheader">
           <div class="updatetime">更新时间:&nbsp;&nbsp;{{myform.updatetime}}</div>
-          <div class="updateinfo"><i class="iconfont icon-bianji" @click="editreport()"></i>&nbsp;更新信息</div>
+          <!-- <div class="updateinfo"><i class="iconfont icon-bianji" @click="editreport()"></i>&nbsp;更新信息</div> -->
+          <!-- 跳转到患者信息页面-sj -->
+          <div class="updateinfo"
+               @click="$router.push('/patient/form')"><i class="iconfont icon-bianji"></i>&nbsp;更新信息</div>
         </div>
 
         <div class="cardheader"></div>
         <div style="padding-left:10px;color:red"> <i class="iconfont icon-fengxian"></i>&nbsp;新冠肺炎高风险</div>
         <div>
-          &nbsp; &nbsp; &nbsp; <mt-button type="primary" size="small" @click="showdetails()">查看风险详情</mt-button>
+          &nbsp; &nbsp; &nbsp; <mt-button type="primary"
+                     size="small"
+                     @click="showdetails()">查看风险详情</mt-button>
         </div>
         <div class="cardcontainer">
 
@@ -46,27 +51,42 @@
           <div class="litext1"> <i class="iconfont icon-shugang"></i>过敏史</div>
           <div class="litext2">无</div>
           <div class="litext1"> <i class="iconfont icon-shugang"></i>流行病学接触史
-            <mt-button plain type="primary" size="small" style="float:right">查看详情
+            <mt-button plain
+                       type="primary"
+                       size="small"
+                       style="float:right">查看详情
             </mt-button>
           </div>
           <div class="litext2">无</div>
           <div class="litext1"> <i class="iconfont icon-shugang"></i>临床表现
-            <mt-button plain type="primary" size="small" style="float:right">查看详情
+            <mt-button plain
+                       type="primary"
+                       size="small"
+                       style="float:right">查看详情
             </mt-button>
           </div>
           <div class="litext2">无</div>
           <div class="litext1"> <i class="iconfont icon-shugang"></i>实验室检查发现
-            <mt-button plain type="primary" size="small" style="float:right">查看详情
+            <mt-button plain
+                       type="primary"
+                       size="small"
+                       style="float:right">查看详情
             </mt-button>
           </div>
           <div class="litext2">无</div>
           <div class="litext1"> <i class="iconfont icon-shugang"></i>实验室检查发现
-            <mt-button plain type="primary" size="small" style="float:right">查看详情
+            <mt-button plain
+                       type="primary"
+                       size="small"
+                       style="float:right">查看详情
             </mt-button>
           </div>
           <div class="litext2">无</div>
           <div class="litext1"> <i class="iconfont icon-shugang"></i>影像学发现
-            <mt-button plain type="primary" size="small" style="float:right">查看详情
+            <mt-button plain
+                       type="primary"
+                       size="small"
+                       style="float:right">查看详情
             </mt-button>
           </div>
           <div class="litext2">无</div>
@@ -82,7 +102,7 @@
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       isnew: false,//是否是第一次登录，第一次的话要新建页面
       myform: {
@@ -92,11 +112,14 @@ export default {
     }
   },
   methods: {
-    editreport () {
-      console.log('编辑报告')
-    },
-    showdetails () {
+    // editreport() {
+    //   console.log('编辑报告')
+
+    // },
+    showdetails() {
       console.log('查看详情')
+      // 跳转到风险详情-sj
+      this.$router.push('/patient/risk')
     }
   }
 }

@@ -13,7 +13,7 @@
                  type="default"
                  icon="more"></mt-button>
     </mt-cell>
-    <div>
+    <!-- <div>
       医生首页
       <mt-button type="default"
                  size="small"
@@ -21,21 +21,28 @@
       <mt-button type="danger"
                  size="small"
                  @click.native="$router.push({ name: '/doctor/patientList', params: { selectedRecord: '2' } })">已处理</mt-button>
-    </div>
-    <div @click="JumpPage()">
-      <mt-tabbar v-model="selectedAppointment">
-        <mt-tab-item id="1">
-          <!-- <img slot="icon"
+    </div> -->
+    <mt-tab-container class="page-tabbar-container"
+                      v-model="selectedTab">
+      <mt-tab-container-item id="1">
+        统计
+      </mt-tab-container-item>
+      <mt-tab-container-item id="2">
+        处理
+      </mt-tab-container-item>
+    </mt-tab-container>
+    <mt-tabbar v-model="selectedTab">
+      <mt-tab-item id="1">
+        <!-- <img slot="icon"
              src="../assets/images/ONwenduji.png"> -->
-          首页
-        </mt-tab-item>
-        <mt-tab-item id="2">
-          <!-- <img slot="icon"
+        首页
+      </mt-tab-item>
+      <mt-tab-item id="2">
+        <!-- <img slot="icon"
              src="../assets/images/ONwenjian.png"> -->
-          预约列表
-        </mt-tab-item>
-      </mt-tabbar>
-    </div>
+        预约列表
+      </mt-tab-item>
+    </mt-tabbar>
 
   </div>
 </template>
@@ -44,16 +51,11 @@
 export default {
   data() {
     return {
-      selectedAppointment: '1'
+      selectedTab: '1'
     }
   },
   methods: {
-    JumpPage() {
-      //跳转到预约列表
-      if (this.selectedAppointment == '2') {
-        this.$router.push({ name: '/doctor/patientList', params: { selectedRecord: '1' } })
-      }
-    },
+
   }
 }
 </script>
