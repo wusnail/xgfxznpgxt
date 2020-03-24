@@ -10,21 +10,18 @@ import PatRegister from '@/components/PatRegister'
 import DrForgetpwd from '@/components/DrForgetpwd'
 import DrRegister from '@/components/DrRegister'
 import Statistics from '@/components/Statistics'
-import DrHome from '@/components/doctorfolder/DrHome'
-import DrpatientList from '@/components/doctorfolder/patientList'
+import DrHome from '@/components/doctorcombination/DrHome'
 
-import PatCheck from '@/components/patientfolder/PatCheck'
-import PatCheckRecord from '@/components/patientfolder/PatCheckRecord'
 import PatInfo from '@/components/patientfolder/PatInfo'
 import PatEvaluation from '@/components/patientfolder/PatEvaluation'
-import PatapptRecord from '@/components/patientfolder/apptRecord'
 import PatapptDetail from '@/components/patientfolder/apptDetail'
-import PathospitalList from '@/components/patientfolder/hospitalList'
-import PatdoctorList from '@/components/patientfolder/doctorList'
 import PatRiskDetail from '@/components/patientfolder/PatRiskdetail'
+
 import PatMainpage from '@/components/patientcombination/pmainpage'
 
-
+//吴改后删掉包括下面的路径
+import PathospitalList from '@/components/patientfolder/hospitalList'
+import PatdoctorList from '@/components/patientfolder/doctorList'
 
 Vue.use(Router)
 
@@ -54,8 +51,7 @@ export default new Router({
     path: '/PatRegister',
     name: 'PatRegister',
     component: PatRegister
-  },
-  {
+  }, {
     path: '/DrForgetpwd',
     name: 'DrForgetpwd',
     component: DrForgetpwd
@@ -72,32 +68,17 @@ export default new Router({
     name: '/doctor/home',
     component: DrHome
   }, {
-    path: '/doctor/patientList',
-    name: '/doctor/patientList',
-    component: DrpatientList
-  },
-  {
     path: '/patient',
     name: 'patient',
     component: patient
-  },
-  {
+  }, {
     path: '/patient/main',
     name: '/patient/main',
     component: PatMainpage
-  },
-  {
-    path: '/patient/check',
-    name: '/patient/check',
-    component: PatCheck
   }, {
     path: '/patient/risk',
     name: '/patient/risk',
     component: PatRiskDetail
-  }, {
-    path: '/patient/check/risk',
-    name: '/patient/check/risk',
-    component: PatCheckRecord
   }, {
     path: '/patient/form',
     name: '/patient/form',
@@ -107,11 +88,6 @@ export default new Router({
     name: '/patient/evaluation',
     component: PatEvaluation
   }, {
-    path: '/patient/appt/record',
-    name: '/patient/appt/record',
-    component: PatapptRecord
-  },
-  {
     path: '/patient/appt/consulation',
     name: '/patient/appt/consulation',
     component: PathospitalList
