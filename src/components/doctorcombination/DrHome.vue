@@ -9,9 +9,6 @@
              slot="icon" />
         <span>测试医生</span>
       </div>
-      <mt-button size="small"
-                 type="default"
-                 icon="more"></mt-button>
     </mt-cell>
     <!-- <div>
       医生首页
@@ -25,21 +22,34 @@
     <mt-tab-container class="page-tabbar-container"
                       v-model="selectedTab">
       <mt-tab-container-item id="1">
-        统计
+        <statistics></statistics>
       </mt-tab-container-item>
       <mt-tab-container-item id="2">
-        处理
+        <mt-navbar v-model="selectedRecord">
+          <mt-tab-item id="1">未处理</mt-tab-item>
+          <mt-tab-item id="2">已处理</mt-tab-item>
+        </mt-navbar>
+        <mt-tab-container v-model="selectedRecord">
+          <mt-tab-container-item id="1">
+            <!-- 未处理在这 -->
+
+          </mt-tab-container-item>
+          <mt-tab-container-item id="2">
+            <!-- 已处理在这 -->
+
+          </mt-tab-container-item>
+        </mt-tab-container>
       </mt-tab-container-item>
     </mt-tab-container>
     <mt-tabbar v-model="selectedTab">
       <mt-tab-item id="1">
-        <!-- <img slot="icon"
-             src="../assets/images/ONwenduji.png"> -->
+        <img slot="icon"
+             src="../../assets/images/zhuye.png" />
         首页
       </mt-tab-item>
       <mt-tab-item id="2">
-        <!-- <img slot="icon"
-             src="../assets/images/ONwenjian.png"> -->
+        <img slot="icon"
+             src="../../assets/images/liebiao.png" />
         预约列表
       </mt-tab-item>
     </mt-tabbar>
@@ -48,10 +58,16 @@
 </template>
 
 <script>
+import statistics from './statistics'
+
 export default {
+  components: {
+    statistics,
+  },
   data() {
     return {
-      selectedTab: '1'
+      selectedTab: '1',
+      selectedRecord: '1'
     }
   },
   methods: {
