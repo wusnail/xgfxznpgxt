@@ -107,9 +107,6 @@ import global from './global.vue'
   },
   mounted(){
     this.pageParams= this.$route.query
-    
-    
-
   },
   methods: {
     handelLogin() {

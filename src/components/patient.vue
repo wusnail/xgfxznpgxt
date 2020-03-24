@@ -95,8 +95,12 @@ export default {
       tips: "",
       showtips: false,
       token: '',
-      loading:''
+      loading:'',
+      pageParams:{}
     };
+  },
+   mounted(){
+    this.pageParams= this.$route.query
   },
   methods: {
     handelLogin() {
@@ -128,9 +132,11 @@ export default {
               // this.loginresult = true;
               that.tips = "登录成功";
               that.token = response.data.token;
-              // this.$router.push("/MainPage");
-              // console.log(global.patientURL)
+              if(this.pageParams.hasOwnProperty("p")){
+                window.location.href = global.doctorSystemURL+'?token='+this.token+'&p='+this.pageParams.p;
+              }
               window.location.href = global.patientSystemURL + '?token=' + that.token;
+
             } else {
               // this.loginresult = true;
               document.body.scrollTop = document.documentElement.scrollTop = 0;
