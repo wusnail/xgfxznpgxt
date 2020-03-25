@@ -20,7 +20,6 @@ import PatRiskDetail from '@/components/patientfolder/PatRiskdetail'
 import PatMainpage from '@/components/patientcombination/pmainpage'
 
 //吴改后删掉包括下面的路径
-import PathospitalList from '@/components/patientfolder/hospitalList'
 import PatdoctorList from '@/components/patientfolder/doctorList'
 
 Vue.use(Router)
@@ -87,10 +86,6 @@ export default new Router({
     path: '/patient/evaluation',
     name: '/patient/evaluation',
     component: PatEvaluation
-  }, {
-    path: '/patient/appt/consulation',
-    name: '/patient/appt/consulation',
-    component: PathospitalList
   }, {
     path: '/patient/appt',
     name: '/patient/appt',
