@@ -32,11 +32,11 @@
         <mt-tab-container v-model="selectedRecord">
           <mt-tab-container-item id="1">
             <!-- 未处理在这 -->
-
+          <unprocessed></unprocessed>
           </mt-tab-container-item>
           <mt-tab-container-item id="2">
             <!-- 已处理在这 -->
-
+          <processed></processed>
           </mt-tab-container-item>
         </mt-tab-container>
       </mt-tab-container-item>
@@ -60,10 +60,13 @@
 
 <script>
 import statistics from './statistics'
-
+import processed from './processed'
+import unprocessed from './unprocessed'
 export default {
   components: {
     statistics,
+    processed,
+    unprocessed,
   },
   data() {
     return {
