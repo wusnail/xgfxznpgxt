@@ -7,8 +7,8 @@
       </mt-cell>
       <div class="jilu"> <span>共5条记录</span></div>
     </div>
-   
-    <div v-for="item in reportlist" :key="item.reportid">
+
+    <div v-for="item in reportlist" :key="item.reportid" @click="gotoPatEvaluation(item.reportid)">
       <div class="card">
         <div class="leftside"></div>
         <div class="iconside"> <i class="iconfont icon-fengxian" style="font-size:30px;"></i></div>
@@ -16,9 +16,9 @@
           <span>提交人：</span><span>{{item.name}}</span><br>
           <span>更新时间：{{item.updatetime}}</span>
         </div>
-         <div class="righticon">
-           <i class="iconfont icon-youjian" style="font-size:20px;"></i>
-      
+        <div class="righticon">
+          <i class="iconfont icon-youjian" style="font-size:20px;"></i>
+
         </div>
 
       </div>
@@ -42,7 +42,7 @@ export default {
       name: '',
       popupVisible: false,
       currentTags: '',
-      optwidth: document.body.clientWidth,
+
       dataList: [
         {
           values: [
@@ -93,7 +93,7 @@ export default {
     }
   },
   mounted () {
-    console.log(document.body.clientWidth)
+
   },
   methods: {
     backPopuphandleConfim () {
@@ -104,6 +104,14 @@ export default {
       this.currentTags = this.$refs.picker.getValues()[0]
       this.popupVisible = false
 
+    },
+    gotoPatEvaluation (val) {
+      this.$router.push({
+        path: '/patient/evaluation',
+        query: {
+          id: val
+        }
+      })
     }
 
   }
@@ -136,34 +144,33 @@ export default {
   text-align: left;
   margin: 10px;
   width: 100%;
-  height:60px;
-  overflow:hidden
+  height: 60px;
+  overflow: hidden;
 }
 .card .leftside {
   width: 8px;
   float: left;
-  height:60px;
-  
+  height: 60px;
 
   /* height: 30px; */
   border-radius: 8px 0px 0px 8px;
   background: red;
 }
-.card .iconside{
-   padding:0px 10px;
-   float: left;
-  height:60px;
-  line-height:60px;
-  color:red
+.card .iconside {
+  padding: 0px 10px;
+  float: left;
+  height: 60px;
+  line-height: 60px;
+  color: red;
 }
 .card .rightside {
   float: left;
   padding: 5px;
 }
-.card .righticon{
-  float:right;
-   height:60px;
-  line-height:60px;
-  padding-right:20px;
+.card .righticon {
+  float: right;
+  height: 60px;
+  line-height: 60px;
+  padding-right: 20px;
 }
 </style>
