@@ -22,7 +22,7 @@
     <mt-tab-container class="page-tabbar-container"
                       v-model="selectedTab">
       <mt-tab-container-item id="1">
-        <statistics></statistics>
+        <statistics @staValue='staClick'></statistics>
       </mt-tab-container-item>
       <mt-tab-container-item id="2">
         <mt-navbar v-model="selectedRecord">
@@ -41,7 +41,8 @@
         </mt-tab-container>
       </mt-tab-container-item>
     </mt-tab-container>
-    <mt-tabbar v-model="selectedTab">
+    <mt-tabbar v-model="selectedTab"
+               fixed>
       <mt-tab-item id="1">
         <img slot="icon"
              src="../../assets/images/zhuye.png" />
@@ -71,10 +72,14 @@ export default {
     }
   },
   methods: {
-
+    staClick(record) {
+      this.selectedTab = '2',
+        this.selectedRecord = record
+    }
   }
 }
 </script>
 
 <style>
+@import "../../assets/gyx/iconfont.css";
 </style>
