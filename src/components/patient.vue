@@ -96,11 +96,19 @@ export default {
       showtips: false,
       token: '',
       loading:'',
-      pageParams:{}
+      pageParams:{},
+      addition:''
     };
   },
-   mounted(){
+  mounted(){
     this.pageParams= this.$route.query
+    // console.log(this.pageParams)
+    if(this.pageParams.hasOwnProperty("d")){
+      window.localStorage.setItem("d",this.pageParams.d);
+    }
+    if(window.localStorage.getItem("d")){
+      this.addition="&d="+window.localStorage.getItem("d")
+    }
   },
   methods: {
     handelLogin() {
@@ -132,10 +140,10 @@ export default {
               // this.loginresult = true;
               that.tips = "登录成功";
               that.token = response.data.token;
-              if(this.pageParams.hasOwnProperty("p")){
-                window.location.href = global.doctorSystemURL+'?token='+this.token+'&p='+this.pageParams.p;
-              }
-              window.location.href = global.patientSystemURL + '?token=' + that.token;
+              console.log(window.localStorage.getItem("d"))
+              window.localStorage.removeItem("d")
+              console.log(global.patientSystemURL + '?token=' + that.token+that.addition)
+              // window.location.href = global.patientSystemURL + '?token=' + that.token+that.addition;
 
             } else {
               // this.loginresult = true;
