@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view />
+    <keep-alive>
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 
@@ -24,5 +26,7 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
+
+  overflow: hidden;
 }
 </style>
