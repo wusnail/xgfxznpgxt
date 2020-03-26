@@ -17,12 +17,11 @@
           <span>更新时间：{{item.updatetime}}</span>
         </div>
          <div class="righticon">
-           <i class="iconfont icon-youjian" style="font-size:20px;"></i>
-      
+           <i class="iconfont icon-youjian" style="font-size:20px;"></i>   
         </div>
-
       </div>
     </div>
+    
     <mt-popup v-model="popupVisible" position="bottom" class="mint-popup" style="width:100%;height:30%">
       <mt-picker :slots="dataList" :show-toolbar="true" ref="picker" value-key="name">
         <div class="picker-toolbar-title">
