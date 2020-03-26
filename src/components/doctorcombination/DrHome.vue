@@ -22,7 +22,7 @@
     <mt-tab-container class="page-tabbar-container"
                       v-model="selectedTab">
       <mt-tab-container-item id="1">
-        <statistics></statistics>
+        <statistics @staValue='staClick'></statistics>
       </mt-tab-container-item>
       <mt-tab-container-item id="2">
         <mt-navbar v-model="selectedRecord">
@@ -32,16 +32,17 @@
         <mt-tab-container v-model="selectedRecord">
           <mt-tab-container-item id="1">
             <!-- 未处理在这 -->
-
+          <unprocessed></unprocessed>
           </mt-tab-container-item>
           <mt-tab-container-item id="2">
             <!-- 已处理在这 -->
-
+          <processed></processed>
           </mt-tab-container-item>
         </mt-tab-container>
       </mt-tab-container-item>
     </mt-tab-container>
-    <mt-tabbar v-model="selectedTab">
+    <mt-tabbar v-model="selectedTab"
+               fixed>
       <mt-tab-item id="1">
         <img slot="icon"
              src="../../assets/images/zhuye.png" />
@@ -59,10 +60,13 @@
 
 <script>
 import statistics from './statistics'
-
+import processed from './processed'
+import unprocessed from './unprocessed'
 export default {
   components: {
     statistics,
+    processed,
+    unprocessed,
   },
   data() {
     return {
@@ -71,10 +75,14 @@ export default {
     }
   },
   methods: {
-
+    staClick(record) {
+      this.selectedTab = '2',
+        this.selectedRecord = record
+    }
   }
 }
 </script>
 
 <style>
+@import "../../assets/gyx/iconfont.css";
 </style>

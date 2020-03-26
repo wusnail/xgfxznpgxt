@@ -40,7 +40,7 @@
           </mt-navbar>
           <mt-tab-container v-model="selectedAppointment">
             <mt-tab-container-item id="1">
-              <!-- 预约问诊在这个组件里写 -->
+              <!-- 预约问诊在这个组件里写 -->                  
               <appointVisit></appointVisit>
 
             </mt-tab-container-item>
