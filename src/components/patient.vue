@@ -142,8 +142,8 @@ export default {
               that.token = response.data.token;
               console.log(window.localStorage.getItem("d"))
               window.localStorage.removeItem("d")
-              console.log(global.patientSystemURL + '?token=' + that.token+that.addition)
-              // window.location.href = global.patientSystemURL + '?token=' + that.token+that.addition;
+              // console.log(global.patientSystemURL + '?token=' + that.token+that.addition)
+              window.location.href = global.patientSystemURL + '?token=' + that.token+that.addition;
 
             } else {
               // this.loginresult = true;
