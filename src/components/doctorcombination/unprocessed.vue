@@ -1,11 +1,19 @@
 <template>
   <div>
-    <mt-field  v-model="content" placeholder="请输入">
-        <select v-model="way" style="height:33px">
-            <option v-for="x in searchway" :key="x.wayid">{{x.wayname}}</option>
-        </select>
-        <mt-button size="small" type="primary" @click="search(way,content)">搜&nbsp;索</mt-button>
-    </mt-field>  
+
+    <div class="weui-cell weui-cell_vcode">
+        <div class="weui-cell__hd">
+            <select v-model="way" style="height:30px">
+                <option v-for="x in searchway" :key="x.wayid">{{x.wayname}}</option>
+            </select>
+        </div>
+        <div class="weui-cell__bd">
+            <mt-field  v-model="content" placeholder="请输入"></mt-field> 
+        </div>
+        <div class="weui-cell__ft" style="margin:10px">
+            <mt-button size="small" type="primary" @click="search(way,content)">搜&nbsp;索</mt-button>
+        </div>
+    </div>
 
     <div v-for="item in unprocessedlist" :key="item.unprocessedid">
         <a href="javascript:void(0);" @click="todetail()" style="color:black">
@@ -102,11 +110,11 @@ export default {
         }      
     },
     methods: {
-       search(way,content){
+        search(way,content){
            
-       },
-       todetail(){
-        this.$router.push({name:"/doctor/patdetail",params:{}});
+        },
+        todetail(){
+            this.$router.push({name:"/doctor/patdetailmod",params:{}})
         }
     }
 }
