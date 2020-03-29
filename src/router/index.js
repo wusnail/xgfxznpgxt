@@ -20,6 +20,7 @@ import PatRiskDetail from '@/components/patientfolder/PatRiskdetail'
 import PatMainpage from '@/components/patientcombination/pmainpage'
 
 import Patdetail from '@/components/patientfolder/patientDetail'
+
 //吴改后删掉包括下面的路径
 import PatdoctorList from '@/components/patientfolder/doctorList'
 
@@ -99,7 +100,7 @@ export default new Router({
     path: '/doctor/patdetail',
     name: '/doctor/patdetail',
     component: Patdetail
-  }
+  },
 
   ]
 })

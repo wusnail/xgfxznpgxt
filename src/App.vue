@@ -27,6 +27,6 @@ export default {
   bottom: 0;
   left: 0;
 
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 </style>
