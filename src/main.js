@@ -12,6 +12,8 @@ import axios from 'axios';
 import echarts from "echarts";
 Vue.prototype.$echarts = echarts;
 
+
+
 import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css'
 Vue.use(Mint);
