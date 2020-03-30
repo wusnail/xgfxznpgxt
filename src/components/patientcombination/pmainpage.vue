@@ -90,7 +90,8 @@ export default {
   },
   methods: {
 
-  }
+  },
+
 }
 </script>
 
