@@ -19,7 +19,7 @@
           <mt-tab-container v-model="selectedRecord">
             <mt-tab-container-item id="1">
               <!-- 我的评估报告在这个组件里写 -->
-              <myreport></myreport>
+                <assessmentReport></assessmentReport>
 
             </mt-tab-container-item>
             <mt-tab-container-item id="2">
@@ -37,22 +37,31 @@
 <script>
 import myreport from '../patientcombination/myreport'
 import reportHistory from '../patientcombination/reportHistory'
-
+import assessmentReport from '../patientcombination/assessmentReport'
 export default {
   components: {
     reportHistory,
     myreport,
-
+    assessmentReport,
 
   },
   data() {
     return {
       selectedTab: '1',
       selectedRecord: '1',
+      isshow:true,
     }
   },
   methods: {
 
+  },
+  mounted(){
+    if(this.$route.params.isshow==true){
+      this.isshow=true
+    }
+    else{
+      this.isshow=false
+    }
   }
 }
 </script>

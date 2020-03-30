@@ -19,7 +19,8 @@ import PatRiskDetail from '@/components/patientfolder/PatRiskdetail'
 
 import PatMainpage from '@/components/patientcombination/pmainpage'
 
-import Patdetail from '@/components/patientfolder/patientDetail'
+import Patdetailmod from '@/components/patientfolder/patDetailmodife'
+import Patdetailunmod from '@/components/patientfolder/patDetailunmodife'
 //吴改后删掉包括下面的路径
 import PatdoctorList from '@/components/patientfolder/doctorList'
 
@@ -74,7 +75,7 @@ export default new Router({
   }, {
     path: '/patient/main',
     name: '/patient/main',
-    component: PatMainpage
+    component: PatMainpage,
   }, {
     path: '/patient/risk',
     name: '/patient/risk',
@@ -96,9 +97,13 @@ export default new Router({
     name: '/appt_detail',
     component: PatapptDetail
   }, {
-    path: '/doctor/patdetail',
-    name: '/doctor/patdetail',
-    component: Patdetail
+    path: '/doctor/patdetailunmod',
+    name: '/doctor/patdetailunmod',
+    component: Patdetailunmod
+  }, {
+    path: '/doctor/patdetailmod',
+    name: '/doctor/patdetailmod',
+    component: Patdetailmod
   }
 
   ]

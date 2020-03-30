@@ -1,12 +1,12 @@
 <template>
   <div>
 
-    <div style="text-align:left;overflow:hidden">
+    <!-- <div style="text-align:left;overflow:hidden">
       <mt-cell title="提交人" style="width:70%;float:left" @click.native="popupVisible=true">
         <span>{{currentTags?currentTags.name: '请选择'}}</span>
       </mt-cell>
       <div class="jilu"> <span>共5条记录</span></div>
-    </div>
+    </div> -->
 
     <div v-for="item in reportlist" :key="item.reportid" @click="gotoPatEvaluation(item.reportid)">
       <div class="card">
@@ -84,12 +84,6 @@ export default {
           updatetime: "2020年3月22日17：30"
         }
       ],
-
-
-
-
-
-
 
 
     }

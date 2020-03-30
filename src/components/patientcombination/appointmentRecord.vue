@@ -1,6 +1,6 @@
 <template>
   <div>
-    预约记录
+    不要了
   </div>
 </template>
 <script>
