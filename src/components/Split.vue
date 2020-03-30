@@ -42,7 +42,7 @@
           </div>
         </div>
       </div>
-      <div class="weui-flex ">
+      <!-- <div class="weui-flex ">
         <div class="weui-flex__item">
           <div @click='gostatistics()'
                style="display: flex;justify-content: center;align-items: center;margin: 0px 50px 20px 50px;height:80px; padding:15px;border:1px solid #BFBFBF;border-radius: 10px;box-shadow:2px 2px 3px #aaaaaa; ">
@@ -55,8 +55,7 @@
             </div>
           </div>
         </div>
-      </div>
-
+      </div> -->
     </div>
   </div>
 </template>

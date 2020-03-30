@@ -19,6 +19,7 @@ import PatRiskDetail from '@/components/patientfolder/PatRiskdetail'
 
 import PatMainpage from '@/components/patientcombination/pmainpage'
 
+// import Patdetail from '@/components/patientfolder/patientDetail'
 import Patdetailmod from '@/components/patientfolder/patDetailmodife'
 import Patdetailunmod from '@/components/patientfolder/patDetailunmodife'
 
@@ -26,14 +27,13 @@ import Patdetailunmod from '@/components/patientfolder/patDetailunmodife'
 import PatdoctorList from '@/components/patientfolder/doctorList'
 
 Vue.use(Router)
-
 export default new Router({
-  routes: [{
+  routes: [
+  {
     path: '/',
     name: 'HelloWorld',
     component: HelloWorld
-  },
-  {
+  },{
     path: '/doctor',
     name: 'doctor',
     component: doctor,
@@ -98,10 +98,6 @@ export default new Router({
     name: '/appt_detail',
     component: PatapptDetail
   }, {
-    path: '/doctor/patdetail',
-    name: '/doctor/patdetail',
-    component: Patdetail
-  },{
     path: '/doctor/patdetailunmod',
     name: '/doctor/patdetailunmod',
     component: Patdetailunmod
