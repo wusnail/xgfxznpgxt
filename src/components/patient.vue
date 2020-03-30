@@ -41,16 +41,14 @@
         </div>
       </div>
     </div>
-
     <div class="weui-flex "
          style="margin:5px">
-      <div class="weui-flex__item">
+    <!--   <div class="weui-flex__item">
         <a href="#/PatForgetpwd">
-          忘记密码
         </a>
-      </div>
+      </div> -->
       <div class="weui-flex__item">
-        <a href="#/PatRegister">
+        <a style="float:left;font-size:15px;padding:12px" href="#/PatRegister">
           去注册
         </a>
       </div>
@@ -64,6 +62,11 @@
     <div class="weui-btn-area">
       <a class="weui-btn weui-btn_primary"
          @click="handelLogin()">确&nbsp;&nbsp;&nbsp;定</a>
+    </div>
+    <br><br><br>
+    <div class="weui-footer ">
+      <p class="weui-footer__text">之江实验室&浙大一院共同研发</p>
+      <p class="weui-footer__text">杭州数睿科技提供技术支持</p>
     </div>
     <div class="js_dialog"
          id="iosDialog2"
@@ -115,13 +118,12 @@ export default {
       this.showtips = false;
       var phoneReg = /^1[3456789]\d{9}$/.test(this.loginForm.username);
 
-      if (!phoneReg) {
-        document.body.scrollTop = document.documentElement.scrollTop = 0;
-        this.tips = "请输入正确的手机号";
-        this.showtips = true;
-      }
+      // if (!phoneReg) {
+      //   document.body.scrollTop = document.documentElement.scrollTop = 0;
+      //   this.tips = "请输入正确的手机号";
+      //   this.showtips = true;
+      // }
 
-      else {
         var that = this
         that.loading =weui.loading('loading');
         setTimeout(function () {
@@ -156,7 +158,7 @@ export default {
           .catch(function (error) {
             console.log("error", error);
           });
-      }
+      
     }
   }
 };

@@ -41,6 +41,10 @@
       </div>
     </div>
     <a id='link' style="display: none;" href="#"></a>
+    <div class="weui-footer weui-footer_fixed-bottom">
+      <p class="weui-footer__text">之江实验室&浙大一院共同研发</p>
+      <p class="weui-footer__text">杭州数睿科技提供技术支持</p>
+    </div>
   </div>
     <!-- <label for="weuiAgree"
            class="weui-agree">

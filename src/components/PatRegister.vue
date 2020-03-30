@@ -56,7 +56,19 @@
                        placeholder="请再次输入密码" />
               </div>
             </div>
-            <div class="weui-cell weui-cell_active weui-cell_vcode">
+            <div class="weui-cell weui-cell_active">
+              <div class="weui-cell__hd">
+                <label class="weui-label">地址</label>
+              </div>
+              <div class="weui-cell__bd">
+                <input class="weui-input"
+                       v-model="RegisterForm.address"
+                       show-password
+                       clearable
+                       placeholder="您所在的国家和城市" />
+              </div>
+            </div>
+            <!-- <div class="weui-cell weui-cell_active weui-cell_vcode">
               <div class="weui-cell__hd">
                 <label class="weui-label">验证码</label>
               </div>
@@ -75,7 +87,7 @@
                         @click="getCode"
                         :disabled="codeTextisdisabled">{{codeText}}</button>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -122,7 +134,8 @@ export default {
         phoneNumber: "",
         passward: "",
         confirmpwd: "",
-        vcode: ""
+        vcode: "",
+        address:""
       },
       codeText: "获取验证码",
       codeTextisdisabled: false,
@@ -137,24 +150,19 @@ export default {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
       this.tips = "";
       this.ifSuccess = false
-      var phoneReg = /^1[3456789]\d{9}$/.test(this.RegisterForm.phoneNumber);
+
+      // var phoneReg = /^1[3456789]\d{9}$/.test(this.RegisterForm.phoneNumber);
       var pwdReg = ((this.RegisterForm.passward == this.RegisterForm.confirmpwd && this.RegisterForm.passward != "")) ? true : false;
-      var vcodeReg = ((this.RegisterForm.vcode == this.VerCode && this.RegisterForm.vcode != "")) ? true : false;
+      // var vcodeReg = ((this.RegisterForm.vcode == this.VerCode && this.RegisterForm.vcode != "")) ? true : false;
       //  var vcodeRge=
       this.VerCode = ''//清除储存的验证码
-      var VerphoneReg = (this.RegisterForm.phoneNumber == this.Verphone) ? true : false
-      if (!phoneReg) {
+      // var VerphoneReg = (this.RegisterForm.phoneNumber == this.Verphone) ? true : false
+      if (this.RegisterForm.address=="") {
         this.showDialog = true;
-        this.tips = "请确认输入手机号是否正确！";
+        this.tips = "请输入您所在的国家和城市！";
       } else if (!pwdReg) {
         this.showDialog = true;
         this.tips = "请确认输入密码是否正确！";
-      } else if (!vcodeReg) {
-        this.showDialog = true;
-        this.tips = "请确认输入验证码是否正确！";
-      } else if (!VerphoneReg) {
-        this.showDialog = true;
-        this.tips = "请确认输入手机号与获取验证码手机号是否相符并重新获取验证码！";
       } else {
         this.checkpat();
       }
@@ -179,6 +187,7 @@ export default {
           } else {
             axios
               .post("/newPatient", {
+                address:that.RegisterForm.address,
                 phone: that.RegisterForm.phoneNumber,
                 pwd: that.RegisterForm.passward
               })
