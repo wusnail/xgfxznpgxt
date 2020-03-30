@@ -19,7 +19,6 @@ import PatRiskDetail from '@/components/patientfolder/PatRiskdetail'
 
 import PatMainpage from '@/components/patientcombination/pmainpage'
 
-import Patdetail from '@/components/patientfolder/patientDetail'
 import Patdetailmod from '@/components/patientfolder/patDetailmodife'
 import Patdetailunmod from '@/components/patientfolder/patDetailunmodife'
 
@@ -102,7 +101,7 @@ export default new Router({
     path: '/doctor/patdetail',
     name: '/doctor/patdetail',
     component: Patdetail
-  },
+  },{
     path: '/doctor/patdetailunmod',
     name: '/doctor/patdetailunmod',
     component: Patdetailunmod

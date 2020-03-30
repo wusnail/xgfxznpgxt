@@ -1,6 +1,6 @@
 <template>
   <div>
-
+<!-- 
     <div class="weui-cell weui-cell_vcode">
         <div class="weui-cell__hd">
             <select v-model="way" style="height:30px">
@@ -13,7 +13,7 @@
         <div class="weui-cell__ft" style="margin:10px">
             <mt-button size="small" type="primary" @click="search(way,content)">搜&nbsp;索</mt-button>
         </div>
-    </div>
+    </div> -->
 
     <div v-for="item in unprocessedlist" :key="item.unprocessedid">
         <a href="javascript:void(0);" @click="todetail()" style="color:black">
