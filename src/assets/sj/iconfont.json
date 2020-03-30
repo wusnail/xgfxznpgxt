@@ -1,0 +1,72 @@
+{
+  "id": "1718155",
+  "name": "sj_icon",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-sj-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "5330461",
+      "name": "退出",
+      "font_class": "tuichu",
+      "unicode": "e797",
+      "unicode_decimal": 59287
+    },
+    {
+      "icon_id": "13664233",
+      "name": "推出",
+      "font_class": "tuichu-",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "3187393",
+      "name": "用户",
+      "font_class": "yonghu",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "5201940",
+      "name": "温度计",
+      "font_class": "wenduji",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "258561",
+      "name": "主页",
+      "font_class": "tubiao15",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "7629060",
+      "name": "列表",
+      "font_class": "liebiao1",
+      "unicode": "e6b6",
+      "unicode_decimal": 59062
+    },
+    {
+      "icon_id": "7618",
+      "name": "设置",
+      "font_class": "shezhi",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "6978114",
+      "name": "二维码",
+      "font_class": "erweima",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "11760106",
+      "name": "文件",
+      "font_class": "wenjian-copy",
+      "unicode": "e7c8",
+      "unicode_decimal": 59336
+    }
+  ]
+}

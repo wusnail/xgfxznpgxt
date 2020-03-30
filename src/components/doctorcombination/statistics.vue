@@ -5,14 +5,14 @@
         <span style="color:black;float:right">0</span></div>
       <div class="box">
         <div class="box-item">
-          <span style="color:gray;">今日未处理</span>
+          <span style="color:gray;">正在隔离</span>
           <br>0
           <a href="javascript:void(0);"
              @click="goappt('1')"
              style="color:#4aab44">>></a>
         </div>
         <div class="box-item">
-          <span style="color:gray;">今日已处理</span>
+          <span style="color:gray;">已解除隔离</span>
           <br>0
           <a href="javascript:void(0);"
              @click="goappt('2')"
