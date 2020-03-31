@@ -29,7 +29,6 @@ import Patdetailunmod from '@/components/patientfolder/patDetailunmodife'
 import PatdoctorList from '@/components/patientfolder/doctorList'
 
 Vue.use(Router)
-
 export default new Router({
   routes: [
     {
