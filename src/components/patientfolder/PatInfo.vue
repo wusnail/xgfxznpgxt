@@ -10,11 +10,7 @@
         :style="{color: activeStep === index ? '#1987e1' : '#000000'}">{{item}}</a>
     </nav>
     <div class="wrapper">
-      <!-- <div class="section" style="height:500px;width:100%" v-for="(item, index) in list" :key="index"
-        :style="{'height':index==0?'1000px':'500px'}">
-        <div style="width:100%;height:100%;font-size:30px;text-align:center;font-weight:bold;color:#fff;"
-          :style="{'background':item.backgroundcolor}">{{item.name}}</div>
-      </div> -->
+
       <div class="section">
         <div class="section_title">基本信息</div>
         <div class="card">
@@ -23,24 +19,58 @@
             <input class="input1" v-model="form.name" placeholder="请填写姓名" />
           </div>
           <div>
-            <span class="text1">年龄</span>
-            <input class="input1" v-model="form.age" placeholder="请填写年龄" />
-          </div>
-          <div>
             <span class="text1">性别</span>
-            <input type="radio" value="Male" v-model="form.sex">男
-            <input type="radio" value="Female" v-model="form.sex">女
+            <input type="radio" value="Male" v-model="form.gender">男
+            <input type="radio" value="Female" v-model="form.gender">女
+          </div>
+
+          <div>
+            <span class="text1">出生年月</span>
+            <input class="input1" v-model="form.age" placeholder="请填写出生年月" />
           </div>
           <div>
-            <span class="text1">手机号</span>
+            <span class="text1">联系方式</span>
             <input class="input1" type="number" pattern="[0-9]*" v-model="form.phone" placeholder="请填写手机号" />
           </div>
-          <div v-show="form.sex=='Female'">
+          <div v-show="form.gender=='Female'">
             <span class="text1">是否为孕妇</span>
             <input type="radio" value="No" v-model="form.pregnant">否
             <input type="radio" value="Yes" v-model="form.pregnant">是
             <input type="radio" value="Unknow" v-model="form.pregnant">不清楚
           </div>
+          <div>
+            <span class="text2">职业</span>
+            <input class="input1" v-model="form.occupation" placeholder="请填写职业" />
+          </div>
+          <div>
+            <span class="text2">家庭住址</span>
+            <input class="input1" v-model="form.address" placeholder="请填写家庭住址" />
+          </div>
+          <div>
+            <span class="text2">身份证号</span>
+            <input class="input1" v-model="form.Idcard" placeholder="请填写身份证号" />
+          </div>
+          <div>
+            <span class="text1">入住房间</span>
+            <input class="input1" v-model="form.roomNo" placeholder="请填写入住房间" />
+          </div>
+          <div>
+            <span class="text1">入住时间</span>
+            <input class="input1" v-model="form.checkintime" placeholder="请填写入住时间" />
+          </div>
+          <div>
+            <span class="text1">末次接触时间</span>
+            <input class="input1" v-model="form.lastcontact" placeholder="请填写末次接触时间" />
+          </div>
+          <div>
+            <span class="text1">解除时间</span>
+            <input class="input1" v-model="form.releasetime" placeholder="请填写接触观察时间" />
+          </div>
+          <div>
+            <span class="text1">简要接触史</span>
+            <input class="input1" v-model="form.briefcontactHistory" placeholder="请填写简要接触史" />
+          </div>
+
         </div>
       </div>
       <div class="section">
@@ -86,7 +116,7 @@
           <div id="q6">
             <div class="text1">Q6：最近14天（两周内），您是否还有以下及其他旅行、接触情况？</div>
             <div> <input type="checkbox" :value="options6[0].value" v-model="form.question6">
-              {{options1[0].label}}</div>
+              {{options6[0].label}}</div>
             <div> <input type="checkbox" :value="options6[1].value" v-model="form.question6">{{options6[1].label}}
             </div>
             <div> <input type="checkbox" :value="options6[2].value" v-model="form.question6">{{options6[2].label}}
@@ -216,27 +246,12 @@
 
         </div>
       </div>
-      <div class="section">
+      <!-- <div class="section">
         <div class="section_title">检验检查</div>
         <div class="card">
-          <div>
-            <span class="text1">姓名</span>
-            <input class="input1" v-model="form.name" placeholder="请填写姓名" />
-          </div>
-          <div>
-            <span class="text1">年龄</span>
-            <input class="input1" v-model="form.age" placeholder="请填写年龄" />
-          </div>
-          <div>
-            <span class="text1">性别</span>
-            <input class="input1" v-model="form.sex" placeholder="请选择性别" />
-          </div>
-          <div>
-            <span class="text1">手机号</span>
-            <input class="input1" type="number" pattern="[0-9]*" v-model="form.phone" placeholder="请填写手机号" />
-          </div>
+         
         </div>
-      </div>
+      </div> -->
     </div>
 
     <mt-popup v-model="q7popupVisible" position="bottom" class="mint-popup" style="width:100%;height:50%">
@@ -283,10 +298,10 @@ export default {
         backgroundcolor: "#A7B293"
       }],
 
-      navList: ['基本信息', '健康问卷', '检验检查'],
+      navList: ['基本信息', '健康问卷'],
       form: {
         name: '',
-        sex: '',
+        gender: '',
         phone: '',
         age: '',
         pregnant: 'No',
@@ -476,15 +491,13 @@ export default {
     }
   },
   methods: {
-    dataScroll: function () {
-      this.scroll = document.documentElement.scrollTop || document.body.scrollTop;
-    },
+
     jump (index) {
       let jump = document.getElementsByClassName('section');
-      // this.activeStep = index
+
       // 获取需要滚动的距离
       let total = jump[index].offsetTop - 80;
-      console.log(total, 'jump')
+
       // Chrome
       document.body.scrollTop = total;
       // Firefox
@@ -495,39 +508,20 @@ export default {
       // 'scrollTop': total
       // }, 400);
     },
-    loadSroll: function () {
-      var self = this;
-      var $navs = $(".nav1");
-      var sections = document.getElementsByClassName('section');
-      for (var i = sections.length - 1; i >= 0; i--) {
-        if (self.scroll >= sections[i].offsetTop - 100) {
-          console.log('执行一次')
-          $navs.eq(i).addClass("current").siblings().removeClass("current")
-          break;
-        }
 
-
-      }
-    },
     onScroll () {
 
-      let scrolled = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
 
+      let scrolled = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
       // 586、1063分别为第二个和第三个锚点对应的距离
       var sections = document.getElementsByClassName('section');
-
-      if (scrolled <= sections[0].offsetTop + 80) {
+      if (scrolled < sections[0].offsetTop + 90) {
         this.activeStep = 0
-
-      }
-      else if (scrolled > sections[0].offsetTop + 80) {
-        this.activeStep = 1
       }
       else {
-        this.activeStep = 2
-      }
-
+        this.activeStep = 1      }
     },
+
     q7submit () {
       this.q7popupVisible = false
       this.q7currentTags = this.$refs.Q7picker.getValues()[0]
@@ -539,23 +533,20 @@ export default {
     q8submit2 () {
       this.q8popupVisible2 = false
       this.q8currentTags2 = this.$refs.Q8picker2.getValues()[0]
-    }
+    },
+
 
   },
   watch: {
-    scroll: function () {
-      this.loadSroll()
-    },
-    form: function () {
-      console.log(this.form.question1)
-    }
+
   },
   mounted () {
-    //window.addEventListener('scroll', this.dataScroll);
-    this.$nextTick(function () {
-      window.addEventListener('scroll', this.onScroll)
-    })
-  }
+    window.addEventListener('scroll', this.onScroll)
+  },
+  beforeDestroy () { //在组件生命周期结束的时候销毁。
+    window.removeEventListener('scroll', this.onScroll);
+  },
+
 }
 </script>
 
@@ -589,7 +580,7 @@ export default {
 }
 .nav1 {
   display: inline-block;
-  width: 33%;
+  width: 50%;
   height: 40px;
   text-align: center;
   line-height: 40px;
@@ -703,6 +694,7 @@ input[type="radio"]:checked:after {
 }
 .text2 {
   padding: 5px;
+  margin-left: 10px;
 }
 .section_title {
   border-left: 0.2em solid rgb(242, 156, 57);

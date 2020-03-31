@@ -1,46 +1,48 @@
 <template>
   <div class="reportcard">
     <div class="reportheader">
+      <div v-if="role=='patient'">
+        <span style="float:right;padding-right:20px;" @click="$router.push('/patient/dailyreport')"> 每日上报</span><br>
+      </div>
       <div class="updatetime">更新时间:&nbsp;&nbsp;{{myform.updatetime}}</div>
-      <div v-if="qflag"
-           class="updateinfo"
-           @click="$router.push('/patient/form')"><i class="iconfont icon-bianji"></i>&nbsp;更新信息
+      <div v-if="qflag" class="updateinfo" @click="$router.push('/patient/form')"><i
+          class="iconfont icon-bianji"></i>&nbsp;更新信息
       </div>
-      <div v-else
-           class="updatetime">报告人:{{myform.reportername}}
+      <div v-else class="updatetime">报告人:{{myform.reportername}}
       </div>
+
     </div>
     <div class="cardheader"></div>
     <div style="padding-left:10px;color:red"> <i class="iconfont icon-fengxian"></i>&nbsp;新冠肺炎高风险</div>
-    <div>
-      &nbsp; &nbsp; &nbsp; <mt-button type="primary"
-                 size="small"
-                 @click="showdetails()">查看风险详情</mt-button>
+    <!-- <div>
+      &nbsp; &nbsp; &nbsp; <mt-button type="primary" size="small" @click="showdetails()">查看风险详情</mt-button>
+    </div> -->
+    <div v-if="unrealease">
+      &nbsp; &nbsp; &nbsp; <mt-button type="primary" size="small">解除隔离</mt-button>
     </div>
-    <div class="cardcontainer"
-         id="id1">
+    <div class="cardcontainer" id="id1">
 
       <div class="litext1"> <i class="iconfont icon-shugang"></i>基本信息</div>
       <div class="litext2">
         <div class="parent">
           <div class="stable">
-            姓名
+            姓名 &nbsp; {{myform.name}}
           </div>
           <div class="change">
-            年龄
+            年龄 &nbsp;{{myform.age}}
           </div>
         </div>
         <div class="parent">
           <div class="stable">
-            性别
+            性别 &nbsp;{{myform.gender|genderFliter}}
           </div>
           <div class="change">
-            手机
+            手机 &nbsp;{{myform.phone}}
           </div>
         </div>
         <div class="parent">
           <div class="stable">
-            孕妇
+            孕妇 &nbsp;{{myform.preg|pregFliter}}
           </div>
         </div>
       </div>
@@ -49,79 +51,101 @@
       <div class="litext1"> <i class="iconfont icon-shugang"></i>过敏史</div>
       <div class="litext2">无</div>
       <div class="litext1"> <i class="iconfont icon-shugang"></i>流行病学接触史
-        <mt-button plain
-                   type="primary"
-                   size="small"
-                   style="float:right">查看详情
-        </mt-button>
+        <!-- <mt-button plain type="primary" size="small" style="float:right">查看详情
+        </mt-button> -->
       </div>
       <div class="litext2">无</div>
       <div class="litext1"> <i class="iconfont icon-shugang"></i>临床表现
-        <mt-button plain
-                   type="primary"
-                   size="small"
-                   style="float:right">查看详情
-        </mt-button>
+        <!-- <mt-button plain type="primary" size="small" style="float:right">查看详情
+        </mt-button> -->
       </div>
       <div class="litext2">无</div>
       <div class="litext1"> <i class="iconfont icon-shugang"></i>实验室检查发现
-        <mt-button plain
-                   type="primary"
-                   size="small"
-                   style="float:right">查看详情
-        </mt-button>
+        <!-- <mt-button plain type="primary" size="small" style="float:right">查看详情
+        </mt-button> -->
       </div>
       <div class="litext2">无</div>
       <div class="litext1"> <i class="iconfont icon-shugang"></i>实验室检查发现
-        <mt-button plain
-                   type="primary"
-                   size="small"
-                   style="float:right">查看详情
-        </mt-button>
+        <!-- <mt-button plain type="primary" size="small" style="float:right">查看详情
+        </mt-button> -->
       </div>
       <div class="litext2">无</div>
       <div class="litext1"> <i class="iconfont icon-shugang"></i>影像学发现
-        <mt-button plain
-                   type="primary"
-                   size="small"
-                   style="float:right">查看详情
-        </mt-button>
+        <!-- <mt-button plain type="primary" size="small" style="float:right">查看详情
+        </mt-button> -->
       </div>
       <div class="litext2">无</div>
       <div class="litext1"> <i class="iconfont icon-shugang"></i>检验检查信息采集</div>
       <div class="litext2">没有没有
       </div>
       <div class="litext1"> <i class="iconfont icon-shugang"></i>体温信息采集</div>
-      <div id="linechart"
-           class="chart"></div>
+      <div id="linechart" class="chart"></div>
     </div>
     <br><br>
   </div>
-  </div>
+
 </template>
 <script>
+
 export default {
+
+  // 怀孕0无1有2不清楚，性别1男2女
   props: ['reportId', 'qflag'],
-  data() {
+  data () {
     return {
+      unrealease: this.$route.params.realeaseFlag,
       myform: {
         updatetime: "2020年3月21日1点28分",
         reportername: "赵英浩",
+        name: '张三',
+        preg: '0',
+        gender: '1',
+
+
+      },
+      role: window.localStorage.getItem("role"),
+    }
+  },
+
+  filters: {
+    genderFliter: function (val) {
+      switch (Number(val)) {
+        case 1:
+          return '男'
+        case 2:
+          return '女'
+
+        default:
+          break
+      }
+    },
+    pregFliter: function (val) {
+      switch (Number(val)) {
+        case 0:
+          return '是'
+        case 1:
+          return '否'
+        case 2:
+          return '不清楚'
+        default:
+          break
       }
     }
   },
-  mounted() {
+  mounted () {
+    console.log(this.role)
     let h1 = document.getElementById("id1").offsetHeight
     console.log(h1)
     this.drawline()
+
   },
   methods: {
-    showdetails() {
+    showdetails () {
       console.log('查看详情')
       // 跳转到风险详情-sj
       this.$router.push('/patient/risk')
     },
-    drawline() {
+    drawline () {
       let myChart = this.$echarts.init(document.getElementById('linechart'));
       var option = {
         legend: {
