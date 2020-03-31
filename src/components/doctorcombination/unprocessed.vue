@@ -1,6 +1,6 @@
 <template>
   <div>
-
+<!-- 
     <div class="weui-cell weui-cell_vcode">
         <div class="weui-cell__hd">
             <select v-model="way" style="height:30px">
@@ -13,7 +13,7 @@
         <div class="weui-cell__ft" style="margin:10px">
             <mt-button size="small" type="primary" @click="search(way,content)">搜&nbsp;索</mt-button>
         </div>
-    </div>
+    </div> -->
 
     <div v-for="item in unprocessedlist" :key="item.unprocessedid">
         <a href="javascript:void(0);" @click="todetail()" style="color:black">
@@ -48,7 +48,10 @@
             </div>
         </a>
     </div>
+    <br/> <br/> <br/>
   </div>
+
+
 </template>
 
 <script>
@@ -56,12 +59,12 @@
 export default {
     data(){
         return{
-            searchway:[
-                {wayid:"01",wayname:"按姓名搜索"},
-                {wayid:"02",wayname:"按手机号搜索"},
-            ],
-            way:'',
-            content:'',
+            // searchway:[
+            //     {wayid:"01",wayname:"按姓名搜索"},
+            //     {wayid:"02",wayname:"按手机号搜索"},
+            // ],
+            // way:'',
+            // content:'',
             unprocessedlist: [
             {
             name: "广坤",
@@ -96,6 +99,48 @@ export default {
             unprocessedid: '1455',
             risk: 'M',
             updatetime: "2020年3月22日18：45"
+            },           { name: "大脚",
+            sex:'女',
+            age:'58',
+            telephonenumber:'13812345678',
+            unprocessedid: '1455',
+            risk: 'M',
+            updatetime: "2020年3月22日18：45"
+            },           { name: "大脚",
+            sex:'女',
+            age:'58',
+            telephonenumber:'13812345678',
+            unprocessedid: '1455',
+            risk: 'M',
+            updatetime: "2020年3月22日18：45"
+            },           { name: "大脚",
+            sex:'女',
+            age:'58',
+            telephonenumber:'13812345678',
+            unprocessedid: '1455',
+            risk: 'M',
+            updatetime: "2020年3月22日18：45"
+            },           { name: "大脚",
+            sex:'女',
+            age:'58',
+            telephonenumber:'13812345678',
+            unprocessedid: '1455',
+            risk: 'M',
+            updatetime: "2020年3月22日18：45"
+            },           { name: "大脚",
+            sex:'女',
+            age:'58',
+            telephonenumber:'13812345678',
+            unprocessedid: '1455',
+            risk: 'M',
+            updatetime: "2020年3月22日18：45"
+            },           { name: "大脚",
+            sex:'女',
+            age:'58',
+            telephonenumber:'13812345678',
+            unprocessedid: '1455',
+            risk: 'M',
+            updatetime: "2020年3月22日18：45"
             },
             {
             name: "刘能",
@@ -110,9 +155,9 @@ export default {
         }      
     },
     methods: {
-        search(way,content){
+        // search(way,content){
            
-        },
+        // },
         todetail(){
             this.$router.push({name:"/doctor/patdetailmod",params:{}})
         }
