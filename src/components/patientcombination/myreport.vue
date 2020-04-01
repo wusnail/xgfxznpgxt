@@ -28,6 +28,7 @@ export default {
     return {
       isnew: false,//是否是第一次登录，第一次的话要新建页面
       qflag: 'true',//我的报告页面要显示更新信息项目
+
       reportId: '',
       myform: {
         updatetime: "2020年3月21日1点28分"

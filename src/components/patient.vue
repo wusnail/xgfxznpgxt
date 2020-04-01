@@ -108,6 +108,7 @@ export default {
             that.loading.hide()
             // 登录成功
             if (response.data.results == "密码正确") {
+              window.localStorage.setItem("role", 'patient')
               // this.loginresult = true;
               that.tips = "登录成功";
               that.token = response.data.token;
