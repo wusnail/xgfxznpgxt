@@ -47,7 +47,8 @@
 
         </mt-tab-container-item>
         <mt-tab-container-item id="2">
-          <appointVisit></appointVisit>
+          或许可以写一点防疫注意事项
+          <!-- <appointVisit></appointVisit> -->
           <!-- 预约问诊/预约记录gyx -->
           <!-- <mt-navbar v-model="selectedAppointment">
             <mt-tab-item id="1"><i class="iconfont icon-yuyue"></i>&nbsp;预约问诊</mt-tab-item>
@@ -78,7 +79,7 @@
       <mt-tab-item id="2">
         <img slot="icon"
              src="../../assets/images/wenjian.png">
-        预约问诊
+        注意事项
       </mt-tab-item>
     </mt-tabbar>
 

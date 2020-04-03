@@ -1,14 +1,11 @@
 <template>
   <div>
-    <div class="weui-flex"
-         style="margin:30px;">
+    <div class="weui-flex" style="margin:30px;">
       <div class="weui-flex__item">
-        <img style="height:60px;"
-             src="../assets/images/logo1_1.png" />
+        <img style="height:60px;" src="../assets/images/logo1_1.png" />
       </div>
       <div class="weui-flex__item">
-        <img style="height:60px;"
-             src="../assets/images/logo2.jpg" />
+        <img style="height:60px;" src="../assets/images/logo2.jpg" />
       </div>
     </div>
     <div class="weui_cell_bd weui_cell_primary">
@@ -21,10 +18,7 @@
           <label class="weui-label">手机号</label>
         </div>
         <div class="weui-cell__bd weui-cell_primary">
-          <input v-model="LoginForm.username"
-                 class="weui-input"
-                 type="number"
-                 placeholder="请输入手机号" />
+          <input v-model="LoginForm.username" class="weui-input" type="number" placeholder="请输入手机号" />
         </div>
       </div>
       <div class="weui-cell">
@@ -32,17 +26,11 @@
           <label class="weui-label">密码</label>
         </div>
         <div class="weui-cell__bd weui-cell_primary">
-          <input v-model="LoginForm.password"
-                 class="weui-input"
-                 show-password
-                 clearable
-                 type="password"
-                 placeholder="请输入密码" />
+          <input v-model="LoginForm.password" class="weui-input" show-password clearable type="password"
+            placeholder="请输入密码" />
         </div>
       </div>
-      <a id='link'
-         style="display: none;"
-         href="#"></a>
+      <a id='link' style="display: none;" href="#"></a>
     </div>
     <!-- <label for="weuiAgree"
            class="weui-agree">
@@ -55,8 +43,7 @@
         <a href>《相关条款》</a>
       </span>
     </label> -->
-    <div class="weui-flex "
-         style="margin:5px">
+    <div class="weui-flex " style="margin:5px">
       <div class="weui-flex__item">
         <a href="#/DrForgetpwd">
           忘记密码
@@ -69,20 +56,14 @@
       </div>
     </div>
     <div class="weui-btn-area">
-      <a class="weui-btn weui-btn_primary"
-         @click="handelLogin()">确&nbsp;&nbsp;&nbsp;定</a>
+      <a class="weui-btn weui-btn_primary" @click="handelLogin()">确&nbsp;&nbsp;&nbsp;定</a>
     </div>
-    <div class="js_dialog"
-         id="iosDialog2"
-         v-show="loginresult"
-         style="display: none; z-index:999;">
+    <div class="js_dialog" id="iosDialog2" v-show="loginresult" style="display: none; z-index:999;">
       <div class="weui-mask"></div>
       <div class="weui-dialog">
         <div class="weui-dialog__bd">{{tips}}</div>
         <div class="weui-dialog__ft">
-          <a href="javascript:;"
-             class="weui-dialog__btn weui-dialog__btn_primary"
-             @click="loginresult=false">确定</a>
+          <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="loginresult=false">确定</a>
         </div>
       </div>
     </div>
@@ -94,7 +75,7 @@ import axios from 'axios';
 import global from './global.vue'
 export default {
   name: 'Login',
-  data() {
+  data () {
     return {
       tips: "",
       loading: '',
@@ -107,14 +88,14 @@ export default {
       pageParams: {}
     }
   },
-  mounted() {
+  mounted () {
     this.pageParams = this.$route.query
 
 
 
   },
   methods: {
-    handelLogin() {
+    handelLogin () {
       this.loginresult = false;
       var phoneReg = /^1[3456789]\d{9}$/.test(this.LoginForm.username)
       if (!phoneReg) {
@@ -149,6 +130,7 @@ export default {
             console.log(response)
             this.token = response.data.token
             window.localStorage.setItem("DocId", that.LoginForm.username)
+            window.localStorage.setItem("role", 'doctor')
             if (this.pageParams.hasOwnProperty("p")) {
               var obj = document.getElementById('link');
               obj.href = global.doctorSystemURL + '?token=' + this.token + '&p=' + this.pageParams.p;

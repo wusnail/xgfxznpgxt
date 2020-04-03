@@ -8,24 +8,44 @@
       <div class="jilu"> <span>共5条记录</span></div>
     </div> -->
 
-    <div v-for="item in reportlist" :key="item.reportid" @click="gotoPatEvaluation(item.reportid)">
-      <div class="card">
-        <div class="leftside"></div>
-        <div class="iconside"> <i class="iconfont icon-fengxian" style="font-size:30px;"></i></div>
-        <div class="rightside">
-          <span>提交人：</span><span>{{item.name}}</span><br>
-          <span>更新时间：{{item.updatetime}}</span>
-        </div>
+    <div class="rhsection">
 
-        <div class="righticon">
-          <i class="iconfont icon-youjian" style="font-size:20px;"></i>
+      <div class="rhsection_title">
+        <span class="rhtext">评估报告列表</span></div>
+      <div v-for="item in reportlist" :key="item.reportid" @click="gotoPatEvaluation(item.reportid)">
+        <div class="rhcard">
+          <div class="leftside"></div>
+          <div class="iconside"> <i class="iconfont icon-fengxian" style="font-size:30px;"></i></div>
+          <div class="rightside">
+            <span>提交人：</span><span>{{item.name}}</span><br>
+            <span>更新时间：{{item.updatetime}}</span>
+          </div>
 
+          <div class="righticon">
+            <i class="iconfont icon-youjian" style="font-size:20px;"></i>
 
+          </div>
         </div>
       </div>
     </div>
-    
-    <mt-popup v-model="popupVisible" position="bottom" class="mint-popup" style="width:100%;height:30%">
+    <div class="rhsection">
+      <div class="rhsection_title">
+        <span class="rhtext">每日上报列表</span>
+      </div>
+      <div v-for="item in dailyreportlist" :key="item.date" @click="gotoPatEvaluation(item.reportid)">
+        <div class="rhcard2">
+          <div class="leftside2"></div>
+          <div style="float:left;padding-left:20px;">
+            日期：{{item.date}}<br>
+            早晚温度：{{item.amtemp+'/'+item.pmtemp}}℃ <br>
+            临床症状:{{item.clinalp}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <br><br>
+    <!-- <mt-popup v-model="popupVisible" position="bottom" class="mint-popup" style="width:100%;height:30%">
       <mt-picker :slots="dataList" :show-toolbar="true" ref="picker" value-key="name">
         <div class="picker-toolbar-title">
           <div class="usi-btn-cancel" @click="popupVisible = !popupVisible">取消</div>
@@ -33,7 +53,7 @@
           <div class="usi-btn-sure" @click="PickerSubBtn">确定</div>
         </div>
       </mt-picker>
-    </mt-popup>
+    </mt-popup> -->
 
   </div>
 </template>
@@ -84,7 +104,37 @@ export default {
           updatetime: "2020年3月22日17：30"
         }
       ],
+      dailyreportlist: [
+        {
+          date: "2020-03-31",
+          amtemp: "36.7",
+          pmtemp: "36.7",
+          // clinicalSymbols: ['1', '2', '3'],
+          clinalp: '流泪',
+        },
+        {
+          date: "2020-03-30",
+          amtemp: "36.7",
+          pmtemp: "36.7",
+          // clinicalSymbols: ['1', '2', '3'],
+          clinalp: '流泪',
+        },
+        {
+          date: "2020-03-29",
+          amtemp: "36.7",
+          pmtemp: "36.7",
+          // clinicalSymbols: ['1', '2', '3'],
+          clinalp: '流泪',
 
+
+        }
+      ]
+
+
+    }
+  },
+  filters: {
+    textfilter: function (val) {
 
     }
   },
@@ -103,8 +153,8 @@ export default {
     },
     gotoPatEvaluation (val) {
       this.$router.push({
-        path: '/patient/evaluation',
-        query: {
+        name: '/patient/evaluation',
+        params: {
           id: val
         }
       })
@@ -136,14 +186,30 @@ export default {
 .usi-btn-sure {
   color: #ff6600;
 }
-.card {
+.rhcard {
   text-align: left;
   margin: 10px;
   width: 100%;
   height: 60px;
   overflow: hidden;
 }
-.card .leftside {
+.rhcard2 {
+  text-align: left;
+  margin: 10px;
+  width: 100%;
+  height: 80px;
+  overflow: hidden;
+}
+.rhcard2 .leftside2 {
+  width: 8px;
+  float: left;
+  height: 80px;
+
+  /* height: 30px; */
+  border-radius: 8px 0px 0px 8px;
+  background: #ff6600;
+}
+.rhcard .leftside {
   width: 8px;
   float: left;
   height: 60px;
@@ -152,21 +218,37 @@ export default {
   border-radius: 8px 0px 0px 8px;
   background: red;
 }
-.card .iconside {
+.rhcard .iconside {
   padding: 0px 10px;
   float: left;
   height: 60px;
   line-height: 60px;
   color: red;
 }
-.card .rightside {
+.rhcard .rightside {
   float: left;
   padding: 5px;
 }
-.card .righticon {
+.rhcard .righticon {
   float: right;
   height: 60px;
   line-height: 60px;
   padding-right: 20px;
+}
+.rhsection_title {
+  border-left: 0.2em solid rgb(242, 156, 57);
+  /* padding-left: 0.2em; */
+  line-height: 1;
+  font-size: 1.2rem;
+  margin-left: 20px;
+  text-align: left;
+}
+.rhtext {
+  padding-left: 10px;
+}
+.rhsection {
+  margin: 20px;
+  /* border: 1px solid white;
+  background: white; */
 }
 </style>

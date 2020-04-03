@@ -42,7 +42,6 @@
       <mt-button @click.native="popupVisible = false"
                  type="primary">返回医生主页</mt-button>
     </mt-popup>
-
     <mt-tab-container class="page-tabbar-container"
                       v-model="selectedTab">
       <mt-tab-container-item id="1">
