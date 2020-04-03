@@ -252,6 +252,7 @@
          
         </div>
       </div> -->
+      <mt-button>确认提交</mt-button>
     </div>
 
     <mt-popup v-model="q7popupVisible" position="bottom" class="mint-popup" style="width:100%;height:50%">

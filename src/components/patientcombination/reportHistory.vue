@@ -9,30 +9,10 @@
     </div> -->
 
     <div class="rhsection">
-
-      <div class="rhsection_title">
-        <span class="rhtext">评估报告列表</span></div>
-      <div v-for="item in reportlist" :key="item.reportid" @click="gotoPatEvaluation(item.reportid)">
-        <div class="rhcard">
-          <div class="leftside"></div>
-          <div class="iconside"> <i class="iconfont icon-fengxian" style="font-size:30px;"></i></div>
-          <div class="rightside">
-            <span>提交人：</span><span>{{item.name}}</span><br>
-            <span>更新时间：{{item.updatetime}}</span>
-          </div>
-
-          <div class="righticon">
-            <i class="iconfont icon-youjian" style="font-size:20px;"></i>
-
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="rhsection">
       <div class="rhsection_title">
         <span class="rhtext">每日上报列表</span>
       </div>
-      <div v-for="item in dailyreportlist" :key="item.date" @click="gotoPatEvaluation(item.reportid)">
+      <div v-for="item in dailyreportlist" :key="item.date">
         <div class="rhcard2">
           <div class="leftside2"></div>
           <div style="float:left;padding-left:20px;">
@@ -43,6 +23,28 @@
         </div>
       </div>
 
+    </div>
+    <div class="rhsection">
+
+      <div class="rhsection_title">
+        <span class="rhtext">评估报告列表</span></div>
+      <div v-for="item in evlist" :key="item.EvaluID" @click="gotoPatEvaluation(item.EvaluID)">
+        <div class="rhcard">
+          <!-- {{item.MachineRes|riskcolorfilter}} -->
+          <div class="leftside" v-bind:style="{'background':item.color}"></div>
+          <div class="iconside" v-bind:style="{'color':item.color}"> <i class="iconfont icon-fengxian"
+              style="font-size:30px;"></i></div>
+          <div class="rightside">
+            <span>提交人：</span><span>{{item.SubmitUser}}</span><br>
+            <span>更新时间：{{item.SubmitDate}}</span>
+          </div>
+
+          <div class="righticon">
+            <i class="iconfont icon-youjian" style="font-size:20px;"></i>
+
+          </div>
+        </div>
+      </div>
     </div>
     <br><br>
     <!-- <mt-popup v-model="popupVisible" position="bottom" class="mint-popup" style="width:100%;height:30%">
@@ -58,6 +60,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -84,26 +87,26 @@ export default {
         }
       ],
       currentTags: '',
-      reportlist: [
-        {
-          name: "张三",
-          reportid: '123',
-          risk: 'H',
-          updatetime: "2020年3月22日21：30"
-        },
-        {
-          name: "张三",
-          reportid: '1453',
-          risk: 'H',
-          updatetime: "2020年3月22日18：30"
-        },
-        {
-          name: "张三",
-          reportid: '4553',
-          risk: 'H',
-          updatetime: "2020年3月22日17：30"
-        }
-      ],
+      // reportlist: [
+      //   {
+      //     name: "张三",
+      //     reportid: '123',
+      //     risk: 'H',
+      //     updatetime: "2020年3月22日21：30"
+      //   },
+      //   {
+      //     name: "张三",
+      //     reportid: '1453',
+      //     risk: 'H',
+      //     updatetime: "2020年3月22日18：30"
+      //   },
+      //   {
+      //     name: "张三",
+      //     reportid: '4553',
+      //     risk: 'H',
+      //     updatetime: "2020年3月22日17：30"
+      //   }
+      // ],
       dailyreportlist: [
         {
           date: "2020-03-31",
@@ -128,19 +131,28 @@ export default {
 
 
         }
-      ]
+      ],
+      evlist: [],
 
 
     }
   },
-  filters: {
-    textfilter: function (val) {
 
-    }
-  },
+
   mounted () {
-
+    console.log(this.$route.params.patientId, '评估记录页面')
   },
+  activated () {
+    //keep-alive 进来先加载这个
+    console.log(this.$route.params.patientId, '评估记录active')
+    this.getEvaluationList()
+  },
+
+  deactivated () {
+    console.log(this.$route.params.patientId, '评估记录deactive')
+    this.getEvaluationList()
+  },
+
   methods: {
     backPopuphandleConfim () {
 
@@ -155,12 +167,35 @@ export default {
       this.$router.push({
         name: '/patient/evaluation',
         params: {
-          id: val
+          evaluId: val
         }
       })
-    }
+    },
+    getEvaluationList () {
+      console.log('获取评估列表')
+      axios.post('/getEvaluationList', {
+        "patientId": this.$route.params.patientId
+      }).then(response => {
+        // console.log(response.data.results[0])
+        this.evlist = []
+        const colorlist = new Map([[0, 'grey'], [1, 'green'], [2, 'blue'], [3, 'red']])
+        const textlist = new Map([[0, '暂无风险'], [1, '低风险'], [2, '中风险'], [3, '高风险']])
+        var dd = response.data.results
+        this.evlist = dd.map(item => {
+          return {
+            SubmitDate: item.SubmitDate,
+            color: colorlist.get(parseInt(item.MachineRes)),
+            text: textlist.get(parseInt(item.MachineRes)),
+            SubmitUser: item.SubmitUser,
+          }
+        })
 
+      })
+        .catch(function (error) {
+          console.log('error', error)
+        })    }
   }
+
 }
 </script>
 <style scoped>
@@ -223,7 +258,7 @@ export default {
   float: left;
   height: 60px;
   line-height: 60px;
-  color: red;
+  /* color: red; */
 }
 .rhcard .rightside {
   float: left;

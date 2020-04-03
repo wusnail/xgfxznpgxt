@@ -27,6 +27,7 @@ import Patdetailunmod from '@/components/patientfolder/patDetailunmodife'
 
 //吴改后删掉包括下面的路径
 import PatdoctorList from '@/components/patientfolder/doctorList'
+import reportHistory from '@/components/patientcombination/reportHistory'
 
 Vue.use(Router)
 export default new Router({
@@ -78,15 +79,17 @@ export default new Router({
       path: '/patient',
       name: 'patient',
       component: patient
-    }, {
+    },
+    {
       path: '/patient/main',
       name: '/patient/main',
       component: PatMainpage,
       meta: {
         keepAlive: true,// 需要被缓存
-
       }
-    }, {
+    },
+
+    {
       path: '/patient/risk',
       name: '/patient/risk',
       component: PatRiskDetail
