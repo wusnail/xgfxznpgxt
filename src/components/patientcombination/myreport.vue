@@ -11,6 +11,7 @@
       </div>
     </div>
     <div v-else>
+
       <assessmentReport :reportId="reportId" :qflag="qflag"></assessmentReport>
 
     </div>
@@ -19,6 +20,7 @@
 </template>
 <script>
 import assessmentReport from './assessmentReport'
+import axios from 'axios'
 export default {
   components: {
     assessmentReport,
@@ -36,9 +38,28 @@ export default {
 
     }
   },
-  methods: {
 
+  mounted () {
+    this.getEvaluation()
+  },
+  activated () {
+    this.getEvaluation()
+  },
+  methods: {
+    getEvaluation () {
+      axios.post('/getEvaluation', {
+        "patientId": this.$route.query.id
+      }).then(response => {
+        // console.log(response.data.results[0])
+        this.reportId = response.data.results[0].EvaluID
+
+      })
+        .catch(function (error) {
+          console.log('error', error)
+        })
+    },
   }
+
 }
 </script>
 <style >

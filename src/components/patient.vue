@@ -117,7 +117,10 @@ export default {
               // console.log(global.patientURL)
               // window.location.href = global.patientSystemURL + '?token=' + that.token;
               // this.$router.push({ name: "/patient/check" });
-              this.$router.push({ name: "/patient/main", params: { patientId: response.data.patientId } })
+              this.$router.push({
+                name: "/patient/main",
+                query: { id: response.data.patientId },
+              })
             } else {
               // this.loginresult = true;
               document.body.scrollTop = document.documentElement.scrollTop = 0;

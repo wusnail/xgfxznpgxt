@@ -12,12 +12,12 @@
       <div class="rhsection_title">
         <span class="rhtext">每日上报列表</span>
       </div>
-      <div v-for="item in dailyreportlist" :key="item.date">
+      <div v-for="item in dailylist" :key="item.RecordDate">
         <div class="rhcard2">
           <div class="leftside2"></div>
           <div style="float:left;padding-left:20px;">
-            日期：{{item.date}}<br>
-            早晚温度：{{item.amtemp+'/'+item.pmtemp}}℃ <br>
+            日期：{{item.RecordDate}}<br>
+            早晚温度：{{item.TemperMorning+'/'+item.TemperNight}}℃ <br>
             临床症状:{{item.clinalp}}
           </div>
         </div>
@@ -133,25 +133,24 @@ export default {
         }
       ],
       evlist: [],
-
+      dailylist: [],
 
     }
   },
 
 
   mounted () {
-    console.log(this.$route.params.patientId, '评估记录页面')
+    console.log('评估记录页面mounted')
+    this.getEvaluationList()
+    this.getTempertureList()
   },
   activated () {
     //keep-alive 进来先加载这个
-    console.log(this.$route.params.patientId, '评估记录active')
+    console.log('评估记录页面actived')
     this.getEvaluationList()
+    this.getTempertureList()
   },
 
-  deactivated () {
-    console.log(this.$route.params.patientId, '评估记录deactive')
-    this.getEvaluationList()
-  },
 
   methods: {
     backPopuphandleConfim () {
@@ -164,17 +163,22 @@ export default {
 
     },
     gotoPatEvaluation (val) {
+
       this.$router.push({
         name: '/patient/evaluation',
-        params: {
+        // params: {
+        //   evaluId: val
+        // },
+        query: {
+          id: this.$route.query.id,
           evaluId: val
         }
       })
     },
     getEvaluationList () {
-      console.log('获取评估列表')
+
       axios.post('/getEvaluationList', {
-        "patientId": this.$route.params.patientId
+        "patientId": this.$route.query.id
       }).then(response => {
         // console.log(response.data.results[0])
         this.evlist = []
@@ -187,13 +191,38 @@ export default {
             color: colorlist.get(parseInt(item.MachineRes)),
             text: textlist.get(parseInt(item.MachineRes)),
             SubmitUser: item.SubmitUser,
+            EvaluID: parseInt(item.EvaluID),
           }
         })
 
       })
         .catch(function (error) {
           console.log('error', error)
-        })    }
+        })
+    },
+    getTempertureList () {
+      axios.post('/getTempertureList', {
+        "patientId": this.$route.query.id
+      }).then(response => {
+        // console.log(response.data.results[0])
+        const coughlist = new Map([[1, ' 咳嗽 '], [0, ''], [2, ''], [3, '']])
+        const gasplist = new Map([[1, ' 流涕 '], [0, ''], [2, ''], [3, '']])
+        var dd = response.data.results
+        this.dailylist = []
+        this.dailylist = dd.map(item => {
+          return {
+            RecordDate: item.RecordDate,
+            TemperMorning: item.TemperMorning,
+            TemperNight: item.TemperNight,
+            clinalp: coughlist.get(parseInt(item.Cough)) + gasplist.get(parseInt(item.Gasp)) + item.Other
+          }
+        })
+      })
+        .catch(function (error) {
+          console.log('error', error)
+        })
+
+    }
   }
 
 }

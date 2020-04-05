@@ -23,16 +23,19 @@
               <span style="font-size:16px"><i class="iconfont icon-jilu"></i>&nbsp;评估记录</span>
             </mt-tab-item>
           </mt-navbar>
-          <mt-tab-container v-model="selectedRecord" style="margin-top:3px">
+          <mt-tab-container style="margin-top:3px" v-model="selectedRecord">
             <mt-tab-container-item id="1">
               <!-- 我的评估报告在这个组件里写 -->
               <myreport></myreport>
 
             </mt-tab-container-item>
+            <!-- 评估记录在这个组件里写 -->
             <mt-tab-container-item id="2">
-              <!-- 评估记录在这个组件里写 -->
 
-              <reportHistory></reportHistory>
+              <!-- <router-view></router-view> -->
+              <keep-alive>
+                <reportHistory></reportHistory>
+              </keep-alive>
 
             </mt-tab-container-item>
           </mt-tab-container>
@@ -93,10 +96,24 @@ export default {
   data () {
     return {
       selectedTab: '1',
+
       selectedRecord: '1',
       selectedAppointment: '1',
-      // patientId: this.$route.params.patientId
+
     }
+  },
+  watch: {
+    selectedRecord (val, oldVal) {
+
+      sessionStorage.setItem('selectedRecord', val)
+
+
+    }
+  },
+  created () {
+    // this.selectedRecord = sessionStorage.getItem('selectedRecord')
+    // console.log(this.selectedRecord, 'created一次')
+
   },
   methods: {
 
@@ -107,10 +124,21 @@ export default {
         }
       }).catch(err => {
       })
-    }
+    },
+
   },
   mounted () {
-    console.log(this.$route.params.patientId, 'ok')
+    // var tt = sessionStorage.getItem('selectedRecord')
+    // this.selectedRecord = tt
+    // if (tt == 1) {
+    // }
+    // else {
+
+    //   this.gototab(2)
+    // }
+
+
+
   }
 }
 </script>

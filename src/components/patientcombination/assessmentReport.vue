@@ -1,11 +1,14 @@
 <template>
   <div class="reportcard">
     <div class="reportheader">
-      <!-- <div v-if="role=='patient'">
-        <span style="float:right;padding-right:20px;" @click="$router.push('/patient/dailyreport')"> 每日上报</span><br>
-      </div> -->
+      <div v-if="role=='patient'&&qflag">
+        <span style="float:right;padding-right:20px;"
+          @click="$router.push({name:'/patient/dailyreport',query:{id:$route.query.id}})">
+          每日上报</span><br>
+      </div>
       <div class="updatetime">更新时间:&nbsp;&nbsp;{{evform.SubmitDate}}</div>
-      <div v-if="qflag" class="updateinfo" @click="$router.push('/patient/form')"><i
+      <div v-if="role=='patient'&&qflag" class="updateinfo"
+        @click="$router.push({name:'/patient/form',query:{id:$route.query.id}})"><i
           class="iconfont icon-bianji"></i>&nbsp;更新信息
       </div>
       <div v-else class="updatetime">报告人:{{evform.SubmitUser}}
@@ -64,7 +67,6 @@
       <div class="litext1"> <i class="iconfont icon-shugang"></i>生理参数</div>
       <div class="litext2">{{evform.VitalSigns}}</div>
       <div class="litext1"> <i class="iconfont icon-shugang"></i>每日体温变化</div>
-      <div class="litext2">{{evform.VitalSigns}}</div>
       <div id="linechart" class="chart"></div>
     </div>
     <br><br><br>
@@ -80,11 +82,28 @@ export default {
   data () {
     return {
       unrealease: this.$route.params.realeaseFlag,
-      evform: {},
+      evform: {
+        SubmitDate: '',
+        SubmitUser: '',
+      },
       role: window.localStorage.getItem("role"),
+
+
     }
   },
+  watch: {
+    reportId: {
+      immediate: true,
+      handler: function (newVal, oldVal) {
+        console.log(newVal)
+        this.getEvaluationByID(newVal)
+        // this.gettemplist(this.$route.query.id)
+        // this.drawline()
+      }
 
+    }
+
+  },
   filters: {
     genderFliter: function (val) {
       switch (Number(val)) {
@@ -110,33 +129,53 @@ export default {
       }
     }
   },
+  //router.push会带params，所以没关系。过来的话会先执行mounted
   mounted () {
-    console.log(this.$route.params.patientId, 'mounted')
-    this.getEvaluationByID(this.$route.params.evaluId)
-    //获取最新列表的接口
-    console.log(this.role)
-    let h1 = document.getElementById("id1").offsetHeight
-    console.log(h1)
+    this.gettemplist(this.$route.query.id)
+    console.log('assr mounted 画图')
     this.drawline()
-
   },
+  // 当引入keep-alive的时候，页面第一次进入，钩子的触发顺序created-> mounted-> activated，退出时触发deactivated。当再次进入（前进或者后退）时，只触发activated。
   activated () {
-    //keep-alive 进来先加载这个
-    console.log(this.$route.params.patientId, '评估报告active')
-    this.getEvaluation()
+    this.gettemplist(this.$route.query.id)
+    console.log('assr activated 画图')
+    this.drawline()
   },
 
   deactivated () {
-    console.log(this.$route.params.patientId, 'deactive')
+    // console.log('deactive')
   },
   methods: {
+    gettemplist (val) {
+      var p1 = axios.post('/getTemperMorningList', {
+        "patientId": val
+      })
+      var p2 = axios.post('/getTemperNightList', {
+        "patientId": val
+      })
+      Promise.all([p1, p2]).then(result => {
+        var t1 = result[0].data.results
+        var t2 = result[1].data.results
+
+      }).catch(error => {
+        console.log("error", error.response);
+      });
+    },
     showdetails () {
       console.log('查看详情')
       // 跳转到风险详情-sj
       this.$router.push('/patient/risk')
     },
     drawline () {
-      let myChart = this.$echarts.init(document.getElementById('linechart'));
+
+      var myChart = null;
+      var div_ = document.getElementById("linechart");
+      div_.removeAttribute("_echarts_instance_");
+      myChart = this.$echarts.init(div_);
+
+
+      // let myChart = this.$echarts.init(document.getElementById('linechart'));
+      myChart.clear()
       var option = {
         legend: {
           data: ['早晨体温', '夜晚体温']
@@ -174,11 +213,11 @@ export default {
           }
         ]
       };
-      myChart.setOption(option);
+      myChart.setOption(option, true);
     },
     getEvaluation () {
       axios.post('/getEvaluation', {
-        "patientId": this.$route.params.patientId
+        "patientId": this.$route.query.id
       }).then(response => {
         // console.log(response.data.results[0])
         this.evform = response.data.results[0]
@@ -186,7 +225,21 @@ export default {
       })
         .catch(function (error) {
           console.log('error', error)
-        })    }
+        })
+    },
+    getEvaluationByID (val) {
+      axios.post('/getEvaluationByID', {
+        "evaluId": val
+      }).then(response => {
+        // console.log(response.data.results[0])
+        this.evform = response.data.results[0]
+        this.evform.EpidemiProb = this.evform.EpidemiProb.replace(/\r\n/g, "<br>")
+      })
+        .catch(function (error) {
+          console.log('error', error)
+        })
+
+    }
 
   }
 

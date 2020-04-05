@@ -29,6 +29,9 @@ import Patdetailunmod from '@/components/patientfolder/patDetailunmodife'
 import PatdoctorList from '@/components/patientfolder/doctorList'
 import reportHistory from '@/components/patientcombination/reportHistory'
 
+
+
+
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -84,6 +87,13 @@ export default new Router({
       path: '/patient/main',
       name: '/patient/main',
       component: PatMainpage,
+      children: [
+        {
+          path: 'history',
+          name: 'history',
+          component: reportHistory,
+        }
+      ],
       meta: {
         keepAlive: true,// 需要被缓存
       }
