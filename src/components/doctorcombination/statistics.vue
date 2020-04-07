@@ -1,8 +1,9 @@
 <template>
   <div class="statisticscard">
     <div class="cardcontainer">
-      <div class="litext1"> <i class="iconfont icon-shugang"></i>今日预约
-        <span style="color:black;float:right">0</span></div>
+      <div class="litext1"> <i class="iconfont icon-shugang"></i>隔离人员总览
+        <!-- <span style="color:black;float:right">0</span> -->
+      </div>
       <div class="box">
         <div class="box-item">
           <span style="color:gray;">正在隔离</span>
@@ -21,8 +22,6 @@
       </div>
       <div id="barchart"
            class="chart"></div>
-      <div class="litext1"> <i class="iconfont icon-shugang"></i>预约总览
-        <span style="color:black;float:right">0</span></div>
       <div id="piechart"
            class="chart"></div>
     </div>
@@ -30,25 +29,70 @@
 </template>
  
 <script>
-
+import axios from 'axios';
 export default {
   data() {
     return {
-
+      data: [
+        { name: '暂无风险', value: 0 },
+        { name: '低风险', value: 0 },
+        { name: '中风险', value: 0 },
+        { name: '高风险', value: 0 }
+      ]
     }
   },
   mounted() {
-    this.drawbar()
-    this.drawpie()
+    this.getdata()
   },
   methods: {
+    getdata() {
+      axios.post('/nowRankPatientCount', {
+        'doctorId': window.localStorage.getItem("doctorId")
+      }).then((response) => {
+        let results = response.data.results
+        for (var i in results) {
+          switch (Number(results[i].MachineRes)) {
+            case 0:
+              for (var j in this.data) {
+                if (this.data[j].name == '暂无风险') this.data[j].value = results[i].countnum
+              }
+              break;
+            case 1:
+              for (var j in this.data) {
+                if (this.data[j].name == '低风险') this.data[j].value = results[i].countnum
+              }
+              break;
+            case 2:
+              for (var j in this.data) {
+                if (this.data[j].name == '中风险') this.data[j].value = results[i].countnum
+              }
+              break;
+            case 3:
+              for (var j in this.data) {
+                if (this.data[j].name == '高风险') this.data[j].value = results[i].countnum
+              }
+              break;
+          }
+        }
+        this.drawbar()
+        this.drawpie()
+      }).catch(function (error) {
+        console.log("error", error);
+      });
+    },
     drawbar() {
       let myChart = this.$echarts.init(document.getElementById('barchart'));
+      var name = []
+      var num = []
+      for (var i in this.data) {
+        name.push(this.data[i].name)
+        num.push(this.data[i].value)
+      }
       var option = {
         tooltip: {},
         color: ['#4aab44'],
         xAxis: {
-          data: ["低风险", "中风险", "高风险", "确诊", "暂无风险"],
+          data: name,
           axisLabel: {
             interval: 0,
             textStyle: {
@@ -60,7 +104,7 @@ export default {
         series: [{
           name: '人数',
           type: 'bar',
-          data: [0, 1, 2, 8, 10, 5]
+          data: num
         }],
         grid: { height: 150, x: 20, y: 10, x2: 20, y2: 20 },
       };
@@ -73,11 +117,7 @@ export default {
         series: [{
           type: 'pie',
           radius: '50%',
-          data: [{ name: '低风险', value: 0 },
-          { name: '中风险', value: 1 },
-          { name: '高风险', value: 2 },
-          { name: '确诊', value: 8 },
-          { name: '暂无风险', value: 10 }]
+          data: this.data
         }],
       };
       myChart.setOption(option);
