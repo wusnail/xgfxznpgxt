@@ -34,7 +34,7 @@
         </div>
       </div>
       <div style="margin-top:30px;color:#07C160;font-size:20px;text-align: center;">
-        请扫描二维码获取问卷链接
+        请将二维码截图保存到手机<br>被隔离人员扫描后自动绑定
       </div>
       <div style="text-align: center;margin-top:10px;">
         <img :src="qrcodeUrl">
@@ -75,7 +75,7 @@
       <mt-tab-item id="2">
         <img slot="icon"
              src="../../assets/images/liebiao.png" />
-        预约列表
+        人员列表
       </mt-tab-item>
     </mt-tabbar>
   </div>
@@ -124,8 +124,10 @@ export default {
     },
     qrcode() {
       let self = this
+      //二维码链接
+      var herf = 'http://localhost:8080/#/patient/' + '?d=' + window.localStorage.getItem("doctorId")
       QRCode.toDataURL(
-        'http://frznflxt.zhejianglab.com/#/patient',
+        herf,
         { errorCorrectionLevel: 'H', version: '10' },
         function (err, url) {
           if (!err) {
@@ -133,7 +135,6 @@ export default {
           }
         }
       )
-      console.log(this.qrcodeUrl)
     },
   }
 }
