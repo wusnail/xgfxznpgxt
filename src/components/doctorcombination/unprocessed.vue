@@ -22,7 +22,7 @@
             <div class="leftside" style="background:red"></div>
             <div class="iconside" style="color:red"> <i class="iconfont icon-fengxian" style="font-size:30px"></i></div>
             <div class="rightside">
-              <span>{{item.name+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.sex+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.age+'岁'+"&nbsp;&nbsp;&nbsp;&nbsp;"+'风险：高'}}</span><br>
+              <span>{{item.name+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.gender+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.age+'岁'+"&nbsp;&nbsp;&nbsp;&nbsp;"+'风险：高'}}</span><br>
               <span>更新时间：{{item.updatetime}}</span>
             </div>
           </div>
@@ -31,7 +31,7 @@
             <div class="iconside" style="color:blue"> <i class="iconfont icon-fengxian" style="font-size:30px;"></i>
             </div>
             <div class="rightside">
-              <span>{{item.name+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.sex+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.age+'岁'+"&nbsp;&nbsp;&nbsp;&nbsp;"+'风险：中'}}</span><br>
+              <span>{{item.name+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.gender+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.age+'岁'+"&nbsp;&nbsp;&nbsp;&nbsp;"+'风险：中'}}</span><br>
               <span>更新时间：{{item.updatetime}}</span>
             </div>
           </div>
@@ -40,7 +40,7 @@
             <div class="iconside" style="color:green"> <i class="iconfont icon-fengxian" style="font-size:30px;"></i>
             </div>
             <div class="rightside">
-              <span>{{item.name+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.sex+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.age+'岁'+"&nbsp;&nbsp;&nbsp;&nbsp;"+'风险：低'}}</span><br>
+              <span>{{item.name+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.gender+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.age+'岁'+"&nbsp;&nbsp;&nbsp;&nbsp;"+'风险：低'}}</span><br>
               <span>更新时间：{{item.updatetime}}</span>
             </div>
           </div>
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-
+import axios from "axios";
 export default {
   data () {
     return {
@@ -68,114 +68,45 @@ export default {
       // content:'',
       unprocessedlist: [
         {
-          name: "广坤",
-          sex: '男',
-          age: '56',
-          telephonenumber: '13312345678',
-          unprocessedid: '123',
-          risk: 'H',
-          updatetime: "2020年3月22日21：30"
+          name: "",
+          gender: '',
+          age: '',
+          telephonenumber: '',
+          unprocessedid: '',
+          risk: '',
+          updatetime: ""
         },
-        {
-          name: "赵四",
-          sex: '男',
-          age: '56',
-          telephonenumber: '13312345678',
-          unprocessedid: '1453',
-          risk: 'M',
-          updatetime: "2020年3月22日18：30"
-        },
-        {          name: "大个",
-          sex: '女',
-          age: '65',
-          telephonenumber: '13312345678',
-          unprocessedid: '1463',
-          risk: 'L',
-          updatetime: "2020年3月22日18：20"
-        },
-        {          name: "大脚",
-          sex: '女',
-          age: '58',
-          telephonenumber: '13812345678',
-          unprocessedid: '1455',
-          risk: 'M',
-          updatetime: "2020年3月22日18：45"
-        }, {          name: "大脚",
-          sex: '女',
-          age: '58',
-          telephonenumber: '13812345678',
-          unprocessedid: '1455',
-          risk: 'M',
-          updatetime: "2020年3月22日18：45"
-        }, {          name: "大脚",
-          sex: '女',
-          age: '58',
-          telephonenumber: '13812345678',
-          unprocessedid: '1455',
-          risk: 'M',
-          updatetime: "2020年3月22日18：45"
-        }, {          name: "大脚",
-          sex: '女',
-          age: '58',
-          telephonenumber: '13812345678',
-          unprocessedid: '1455',
-          risk: 'M',
-          updatetime: "2020年3月22日18：45"
-        }, {          name: "大脚",
-          sex: '女',
-          age: '58',
-          telephonenumber: '13812345678',
-          unprocessedid: '1455',
-          risk: 'M',
-          updatetime: "2020年3月22日18：45"
-        }, {          name: "大脚",
-          sex: '女',
-          age: '58',
-          telephonenumber: '13812345678',
-          unprocessedid: '1455',
-          risk: 'M',
-          updatetime: "2020年3月22日18：45"
-        }, {          name: "大脚",
-          sex: '女',
-          age: '58',
-          telephonenumber: '13812345678',
-          unprocessedid: '1455',
-          risk: 'M',
-          updatetime: "2020年3月22日18：45"
-        },
-        {
-          name: "刘能",
-          sex: '男',
-          age: '56',
-          telephonenumber: '13712345678',
-          unprocessedid: '4553',
-          risk: 'L',
-          updatetime: "2020年3月22日17：30"
-        }
       ],
     }
   },
-  methods: {
-    // search(way,content){
 
-    // },
-    todetail () {
-      this.$router.push({ name: "/doctor/patdetailmod", params: {} })
-    }
-    ,
+  mounted () {
+    this.getReservListUndergoing()
+
   },
 
   methods: {
-    search (way, content) {
-
+    getReservListUndergoing () {
+      axios.post('/getReservListUndergoing', {doctorId: '46'})
+        .then(res => {
+          for (i=0;i<res.data.results.length;i++) {
+            unprocessedlist[i].name=res.data.results[i].Name
+            unprocessedlist[i].gender=res.data.results[i].Gender
+            unprocessedlist[i].age=res.data.results[i].Age
+            unprocessedlist[i].telephonenumber=res.data.results[i].Phone
+            unprocessedlist[i].unprocessedid=res.data.results[i].ReservID
+            unprocessedlist[i].risk='H'
+          }
+        })
+        .catch(function (error) {
+          console.log('error', error)
+        })
     },
+
     todetail () {
-      this.$router.push({
-        name: "/doctor/patdetailmod", params: {
-          realeaseFlag: 'true'
-        }      })
-    }
-  }
+      this.$router.push({ name: "/doctor/patdetailmod", params: {realeaseFlag: 'true'} })
+    },
+  },
 }
 </script>
 
