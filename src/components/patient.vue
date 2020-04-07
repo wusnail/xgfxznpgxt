@@ -108,6 +108,7 @@ export default {
             that.loading.hide()
             // 登录成功
             if (response.data.results == "密码正确") {
+
               window.localStorage.setItem("role", 'patient')
               // this.loginresult = true;
               that.tips = "登录成功";
@@ -116,7 +117,10 @@ export default {
               // console.log(global.patientURL)
               // window.location.href = global.patientSystemURL + '?token=' + that.token;
               // this.$router.push({ name: "/patient/check" });
-              this.$router.push("/patient/main")
+              this.$router.push({
+                name: "/patient/main",
+                query: { id: response.data.patientId },
+              })
             } else {
               // this.loginresult = true;
               document.body.scrollTop = document.documentElement.scrollTop = 0;

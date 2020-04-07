@@ -9,16 +9,34 @@
     </div> -->
 
     <div class="rhsection">
+      <div class="rhsection_title">
+        <span class="rhtext">每日上报列表</span>
+      </div>
+      <div v-for="item in dailylist" :key="item.RecordDate">
+        <div class="rhcard2">
+          <div class="leftside2"></div>
+          <div style="float:left;padding-left:20px;">
+            日期：{{item.RecordDate}}<br>
+            早晚温度：{{item.TemperMorning+'/'+item.TemperNight}}℃ <br>
+            临床症状:{{item.clinalp}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="rhsection">
 
       <div class="rhsection_title">
         <span class="rhtext">评估报告列表</span></div>
-      <div v-for="item in reportlist" :key="item.reportid" @click="gotoPatEvaluation(item.reportid)">
+      <div v-for="item in evlist" :key="item.EvaluID" @click="gotoPatEvaluation(item.EvaluID)">
         <div class="rhcard">
-          <div class="leftside"></div>
-          <div class="iconside"> <i class="iconfont icon-fengxian" style="font-size:30px;"></i></div>
+          <!-- {{item.MachineRes|riskcolorfilter}} -->
+          <div class="leftside" v-bind:style="{'background':item.color}"></div>
+          <div class="iconside" v-bind:style="{'color':item.color}"> <i class="iconfont icon-fengxian"
+              style="font-size:30px;"></i></div>
           <div class="rightside">
-            <span>提交人：</span><span>{{item.name}}</span><br>
-            <span>更新时间：{{item.updatetime}}</span>
+            <span>提交人：</span><span>{{item.SubmitUser}}</span><br>
+            <span>更新时间：{{item.SubmitDate}}</span>
           </div>
 
           <div class="righticon">
@@ -27,22 +45,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="rhsection">
-      <div class="rhsection_title">
-        <span class="rhtext">每日上报列表</span>
-      </div>
-      <div v-for="item in dailyreportlist" :key="item.date" @click="gotoPatEvaluation(item.reportid)">
-        <div class="rhcard2">
-          <div class="leftside2"></div>
-          <div style="float:left;padding-left:20px;">
-            日期：{{item.date}}<br>
-            早晚温度：{{item.amtemp+'/'+item.pmtemp}}℃ <br>
-            临床症状:{{item.clinalp}}
-          </div>
-        </div>
-      </div>
-
     </div>
     <br><br>
     <!-- <mt-popup v-model="popupVisible" position="bottom" class="mint-popup" style="width:100%;height:30%">
@@ -58,6 +60,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -84,26 +87,26 @@ export default {
         }
       ],
       currentTags: '',
-      reportlist: [
-        {
-          name: "张三",
-          reportid: '123',
-          risk: 'H',
-          updatetime: "2020年3月22日21：30"
-        },
-        {
-          name: "张三",
-          reportid: '1453',
-          risk: 'H',
-          updatetime: "2020年3月22日18：30"
-        },
-        {
-          name: "张三",
-          reportid: '4553',
-          risk: 'H',
-          updatetime: "2020年3月22日17：30"
-        }
-      ],
+      // reportlist: [
+      //   {
+      //     name: "张三",
+      //     reportid: '123',
+      //     risk: 'H',
+      //     updatetime: "2020年3月22日21：30"
+      //   },
+      //   {
+      //     name: "张三",
+      //     reportid: '1453',
+      //     risk: 'H',
+      //     updatetime: "2020年3月22日18：30"
+      //   },
+      //   {
+      //     name: "张三",
+      //     reportid: '4553',
+      //     risk: 'H',
+      //     updatetime: "2020年3月22日17：30"
+      //   }
+      // ],
       dailyreportlist: [
         {
           date: "2020-03-31",
@@ -128,19 +131,27 @@ export default {
 
 
         }
-      ]
-
-
-    }
-  },
-  filters: {
-    textfilter: function (val) {
+      ],
+      evlist: [],
+      dailylist: [],
 
     }
   },
+
+
   mounted () {
-
+    console.log('评估记录页面mounted')
+    this.getEvaluationList()
+    this.getTempertureList()
   },
+  activated () {
+    //keep-alive 进来先加载这个
+    console.log('评估记录页面actived')
+    this.getEvaluationList()
+    this.getTempertureList()
+  },
+
+
   methods: {
     backPopuphandleConfim () {
 
@@ -152,15 +163,68 @@ export default {
 
     },
     gotoPatEvaluation (val) {
+
       this.$router.push({
         name: '/patient/evaluation',
-        params: {
-          id: val
+        // params: {
+        //   evaluId: val
+        // },
+        query: {
+          id: this.$route.query.id,
+          evaluId: val
         }
       })
-    }
+    },
+    getEvaluationList () {
 
+      axios.post('/getEvaluationList', {
+        "patientId": this.$route.query.id
+      }).then(response => {
+        // console.log(response.data.results[0])
+        this.evlist = []
+        const colorlist = new Map([[0, 'grey'], [1, 'green'], [2, 'blue'], [3, 'red']])
+        const textlist = new Map([[0, '暂无风险'], [1, '低风险'], [2, '中风险'], [3, '高风险']])
+        var dd = response.data.results
+        this.evlist = dd.map(item => {
+          return {
+            SubmitDate: item.SubmitDate,
+            color: colorlist.get(parseInt(item.MachineRes)),
+            text: textlist.get(parseInt(item.MachineRes)),
+            SubmitUser: item.SubmitUser,
+            EvaluID: parseInt(item.EvaluID),
+          }
+        })
+
+      })
+        .catch(function (error) {
+          console.log('error', error)
+        })
+    },
+    getTempertureList () {
+      axios.post('/getTempertureList', {
+        "patientId": this.$route.query.id
+      }).then(response => {
+        // console.log(response.data.results[0])
+        const coughlist = new Map([[1, ' 咳嗽 '], [0, ''], [2, ''], [3, '']])
+        const gasplist = new Map([[1, ' 流涕 '], [0, ''], [2, ''], [3, '']])
+        var dd = response.data.results
+        this.dailylist = []
+        this.dailylist = dd.map(item => {
+          return {
+            RecordDate: item.RecordDate,
+            TemperMorning: item.TemperMorning,
+            TemperNight: item.TemperNight,
+            clinalp: coughlist.get(parseInt(item.Cough)) + gasplist.get(parseInt(item.Gasp)) + item.Other
+          }
+        })
+      })
+        .catch(function (error) {
+          console.log('error', error)
+        })
+
+    }
   }
+
 }
 </script>
 <style scoped>
@@ -223,7 +287,7 @@ export default {
   float: left;
   height: 60px;
   line-height: 60px;
-  color: red;
+  /* color: red; */
 }
 .rhcard .rightside {
   float: left;
