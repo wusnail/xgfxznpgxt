@@ -20,6 +20,7 @@
 </template>
 <script>
 import assessmentReport from './assessmentReport'
+import axios from 'axios'
 export default {
   components: {
     assessmentReport,
@@ -28,6 +29,7 @@ export default {
     return {
       isnew: false,//是否是第一次登录，第一次的话要新建页面
       qflag: 'true',//我的报告页面要显示更新信息项目
+      role: window.localStorage.getItem("role"),
 
       reportId: '',
       myform: {
@@ -36,14 +38,43 @@ export default {
 
     }
   },
-  methods: {
 
+  mounted () {
+    this.getEvaluation()
+  },
+  activated () {
+    this.getEvaluation()
+  },
+  methods: {
+    getEvaluation () {
+      axios.post('/getEvaluation', {
+        "patientId": this.$route.query.id
+      }).then(response => {
+        // console.log(response.data.results[0])
+        this.reportId = response.data.results[0].EvaluID
+
+      })
+        .catch(function (error) {
+          console.log('error', error)
+        })
+    },
   }
+
 }
 </script>
 <style >
 .infotext1 {
   color: grey;
   text-align: center;
+}
+
+.myreportcard {
+  margin: 0px 10px;
+  padding: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  text-align: left;
+}
+.myreportheader {
+  font-size: 14px;
 }
 </style>

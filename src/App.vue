@@ -4,7 +4,7 @@
       <router-view />
     </keep-alive> -->
     <keep-alive>
-      <router-view v-if="$route.meta.keepAlive" />
+      <router-view v-if="$route.meta.keepAlive" :key="$route.query.id" />
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
   </div>
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
 }
 </script>
 

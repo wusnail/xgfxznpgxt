@@ -4,22 +4,15 @@
     <div class="page-wrap">
       <div class="header">
         <div style="display:flex;align-items: center;flex:1">
-          <img src="../../assets/images/用户.png"
-               height="20"
-               width="20"
-               style="margin-left:5px"
-               slot="icon" />
+          <img src="../../assets/images/用户.png" height="20" width="20" style="margin-left:5px" slot="icon" />
           <span>&nbsp;测试患者</span>
           <div style="flex:1;">
-            <i class="iconfont icon-sj-tuichu"
-               style="float:right"
-               @click="exit()"> </i>
+            <i class="iconfont icon-sj-tuichu" style="float:right" @click="exit()"> </i>
           </div>
         </div>
       </div>
 
-      <mt-tab-container class="page-tabbar-container"
-                        v-model="selectedTab">
+      <mt-tab-container class="page-tabbar-container" v-model="selectedTab">
         <mt-tab-container-item id="1">
           <!-- 我的评估报告/评估记录gyx -->
           <mt-navbar v-model="selectedRecord">
@@ -30,17 +23,19 @@
               <span style="font-size:16px"><i class="iconfont icon-jilu"></i>&nbsp;评估记录</span>
             </mt-tab-item>
           </mt-navbar>
-          <mt-tab-container v-model="selectedRecord"
-                            style="margin-top:3px">
+          <mt-tab-container style="margin-top:3px" v-model="selectedRecord">
             <mt-tab-container-item id="1">
               <!-- 我的评估报告在这个组件里写 -->
               <myreport></myreport>
 
             </mt-tab-container-item>
+            <!-- 评估记录在这个组件里写 -->
             <mt-tab-container-item id="2">
-              <!-- 评估记录在这个组件里写 -->
 
-              <reportHistory></reportHistory>
+              <!-- <router-view></router-view> -->
+              <keep-alive>
+                <reportHistory></reportHistory>
+              </keep-alive>
 
             </mt-tab-container-item>
           </mt-tab-container>
@@ -69,16 +64,13 @@
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
-    <mt-tabbar v-model="selectedTab"
-               fixed>
+    <mt-tabbar v-model="selectedTab" fixed>
       <mt-tab-item id="1">
-        <img slot="icon"
-             src="../../assets/images/wenduji.png">
+        <img slot="icon" src="../../assets/images/wenduji.png">
         新冠自查
       </mt-tab-item>
       <mt-tab-item id="2">
-        <img slot="icon"
-             src="../../assets/images/wenjian.png">
+        <img slot="icon" src="../../assets/images/wenjian.png">
         注意事项
       </mt-tab-item>
     </mt-tabbar>
@@ -101,22 +93,52 @@ export default {
     appointVisit,
 
   },
-  data() {
+  data () {
     return {
       selectedTab: '1',
+
       selectedRecord: '1',
       selectedAppointment: '1',
+
     }
   },
+  watch: {
+    selectedRecord (val, oldVal) {
+
+      sessionStorage.setItem('selectedRecord', val)
+
+
+    }
+  },
+  created () {
+    // this.selectedRecord = sessionStorage.getItem('selectedRecord')
+    // console.log(this.selectedRecord, 'created一次')
+
+  },
   methods: {
-    exit() {
+
+    exit () {
       MessageBox.confirm('确认是否退出系统？').then(action => {
         if (action == 'confirm') {     //确认的回调
           this.$router.push('/patient')
         }
       }).catch(err => {
       })
-    }
+    },
+
+  },
+  mounted () {
+    // var tt = sessionStorage.getItem('selectedRecord')
+    // this.selectedRecord = tt
+    // if (tt == 1) {
+    // }
+    // else {
+
+    //   this.gototab(2)
+    // }
+
+
+
   }
 }
 </script>
