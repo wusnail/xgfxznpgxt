@@ -16,7 +16,7 @@
     </div> -->
 
     <div v-for="item in unprocessedlist" :key="item.unprocessedid">
-      <a href="javascript:void(0);" @click="todetail()" style="color:black">
+      <a href="javascript:void(0);" @click="todetail(item.patientid)" style="color:black">
         <div class="card">
           <div v-if="item.risk == 'H'">
             <div class="leftside" style="background:red"></div>
@@ -66,51 +66,47 @@ export default {
       // ],
       // way:'',
       // content:'',
-      unprocessedlist: [
-        {
-          name: "",
-          gender: '',
-          age: '',
-          telephonenumber: '',
-          unprocessedid: '',
-          risk: '',
-          updatetime: ""
-        },
-      ],
+      unprocessedlist: [],
     }
   },
 
   mounted () {
     this.getReservListUndergoing()
-
   },
+
 
   methods: {
     getReservListUndergoing () {
-      axios.post('/getReservListUndergoing', {doctorId: '46'})
-        .then(res => {
-          for (i=0;i<res.data.results.length;i++) {
-            unprocessedlist[i].name=res.data.results[i].Name
-            unprocessedlist[i].gender=res.data.results[i].Gender
-            unprocessedlist[i].age=res.data.results[i].Age
-            unprocessedlist[i].telephonenumber=res.data.results[i].Phone
-            unprocessedlist[i].unprocessedid=res.data.results[i].ReservID
-            unprocessedlist[i].risk='H'
-          }
+      axios.post('/getReservListUndergoing', {"doctorId": '48'})
+        .then(response => {
+          const genderlist = new Map([[1,'男'],[2,'女']])
+          var dd = response.data.results
+          this.unprocessedlist=dd.map(item =>{
+            return{
+              unprocessedid:item.ReservID,
+              patientid:item.PatientID,
+              name:item.Name,
+              gender:genderlist.get(parseInt(item.Gender)),
+              age:item.Age,
+              phone:item.Phone,
+              updatetime:item.SubmitDate,
+              risk:'H'
+            }
+          })
         })
         .catch(function (error) {
           console.log('error', error)
         })
     },
 
-    todetail () {
-      this.$router.push({ name: "/doctor/patdetailmod", params: {realeaseFlag: 'true'} })
+    todetail (patientid) {
+      this.$router.push({ name: "/doctor/patdetailmod", query: {id:patientid,realeaseFlag:'1'} })
     },
   },
 }
 </script>
 
-<style  scoped>
+<style>
 .card {
   text-align: left;
   margin: 10px;
