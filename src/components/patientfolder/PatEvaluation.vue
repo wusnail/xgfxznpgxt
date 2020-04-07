@@ -18,11 +18,13 @@ export default {
   },
   data () {
     return {
-      reportId: this.$route.params.id
+      reportId: this.$route.query.evaluId,
     }
   },
   methods: {
-
+  },
+  mounted () {
+    console.log(this.reportId, 'patevaluation')
   }
 }
 </script>

@@ -179,7 +179,7 @@ export default {
 }
 </script>
 
-<style>
+<style  scoped>
 .card {
   text-align: left;
   margin: 10px;
