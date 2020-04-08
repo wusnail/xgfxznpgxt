@@ -18,7 +18,7 @@
     <div v-for="item in unprocessedlist" :key="item.unprocessedid">
       <a href="javascript:void(0);" @click="todetail(item.patientid)" style="color:black">
         <div class="card">
-          <div v-if="item.risk == 'H'">
+          <div v-if="item.risk == '3'">
             <div class="leftside" style="background:red"></div>
             <div class="iconside" style="color:red"> <i class="iconfont icon-fengxian" style="font-size:30px"></i></div>
             <div class="rightside">
@@ -26,7 +26,7 @@
               <span>更新时间：{{item.updatetime}}</span>
             </div>
           </div>
-          <div v-if="item.risk == 'M'">
+          <div v-if="item.risk == '2'">
             <div class="leftside" style="background:blue"></div>
             <div class="iconside" style="color:blue"> <i class="iconfont icon-fengxian" style="font-size:30px;"></i>
             </div>
@@ -35,7 +35,7 @@
               <span>更新时间：{{item.updatetime}}</span>
             </div>
           </div>
-          <div v-if="item.risk == 'L'">
+          <div v-if="item.risk == '1'">
             <div class="leftside" style="background:green"></div>
             <div class="iconside" style="color:green"> <i class="iconfont icon-fengxian" style="font-size:30px;"></i>
             </div>
@@ -44,6 +44,15 @@
               <span>更新时间：{{item.updatetime}}</span>
             </div>
           </div>
+          <div v-if="item.risk == '0'">
+            <div class="leftside" style="background:black"></div>
+            <div class="iconside" style="color:black"> <i class="iconfont icon-fengxian" style="font-size:30px;"></i>
+            </div>
+            <div class="rightside">
+              <span>{{item.name+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.gender+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.age+'岁'+"&nbsp;&nbsp;&nbsp;&nbsp;"+'风险：暂无风险'}}</span><br>
+              <span>更新时间：{{item.updatetime}}</span>
+            </div>
+          </div>         
           <div class="righticon">
             <i class="iconfont icon-youjian" style="font-size:20px;"></i>
           </div>
@@ -70,14 +79,14 @@ export default {
     }
   },
 
-  mounted () {
+  activated () {
     this.getReservListUndergoing()
   },
 
 
   methods: {
     getReservListUndergoing () {
-      axios.post('/getReservListUndergoing', {"doctorId": '48'})
+      axios.post('/getReservListUndergoing', {"doctorId": window.localStorage.getItem("doctorId")})
         .then(response => {
           const genderlist = new Map([[1,'男'],[2,'女']])
           var dd = response.data.results
@@ -90,7 +99,7 @@ export default {
               age:item.Age,
               phone:item.Phone,
               updatetime:item.SubmitDate,
-              risk:'H'
+              risk:item.MachineRes
             }
           })
         })

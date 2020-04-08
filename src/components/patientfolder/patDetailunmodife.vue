@@ -19,7 +19,7 @@
           <mt-tab-container v-model="selectedRecord">
             <mt-tab-container-item id="1">
               <!-- 我的评估报告在这个组件里写 -->
-                <assessmentReport></assessmentReport>
+                <assessmentReport :reportId="reportId" :qflag="qflag"></assessmentReport>
 
             </mt-tab-container-item>
             <mt-tab-container-item id="2">
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import reportHistory from '../patientcombination/reportHistory'
 import assessmentReport from '../patientcombination/assessmentReport'
 export default {
@@ -47,14 +48,27 @@ export default {
     return {
       selectedTab: '1',
       selectedRecord: '1',
+      qflag: 'false',
+      reportId: '',
 
     }
   },
-  methods: {
+methods: {
+    getEvaluation () {
+      axios.post('/getEvaluation', {
+        "patientId": this.$route.query.id
+      }).then(response => {
+        this.reportId = response.data.results[0].EvaluID
 
+      })
+        .catch(function (error) {
+          console.log('error', error)
+        })
+    },
   },
-  mounted(){
 
+  mounted(){
+    this.getEvaluation()
   }
 }
 </script>

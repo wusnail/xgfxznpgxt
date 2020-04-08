@@ -11,9 +11,17 @@
         @click="$router.push({name:'/patient/form',query:{id:$route.query.id}})"><i
           class="iconfont icon-bianji"></i>&nbsp;更新信息
       </div>
-      <div v-else class="updatetime">报告人:{{evform.SubmitUser}}
+      
+      <div v-if="role=='doctor'&&qflag=='true'">
+        <div class="updateinfo"
+          @click="$router.push({name:'/patient/form',query:{id:$route.query.id}})"><i
+            class="iconfont icon-bianji"></i>&nbsp;更新信息
+        </div>
+        <mt-button @click.native="sheetVisible = true" size="small" type="danger" style="margin-left:20px">解除隔离</mt-button>
+        <mt-actionsheet :actions="actions" v-model="sheetVisible"></mt-actionsheet>
       </div>
 
+      <div v-else class="updatetime">报告人:{{evform.SubmitUser}}</div>
     </div>
     <div class="cardheader"></div>
     <div style="padding-left:10px;color:red"> <i class="iconfont icon-fengxian"></i>&nbsp;新冠肺炎高风险</div>
@@ -87,6 +95,8 @@ export default {
         SubmitUser: '',
       },
       role: window.localStorage.getItem("role"),
+      sheetVisible: false,
+      actions: [],
 
 
     }
@@ -134,6 +144,11 @@ export default {
     this.gettemplist(this.$route.query.id)
     console.log('assr mounted 画图')
     this.drawline()
+
+    this.actions = [{
+        name: '确定解除隔离',
+        method: this.setCompeletTag
+      },];
   },
   // 当引入keep-alive的时候，页面第一次进入，钩子的触发顺序created-> mounted-> activated，退出时触发deactivated。当再次进入（前进或者后退）时，只触发activated。
   activated () {
@@ -146,6 +161,12 @@ export default {
     // console.log('deactive')
   },
   methods: {
+    setCompeletTag () {
+      axios.post('/setCompeletTag', {"patientId": this.$route.query.id,completeTag:'1'})
+        .catch(function (error) {
+          console.log('error', error)
+        })
+    },
     gettemplist (val) {
       var p1 = axios.post('/getTemperMorningList', {
         "patientId": val
@@ -302,4 +323,18 @@ export default {
   height: 200px;
   margin: auto;
 }
+@component-namespace page {
+    @component actionsheet {
+      @descendent wrapper {
+        padding: 0 20px;
+        position: absolute 50% * * *;
+        width: 100%;
+        transform: translateY(-50%);
+
+        button:first-child {
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
 </style>
