@@ -813,7 +813,9 @@ export default {
           "q12": q12d,
         }).then(response => {
           console.log(response.data.results)
-          MessageBox.alert('填写成功')
+          MessageBox.alert('填写成功').then(action => {
+            this.$router.back(-1)
+          })
 
 
         })
