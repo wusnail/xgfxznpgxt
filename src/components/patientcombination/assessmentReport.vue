@@ -12,13 +12,16 @@
           class="iconfont icon-bianji"></i>&nbsp;更新信息
       </div>
       
-      <div v-if="role=='doctor'&&qflag=='true'">
+      <div v-if="role=='doctor'&&qflag=='true'&&isshow=='true'">
         <div class="updateinfo"
           @click="$router.push({name:'/patient/form',query:{id:$route.query.id}})"><i
             class="iconfont icon-bianji"></i>&nbsp;更新信息
         </div>
         <mt-button @click.native="sheetVisible = true" size="small" type="danger" style="margin-left:20px">解除隔离</mt-button>
         <mt-actionsheet :actions="actions" v-model="sheetVisible"></mt-actionsheet>
+        <mt-popup v-model="popupVisible" position="top" class="mint-popup" :modal="false">
+          <p>解除成功</p>
+        </mt-popup>
       </div>
 
       <div v-else class="updatetime">报告人:{{evform.SubmitUser}}</div>
@@ -97,7 +100,8 @@ export default {
       role: window.localStorage.getItem("role"),
       sheetVisible: false,
       actions: [],
-
+      popupVisible: false,
+      isshow:'true'
 
     }
   },
@@ -110,8 +114,14 @@ export default {
         // this.gettemplist(this.$route.query.id)
         // this.drawline()
       }
-
-    }
+    },
+    popupVisible(val) {
+        if (val) {
+          setTimeout(() => {
+            this.popupVisible = false;
+          }, 2000);
+        }
+      }
 
   },
   filters: {
@@ -162,10 +172,12 @@ export default {
   },
   methods: {
     setCompeletTag () {
-      axios.post('/setCompeletTag', {"patientId": this.$route.query.id,completeTag:'1'})
-        .catch(function (error) {
-          console.log('error', error)
-        })
+      // axios.post('/setCompeletTag', {"patientId": this.$route.query.id,completeTag:'1'})
+      //   .catch(function (error) {
+      //     console.log('error', error)
+      //   })
+      this.popupVisible=true
+      this.isshow='false'
     },
     gettemplist (val) {
       var p1 = axios.post('/getTemperMorningList', {
@@ -323,18 +335,14 @@ export default {
   height: 200px;
   margin: auto;
 }
-@component-namespace page {
-    @component actionsheet {
-      @descendent wrapper {
-        padding: 0 20px;
-        position: absolute 50% * * *;
-        width: 100%;
-        transform: translateY(-50%);
-
-        button:first-child {
-          margin-bottom: 20px;
-        }
-      }
-    }
-  }
+.mint-popup {
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  background-color: rgba(0,0,0,.7);
+  backface-visibility: hidden;
+  line-height: 50px;
+  color: #fff;
+}
+    
 </style>

@@ -16,7 +16,7 @@
 
     <div v-for="item in processedlist" :key="item.processedid">
       <a href="javascript:void(0);" @click="todetail(item.patientid)" style="color:black">
-        <div class="card">
+        <div class="cardlist">
           <div v-if="item.risk == '3'">
             <div class="leftside" style="background:red"></div>
             <div class="iconside" style="color:red"> <i class="iconfont icon-fengxian" style="font-size:30px"></i></div>
@@ -114,14 +114,14 @@ export default {
 </script>
 
 <style scoped>
-.card {
+.cardlist {
   text-align: left;
   margin: 10px;
   width: 100%;
   height: 60px;
   overflow: hidden;
 }
-.card .leftside {
+.cardlist .leftside {
   width: 8px;
   float: left;
   height: 60px;
@@ -129,17 +129,17 @@ export default {
   /* height: 30px; */
   border-radius: 8px 0px 0px 8px;
 }
-.card .iconside {
+.cardlist .iconside {
   padding: 0px 10px;
   float: left;
   height: 60px;
   line-height: 60px;
 }
-.card .rightside {
+.cardlist .rightside {
   float: left;
   padding: 5px;
 }
-.card .righticon {
+.cardlist .righticon {
   float: right;
   height: 60px;
   line-height: 60px;
