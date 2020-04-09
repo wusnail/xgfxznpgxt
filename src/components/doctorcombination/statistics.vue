@@ -22,8 +22,6 @@
       </div>
       <div id="barchart"
            class="chart"></div>
-      <div id="piechart"
-           class="chart"></div>
     </div>
   </div>
 </template>
@@ -39,11 +37,11 @@ export default {
         { name: '中风险', value: 0 },
         { name: '高风险', value: 0 }
       ],
-      reservedone:0,
-      reserveundergoing:0,
+      reservedone: 0,
+      reserveundergoing: 0,
     }
   },
-  activated(){
+  activated() {
     this.getReservListUndergoing()
     this.getReservListDone()
   },
@@ -53,27 +51,27 @@ export default {
     this.getdata()
   },
   methods: {
-    getReservListUndergoing () {
-      axios.post('/getReservListUndergoing', {"doctorId": window.localStorage.getItem("doctorId")})
+    getReservListUndergoing() {
+      axios.post('/getReservListUndergoing', { "doctorId": window.localStorage.getItem("doctorId") })
         .then(response => {
           var dd = response.data.results
-          this.reserveundergoing=0;
-          for(var item in dd){
+          this.reserveundergoing = 0;
+          for (var item in dd) {
             this.reserveundergoing++;
-          }    
+          }
         })
         .catch(function (error) {
           console.log('error', error)
         })
     },
-    getReservListDone () {
-      axios.post('/getReservListDone', {"doctorId": window.localStorage.getItem("doctorId")})
+    getReservListDone() {
+      axios.post('/getReservListDone', { "doctorId": window.localStorage.getItem("doctorId") })
         .then(response => {
           var dd = response.data.results
-          this.reservedone=0;
-          for(var item in dd){
+          this.reservedone = 0;
+          for (var item in dd) {
             this.reservedone++;
-          }    
+          }
         })
         .catch(function (error) {
           console.log('error', error)
@@ -109,7 +107,6 @@ export default {
           }
         }
         this.drawbar()
-        this.drawpie()
       }).catch(function (error) {
         console.log("error", error);
       });
@@ -141,18 +138,6 @@ export default {
           data: num
         }],
         grid: { height: 150, x: 20, y: 10, x2: 20, y2: 20 },
-      };
-      myChart.setOption(option);
-    },
-    drawpie() {
-      let myChart = this.$echarts.init(document.getElementById('piechart'));
-      var option = {
-        tooltip: {},
-        series: [{
-          type: 'pie',
-          radius: '50%',
-          data: this.data
-        }],
       };
       myChart.setOption(option);
     },
