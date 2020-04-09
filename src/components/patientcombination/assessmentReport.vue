@@ -3,17 +3,29 @@
     <div class="reportheader">
       <div v-if="role=='patient'&&qflag">
         <span style="float:right;padding-right:20px;"
-          @click="$router.push({name:'/patient/dailyreport',query:{id:$route.query.id}})">
+              @click="$router.push({name:'/patient/dailyreport',query:{id:$route.query.id}})">
           每日上报</span><br>
       </div>
       <div class="updatetime">更新时间:&nbsp;&nbsp;{{evform.SubmitDate}}</div>
-      <div v-if="role=='patient'&&qflag" class="updateinfo"
-        @click="$router.push({name:'/patient/form',query:{id:$route.query.id}})"><i
-          class="iconfont icon-bianji"></i>&nbsp;更新信息
-      </div>
-      <div v-else class="updatetime">报告人:{{evform.SubmitUser}}
+      <div v-if="role=='patient'&&qflag"
+           class="updateinfo"
+           @click="$router.push({name:'/patient/form',query:{id:$route.query.id}})"><i class="iconfont icon-bianji"></i>&nbsp;更新信息
       </div>
 
+      <div v-if="role=='doctor'&&qflag=='true'">
+        <div class="updateinfo"
+             @click="$router.push({name:'/patient/form',query:{id:$route.query.id}})"><i class="iconfont icon-bianji"></i>&nbsp;更新信息
+        </div>
+        <mt-button @click.native="sheetVisible = true"
+                   size="small"
+                   type="danger"
+                   style="margin-left:20px">解除隔离</mt-button>
+        <mt-actionsheet :actions="actions"
+                        v-model="sheetVisible"></mt-actionsheet>
+      </div>
+
+      <div v-else
+           class="updatetime">报告人:{{evform.SubmitUser}}</div>
     </div>
     <div class="cardheader"></div>
     <div style="padding-left:10px;color:red"> <i class="iconfont icon-fengxian"></i>&nbsp;新冠肺炎高风险</div>
@@ -21,9 +33,11 @@
       &nbsp; &nbsp; &nbsp; <mt-button type="primary" size="small" @click="showdetails()">查看风险详情</mt-button>
     </div> -->
     <div v-if="unrealease">
-      &nbsp; &nbsp; &nbsp; <mt-button type="primary" size="small">解除隔离</mt-button>
+      &nbsp; &nbsp; &nbsp; <mt-button type="primary"
+                 size="small">解除隔离</mt-button>
     </div>
-    <div class="cardcontainer" id="id1">
+    <div class="cardcontainer"
+         id="id1">
 
       <div class="litext1"> <i class="iconfont icon-shugang"></i>基本信息</div>
       <div class="litext2">
@@ -61,13 +75,15 @@
       <div class="litext1"> <i class="iconfont icon-shugang"></i>过敏史</div>
       <div class="litext2">{{evform.AllergyHistory}}</div>
       <div class="litext1"> <i class="iconfont icon-shugang"></i>流行病学接触史</div>
-      <div class="litext2" v-html="evform.EpidemiProb"></div>
+      <div class="litext2"
+           v-html="evform.EpidemiProb"></div>
       <div class="litext1"> <i class="iconfont icon-shugang"></i>临床表现</div>
       <div class="litext2">{{evform.SymptomProb}}</div>
       <div class="litext1"> <i class="iconfont icon-shugang"></i>生理参数</div>
       <div class="litext2">{{evform.VitalSigns}}</div>
       <div class="litext1"> <i class="iconfont icon-shugang"></i>每日体温变化</div>
-      <div id="linechart" class="chart"></div>
+      <div id="linechart"
+           class="chart"></div>
     </div>
     <br><br><br>
   </div>
@@ -79,7 +95,7 @@ export default {
 
   // 怀孕0无1有2不清楚，性别1男2女
   props: ['reportId', 'qflag'],
-  data () {
+  data() {
     return {
       unrealease: this.$route.params.realeaseFlag,
       evform: {
@@ -87,6 +103,8 @@ export default {
         SubmitUser: '',
       },
       role: window.localStorage.getItem("role"),
+      sheetVisible: false,
+      actions: [],
 
 
     }
@@ -130,44 +148,60 @@ export default {
     }
   },
   //router.push会带params，所以没关系。过来的话会先执行mounted
-  mounted () {
+  mounted() {
     this.gettemplist(this.$route.query.id)
     console.log('assr mounted 画图')
-    this.drawline()
+    // this.drawline()
+
+    this.actions = [{
+      name: '确定解除隔离',
+      method: this.setCompeletTag
+    },];
   },
   // 当引入keep-alive的时候，页面第一次进入，钩子的触发顺序created-> mounted-> activated，退出时触发deactivated。当再次进入（前进或者后退）时，只触发activated。
-  activated () {
+  activated() {
     this.gettemplist(this.$route.query.id)
     console.log('assr activated 画图')
-    this.drawline()
+    // this.drawline()
   },
 
-  deactivated () {
+  deactivated() {
     // console.log('deactive')
   },
   methods: {
-    gettemplist (val) {
-      var p1 = axios.post('/getTemperMorningList', {
-        "patientId": val
-      })
-      var p2 = axios.post('/getTemperNightList', {
-        "patientId": val
-      })
-      Promise.all([p1, p2]).then(result => {
-        var t1 = result[0].data.results
-        var t2 = result[1].data.results
-
-      }).catch(error => {
-        console.log("error", error.response);
-      });
+    setCompeletTag() {
+      axios.post('/setCompeletTag', { "patientId": this.$route.query.id, completeTag: '1' })
+        .catch(function (error) {
+          console.log('error', error)
+        })
     },
-    showdetails () {
+    gettemplist(val) {
+      // var p1 = axios.post('/getTemperMorningList', {
+      //   "patientId": val
+      // })
+      // var p2 = axios.post('/getTemperNightList', {
+      //   "patientId": val
+      // })
+      // Promise.all([p1, p2]).then(result => {
+      //   var t1 = result[0].data.results
+      //   var t2 = result[1].data.results
+      // }).catch(error => {
+      //   console.log("error", error.response);
+      // });
+      axios.post('/getTempertureList', { "patientId": val }).then(results => {
+        var tlist = results.data.results
+        this.drawline(tlist)
+      })
+        .catch(function (error) {
+          console.log('error', error)
+        })
+    },
+    showdetails() {
       console.log('查看详情')
       // 跳转到风险详情-sj
       this.$router.push('/patient/risk')
     },
-    drawline () {
-
+    drawline(tlist) {
       var myChart = null;
       var div_ = document.getElementById("linechart");
       div_.removeAttribute("_echarts_instance_");
@@ -176,9 +210,17 @@ export default {
 
       // let myChart = this.$echarts.init(document.getElementById('linechart'));
       myChart.clear()
+      var t1 = []
+      var t2 = []
+      var tDate = []
+      for (var i in tlist) {
+        tDate.push(tlist[i].RecordDate)
+        t1.push(Number(tlist[i].TemperMorning))//上午体温
+        t2.push(Number(tlist[i].TemperNight))//下午体温
+      }
       var option = {
         legend: {
-          data: ['早晨体温', '夜晚体温']
+          data: ['上午体温', '下午体温']
         },
         tooltip: {
           trigger: 'axis'
@@ -193,29 +235,33 @@ export default {
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: ['1.30', '1.31', '2.1', '2.2', '2.3', '2.4', '2.5']
+          data: tDate
         },
         yAxis: {
           type: 'value',
-          min: 35,
-          max: 38//获取数据后改为根据最大最小值+1设置纵坐标范围
+          min: function (value) {
+            return value.min - 1
+          },
+          max: function (value) {
+            return value.max + 1
+          }
         },
         series: [
           {
-            name: '早晨体温',
+            name: '上午体温',
             type: 'line',
-            data: [36.7, 36.8, 37, 36.9, 37, 36.8, 37]
+            data: t1
           },
           {
-            name: '夜晚体温',
+            name: '下午体温',
             type: 'line',
-            data: [36.8, 37, 36.9, 37, 36.5, 37, 36.9]
+            data: t2
           }
         ]
       };
       myChart.setOption(option, true);
     },
-    getEvaluation () {
+    getEvaluation() {
       axios.post('/getEvaluation', {
         "patientId": this.$route.query.id
       }).then(response => {
@@ -227,7 +273,7 @@ export default {
           console.log('error', error)
         })
     },
-    getEvaluationByID (val) {
+    getEvaluationByID(val) {
       axios.post('/getEvaluationByID', {
         "evaluId": val
       }).then(response => {
@@ -301,5 +347,19 @@ export default {
   width: 90%;
   height: 200px;
   margin: auto;
+}
+@component-namespace page {
+  @component actionsheet {
+    @descendent wrapper {
+      padding: 0 20px;
+      position: absolute 50% * * *;
+      width: 100%;
+      transform: translateY(-50%);
+
+      button:first-child {
+        margin-bottom: 20px;
+      }
+    }
+  }
 }
 </style>

@@ -7,22 +7,20 @@
       <div class="box">
         <div class="box-item">
           <span style="color:gray;">正在隔离</span>
-          <br>0
+          <br>{{reserveundergoing}}
           <a href="javascript:void(0);"
              @click="goappt('1')"
              style="color:#4aab44">>></a>
         </div>
         <div class="box-item">
           <span style="color:gray;">已解除隔离</span>
-          <br>0
+          <br>{{reservedone}}
           <a href="javascript:void(0);"
              @click="goappt('2')"
              style="color:#4aab44">>></a>
         </div>
       </div>
       <div id="barchart"
-           class="chart"></div>
-      <div id="piechart"
            class="chart"></div>
     </div>
   </div>
@@ -38,13 +36,47 @@ export default {
         { name: '低风险', value: 0 },
         { name: '中风险', value: 0 },
         { name: '高风险', value: 0 }
-      ]
+      ],
+      reservedone: 0,
+      reserveundergoing: 0,
     }
   },
+  activated() {
+    this.getReservListUndergoing()
+    this.getReservListDone()
+  },
   mounted() {
+    this.getReservListUndergoing()
+    this.getReservListDone()
     this.getdata()
   },
   methods: {
+    getReservListUndergoing() {
+      axios.post('/getReservListUndergoing', { "doctorId": window.localStorage.getItem("doctorId") })
+        .then(response => {
+          var dd = response.data.results
+          this.reserveundergoing = 0;
+          for (var item in dd) {
+            this.reserveundergoing++;
+          }
+        })
+        .catch(function (error) {
+          console.log('error', error)
+        })
+    },
+    getReservListDone() {
+      axios.post('/getReservListDone', { "doctorId": window.localStorage.getItem("doctorId") })
+        .then(response => {
+          var dd = response.data.results
+          this.reservedone = 0;
+          for (var item in dd) {
+            this.reservedone++;
+          }
+        })
+        .catch(function (error) {
+          console.log('error', error)
+        })
+    },
     getdata() {
       axios.post('/nowRankPatientCount', {
         'doctorId': window.localStorage.getItem("doctorId")
@@ -75,7 +107,6 @@ export default {
           }
         }
         this.drawbar()
-        this.drawpie()
       }).catch(function (error) {
         console.log("error", error);
       });
@@ -107,18 +138,6 @@ export default {
           data: num
         }],
         grid: { height: 150, x: 20, y: 10, x2: 20, y2: 20 },
-      };
-      myChart.setOption(option);
-    },
-    drawpie() {
-      let myChart = this.$echarts.init(document.getElementById('piechart'));
-      var option = {
-        tooltip: {},
-        series: [{
-          type: 'pie',
-          radius: '50%',
-          data: this.data
-        }],
       };
       myChart.setOption(option);
     },

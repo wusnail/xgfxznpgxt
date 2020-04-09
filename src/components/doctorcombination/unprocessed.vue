@@ -16,34 +16,43 @@
     </div> -->
 
     <div v-for="item in unprocessedlist" :key="item.unprocessedid">
-      <a href="javascript:void(0);" @click="todetail()" style="color:black">
+      <a href="javascript:void(0);" @click="todetail(item.patientid)" style="color:black">
         <div class="card">
-          <div v-if="item.risk == 'H'">
+          <div v-if="item.risk == '3'">
             <div class="leftside" style="background:red"></div>
             <div class="iconside" style="color:red"> <i class="iconfont icon-fengxian" style="font-size:30px"></i></div>
             <div class="rightside">
-              <span>{{item.name+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.sex+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.age+'岁'+"&nbsp;&nbsp;&nbsp;&nbsp;"+'风险：高'}}</span><br>
+              <span>{{item.name+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.gender+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.age+'岁'+"&nbsp;&nbsp;&nbsp;&nbsp;"+'风险：高'}}</span><br>
               <span>更新时间：{{item.updatetime}}</span>
             </div>
           </div>
-          <div v-if="item.risk == 'M'">
+          <div v-if="item.risk == '2'">
             <div class="leftside" style="background:blue"></div>
             <div class="iconside" style="color:blue"> <i class="iconfont icon-fengxian" style="font-size:30px;"></i>
             </div>
             <div class="rightside">
-              <span>{{item.name+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.sex+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.age+'岁'+"&nbsp;&nbsp;&nbsp;&nbsp;"+'风险：中'}}</span><br>
+              <span>{{item.name+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.gender+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.age+'岁'+"&nbsp;&nbsp;&nbsp;&nbsp;"+'风险：中'}}</span><br>
               <span>更新时间：{{item.updatetime}}</span>
             </div>
           </div>
-          <div v-if="item.risk == 'L'">
+          <div v-if="item.risk == '1'">
             <div class="leftside" style="background:green"></div>
             <div class="iconside" style="color:green"> <i class="iconfont icon-fengxian" style="font-size:30px;"></i>
             </div>
             <div class="rightside">
-              <span>{{item.name+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.sex+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.age+'岁'+"&nbsp;&nbsp;&nbsp;&nbsp;"+'风险：低'}}</span><br>
+              <span>{{item.name+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.gender+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.age+'岁'+"&nbsp;&nbsp;&nbsp;&nbsp;"+'风险：低'}}</span><br>
               <span>更新时间：{{item.updatetime}}</span>
             </div>
           </div>
+          <div v-if="item.risk == '0'">
+            <div class="leftside" style="background:black"></div>
+            <div class="iconside" style="color:black"> <i class="iconfont icon-fengxian" style="font-size:30px;"></i>
+            </div>
+            <div class="rightside">
+              <span>{{item.name+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.gender+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.age+'岁'+"&nbsp;&nbsp;&nbsp;&nbsp;"+'风险：暂无风险'}}</span><br>
+              <span>更新时间：{{item.updatetime}}</span>
+            </div>
+          </div>         
           <div class="righticon">
             <i class="iconfont icon-youjian" style="font-size:20px;"></i>
           </div>
@@ -56,7 +65,7 @@
 </template>
 
 <script>
-
+import axios from "axios";
 export default {
   data () {
     return {
@@ -66,120 +75,47 @@ export default {
       // ],
       // way:'',
       // content:'',
-      unprocessedlist: [
-        {
-          name: "广坤",
-          sex: '男',
-          age: '56',
-          telephonenumber: '13312345678',
-          unprocessedid: '123',
-          risk: 'H',
-          updatetime: "2020年3月22日21：30"
-        },
-        {
-          name: "赵四",
-          sex: '男',
-          age: '56',
-          telephonenumber: '13312345678',
-          unprocessedid: '1453',
-          risk: 'M',
-          updatetime: "2020年3月22日18：30"
-        },
-        {          name: "大个",
-          sex: '女',
-          age: '65',
-          telephonenumber: '13312345678',
-          unprocessedid: '1463',
-          risk: 'L',
-          updatetime: "2020年3月22日18：20"
-        },
-        {          name: "大脚",
-          sex: '女',
-          age: '58',
-          telephonenumber: '13812345678',
-          unprocessedid: '1455',
-          risk: 'M',
-          updatetime: "2020年3月22日18：45"
-        }, {          name: "大脚",
-          sex: '女',
-          age: '58',
-          telephonenumber: '13812345678',
-          unprocessedid: '1455',
-          risk: 'M',
-          updatetime: "2020年3月22日18：45"
-        }, {          name: "大脚",
-          sex: '女',
-          age: '58',
-          telephonenumber: '13812345678',
-          unprocessedid: '1455',
-          risk: 'M',
-          updatetime: "2020年3月22日18：45"
-        }, {          name: "大脚",
-          sex: '女',
-          age: '58',
-          telephonenumber: '13812345678',
-          unprocessedid: '1455',
-          risk: 'M',
-          updatetime: "2020年3月22日18：45"
-        }, {          name: "大脚",
-          sex: '女',
-          age: '58',
-          telephonenumber: '13812345678',
-          unprocessedid: '1455',
-          risk: 'M',
-          updatetime: "2020年3月22日18：45"
-        }, {          name: "大脚",
-          sex: '女',
-          age: '58',
-          telephonenumber: '13812345678',
-          unprocessedid: '1455',
-          risk: 'M',
-          updatetime: "2020年3月22日18：45"
-        }, {          name: "大脚",
-          sex: '女',
-          age: '58',
-          telephonenumber: '13812345678',
-          unprocessedid: '1455',
-          risk: 'M',
-          updatetime: "2020年3月22日18：45"
-        },
-        {
-          name: "刘能",
-          sex: '男',
-          age: '56',
-          telephonenumber: '13712345678',
-          unprocessedid: '4553',
-          risk: 'L',
-          updatetime: "2020年3月22日17：30"
-        }
-      ],
+      unprocessedlist: [],
     }
   },
-  methods: {
-    // search(way,content){
 
-    // },
-    todetail () {
-      this.$router.push({ name: "/doctor/patdetailmod", params: {} })
-    }
-    ,
+  activated () {
+    this.getReservListUndergoing()
   },
 
-  methods: {
-    search (way, content) {
 
+  methods: {
+    getReservListUndergoing () {
+      axios.post('/getReservListUndergoing', {"doctorId": window.localStorage.getItem("doctorId")})
+        .then(response => {
+          const genderlist = new Map([[1,'男'],[2,'女']])
+          var dd = response.data.results
+          this.unprocessedlist=dd.map(item =>{
+            return{
+              unprocessedid:item.ReservID,
+              patientid:item.PatientID,
+              name:item.Name,
+              gender:genderlist.get(parseInt(item.Gender)),
+              age:item.Age,
+              phone:item.Phone,
+              updatetime:item.SubmitDate,
+              risk:item.MachineRes
+            }
+          })
+        })
+        .catch(function (error) {
+          console.log('error', error)
+        })
     },
-    todetail () {
-      this.$router.push({
-        name: "/doctor/patdetailmod", params: {
-          realeaseFlag: 'true'
-        }      })
-    }
-  }
+
+    todetail (patientid) {
+      this.$router.push({ name: "/doctor/patdetailmod", query: {id:patientid,realeaseFlag:'1'} })
+    },
+  },
 }
 </script>
 
-<style  scoped>
+<style>
 .card {
   text-align: left;
   margin: 10px;
