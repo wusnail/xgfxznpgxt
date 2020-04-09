@@ -27,10 +27,10 @@
             <input class="input1" v-model="form.age" placeholder="请填写年龄" />
           </div>
 
-          <div id="birthday">
+          <!-- <div id="birthday">
             <span class="text1">出生年月</span>
             <input class="input1" v-model="form.birthday" placeholder="请填写出生年月" />
-          </div>
+          </div> -->
           <div id="phone">
             <span class="text1">联系方式</span>
             <input class="input1" type="number" pattern="[0-9]*" v-model="form.phone" placeholder="请填写手机号" />
@@ -588,11 +588,11 @@ export default {
           this.setItemscroll('age')
         });
       }
-      else if (this.form.birthday == '') {
-        MessageBox.alert('请填写出生年月').then(action => {
-          this.setItemscroll('birthday')
-        });
-      }
+      // else if (this.form.birthday == '') {
+      //   MessageBox.alert('请填写出生年月').then(action => {
+      //     this.setItemscroll('birthday')
+      //   });
+      // }
       else if (this.form.phone == '') {
         MessageBox.alert('请填写联系方式').then(action => {
           this.setItemscroll('phone')
