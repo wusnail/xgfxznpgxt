@@ -45,8 +45,8 @@
             </div>
           </div>
           <div v-if="item.risk == '0'">
-            <div class="leftside" style="background:black"></div>
-            <div class="iconside" style="color:black"> <i class="iconfont icon-fengxian" style="font-size:30px;"></i>
+            <div class="leftside" style="background:green"></div>
+            <div class="iconside" style="color:green"> <i class="iconfont icon-fengxian" style="font-size:30px;"></i>
             </div>
             <div class="rightside">
               <span>{{item.name+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.gender+"&nbsp;&nbsp;&nbsp;&nbsp;"+item.age+'岁'+"&nbsp;&nbsp;&nbsp;&nbsp;"+'风险：暂无风险'}}</span><br>
@@ -99,7 +99,7 @@ export default {
               age:item.Age,
               phone:item.Phone,
               updatetime:item.SubmitDate,
-              risk:item.MachineRes
+              risk:item.MachineRes,
             }
           })
         })
@@ -108,8 +108,8 @@ export default {
         })
     },
 
-    todetail (patientid) {
-      this.$router.push({ name: "/doctor/patdetailmod", query: {id:patientid,realeaseFlag:'1'} })
+    todetail (patientid) {     
+      this.$router.push({ name: "/doctor/patdetailmod", query: {id:patientid} })
     },
   },
 }

@@ -11,29 +11,25 @@
         @click="$router.push({name:'/patient/form',query:{id:$route.query.id}})"><i
           class="iconfont icon-bianji"></i>&nbsp;更新信息
       </div>
-      
-      <div v-if="role=='doctor'&&qflag=='true'&&isshow=='true'">
-        <div class="updateinfo"
-          @click="$router.push({name:'/patient/form',query:{id:$route.query.id}})"><i
-            class="iconfont icon-bianji"></i>&nbsp;更新信息
-        </div>
-        <mt-button @click.native="sheetVisible = true" size="small" type="danger" style="margin-left:20px">解除隔离</mt-button>
-        <mt-actionsheet :actions="actions" v-model="sheetVisible"></mt-actionsheet>
-        <mt-popup v-model="popupVisible" position="top" class="mint-popup" :modal="false">
-          <p>解除成功</p>
-        </mt-popup>
-      </div>
-
       <div v-else class="updatetime">报告人:{{evform.SubmitUser}}</div>
     </div>
-    <div class="cardheader"></div>
-    <div style="padding-left:10px;color:red"> <i class="iconfont icon-fengxian"></i>&nbsp;新冠肺炎高风险</div>
+    <div class="cardheader" :style="{'background':evform.color}"></div>
+    <div class="iconside" :style="{color:evform.color}"> <i
+        class="iconfont icon-fengxian"></i>&nbsp;{{evform.MachineRes|textfilter}}
+    </div>
     <!-- <div>
       &nbsp; &nbsp; &nbsp; <mt-button type="primary" size="small" @click="showdetails()">查看风险详情</mt-button>
     </div> -->
-    <div v-if="unrealease">
-      &nbsp; &nbsp; &nbsp; <mt-button type="primary" size="small">解除隔离</mt-button>
+    <div v-if="role=='doctor'&&completetag==0&&qflag=='true'">
+      <div class="updateinfo"
+        @click="$router.push({name:'/patient/form',query:{id:$route.query.id}})"><i
+          class="iconfont icon-bianji"></i>&nbsp;更新信息
+      </div>
+      <mt-button @click.native="sheetVisible = true" size="small" type="danger" style="margin-left:20px">解除隔离
+      </mt-button>
+      <mt-actionsheet :actions="actions" v-model="sheetVisible"></mt-actionsheet>
     </div>
+
     <div class="cardcontainer" id="id1">
 
       <div class="litext1"> <i class="iconfont icon-shugang"></i>基本信息</div>
@@ -43,7 +39,7 @@
             姓名 &nbsp; {{evform.Name}}
           </div>
           <div class="change">
-            出生年月 &nbsp;{{evform.Birthday}}
+            年龄 &nbsp;{{evform.age}}
           </div>
         </div>
         <div class="parent">
@@ -54,29 +50,25 @@
             手机 &nbsp;{{evform.Phone}}
           </div>
         </div>
-        <div class="parent">
+        <div class="parent" v-show="evform.gender=='2'">
           <div class="stable">
             孕妇 &nbsp;{{evform.Pregnant|pregFliter}}
           </div>
         </div>
       </div>
-      <div class="litext1"> <i class="iconfont icon-shugang"></i>手写接触史
+      <!-- <div class="litext1"> <i class="iconfont icon-shugang"></i>简要接触史
       </div>
-      <div class="litext2">
-        {{evform.ContactHistory}}
-      </div>
+      <div class="litext2" v-html="evform.ContactHistory"></div> -->
       <div class="litext1"> <i class="iconfont icon-shugang"></i>既往病史</div>
-      <div class="litext2">
-        {{evform.MedicalHis}}
-      </div>
+      <div class="litext2" v-html="evform.MedicalHis"> </div>
       <div class="litext1"> <i class="iconfont icon-shugang"></i>过敏史</div>
-      <div class="litext2">{{evform.AllergyHistory}}</div>
+      <div class="litext2" v-html="evform.AllergyHistory"></div>
       <div class="litext1"> <i class="iconfont icon-shugang"></i>流行病学接触史</div>
       <div class="litext2" v-html="evform.EpidemiProb"></div>
       <div class="litext1"> <i class="iconfont icon-shugang"></i>临床表现</div>
-      <div class="litext2">{{evform.SymptomProb}}</div>
+      <div class="litext2" v-html="evform.SymptomProb"></div>
       <div class="litext1"> <i class="iconfont icon-shugang"></i>生理参数</div>
-      <div class="litext2">{{evform.VitalSigns}}</div>
+      <div class="litext2" v-html="evform.VitalSigns"></div>
       <div class="litext1"> <i class="iconfont icon-shugang"></i>每日体温变化</div>
       <div id="linechart" class="chart"></div>
     </div>
@@ -86,13 +78,13 @@
 </template>
 <script>
 import axios from 'axios'
+import { MessageBox } from 'mint-ui'
 export default {
 
   // 怀孕0无1有2不清楚，性别1男2女
   props: ['reportId', 'qflag'],
   data () {
     return {
-      unrealease: this.$route.params.realeaseFlag,
       evform: {
         SubmitDate: '',
         SubmitUser: '',
@@ -100,8 +92,7 @@ export default {
       role: window.localStorage.getItem("role"),
       sheetVisible: false,
       actions: [],
-      popupVisible: false,
-      isshow:'true'
+      completetag:''
 
     }
   },
@@ -147,24 +138,41 @@ export default {
         default:
           break
       }
+    },
+    textfilter: function (val) {
+      switch (Number(val)) {
+        case 0:
+          return '暂无风险'
+        case 1:
+          return '新冠肺炎低风险'
+        case 2:
+          return '新冠肺炎中风险'
+        case 3:
+          return '新冠肺炎高风险'
+        default:
+          break
+      }
     }
   },
   //router.push会带params，所以没关系。过来的话会先执行mounted
   mounted () {
     this.gettemplist(this.$route.query.id)
+    this.getEvaluation()
     console.log('assr mounted 画图')
-    this.drawline()
+    // this.drawline()
+    // console.log(this.$route.query.id)
 
     this.actions = [{
-        name: '确定解除隔离',
-        method: this.setCompeletTag
-      },];
+      name: '确定解除隔离',
+      method: this.setCompeletTag
+    },];
   },
   // 当引入keep-alive的时候，页面第一次进入，钩子的触发顺序created-> mounted-> activated，退出时触发deactivated。当再次进入（前进或者后退）时，只触发activated。
   activated () {
     this.gettemplist(this.$route.query.id)
+    // this.getEvaluation()
     console.log('assr activated 画图')
-    this.drawline()
+    // this.drawline()
   },
 
   deactivated () {
@@ -172,35 +180,40 @@ export default {
   },
   methods: {
     setCompeletTag () {
-      // axios.post('/setCompeletTag', {"patientId": this.$route.query.id,completeTag:'1'})
-      //   .catch(function (error) {
-      //     console.log('error', error)
-      //   })
-      this.popupVisible=true
-      this.isshow='false'
+      axios.post('/setCompeletTag', {"patientId": this.$route.query.id,completeTag:1})
+        .catch(function (error) {
+          console.log('error', error)
+        })
+      this.completetag=1
+      MessageBox.alert('解除隔离成功！')
     },
     gettemplist (val) {
-      var p1 = axios.post('/getTemperMorningList', {
-        "patientId": val
+      // var p1 = axios.post('/getTemperMorningList', {
+      //   "patientId": val
+      // })
+      // var p2 = axios.post('/getTemperNightList', {
+      //   "patientId": val
+      // })
+      // Promise.all([p1, p2]).then(result => {
+      //   var t1 = result[0].data.results
+      //   var t2 = result[1].data.results
+      // }).catch(error => {
+      //   console.log("error", error.response);
+      // });
+      axios.post('/getTempertureList', { "patientId": val }).then(results => {
+        var tlist = results.data.results
+        this.drawline(tlist)
       })
-      var p2 = axios.post('/getTemperNightList', {
-        "patientId": val
-      })
-      Promise.all([p1, p2]).then(result => {
-        var t1 = result[0].data.results
-        var t2 = result[1].data.results
-
-      }).catch(error => {
-        console.log("error", error.response);
-      });
+        .catch(function (error) {
+          console.log('error', error)
+        })
     },
     showdetails () {
       console.log('查看详情')
       // 跳转到风险详情-sj
       this.$router.push('/patient/risk')
     },
-    drawline () {
-
+    drawline (tlist) {
       var myChart = null;
       var div_ = document.getElementById("linechart");
       div_.removeAttribute("_echarts_instance_");
@@ -209,9 +222,17 @@ export default {
 
       // let myChart = this.$echarts.init(document.getElementById('linechart'));
       myChart.clear()
+      var t1 = []
+      var t2 = []
+      var tDate = []
+      for (var i in tlist) {
+        tDate.push(tlist[i].RecordDate)
+        t1.push(Number(tlist[i].TemperMorning))//上午体温
+        t2.push(Number(tlist[i].TemperNight))//下午体温
+      }
       var option = {
         legend: {
-          data: ['早晨体温', '夜晚体温']
+          data: ['上午体温', '下午体温']
         },
         tooltip: {
           trigger: 'axis'
@@ -226,23 +247,27 @@ export default {
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: ['1.30', '1.31', '2.1', '2.2', '2.3', '2.4', '2.5']
+          data: tDate
         },
         yAxis: {
           type: 'value',
-          min: 35,
-          max: 38//获取数据后改为根据最大最小值+1设置纵坐标范围
+          min: function (value) {
+            return value.min - 1
+          },
+          max: function (value) {
+            return value.max + 1
+          }
         },
         series: [
           {
-            name: '早晨体温',
+            name: '上午体温',
             type: 'line',
-            data: [36.7, 36.8, 37, 36.9, 37, 36.8, 37]
+            data: t1
           },
           {
-            name: '夜晚体温',
+            name: '下午体温',
             type: 'line',
-            data: [36.8, 37, 36.9, 37, 36.5, 37, 36.9]
+            data: t2
           }
         ]
       };
@@ -253,8 +278,9 @@ export default {
         "patientId": this.$route.query.id
       }).then(response => {
         // console.log(response.data.results[0])
-        this.evform = response.data.results[0]
-        this.evform.EpidemiProb = this.evform.EpidemiProb.replace(/\r\n/g, "<br>")
+        // this.evform = response.data.results[0]
+        this.completetag=response.data.results[0].CompleteTag
+        console.log('gete')
       })
         .catch(function (error) {
           console.log('error', error)
@@ -265,8 +291,19 @@ export default {
         "evaluId": val
       }).then(response => {
         // console.log(response.data.results[0])
+        const colorlist = new Map([[0, 'green'], [1, 'green'], [2, 'blue'], [3, 'red']])
         this.evform = response.data.results[0]
+        this.evform.color = colorlist.get(parseInt(this.evform.MachineRes))
+        this.evform.MedicalHis = this.evform.MedicalHis.replace(/\r\n/g, "<br>")
+        this.evform.AllergyHistory = this.evform.AllergyHistory.replace(/\r\n/g, "<br>")
         this.evform.EpidemiProb = this.evform.EpidemiProb.replace(/\r\n/g, "<br>")
+        this.evform.SymptomProb = this.evform.SymptomProb.replace(/\r\n/g, "<br>")
+        this.evform.VitalSigns = this.evform.VitalSigns.replace(/\r\n/g, "<br>")
+
+
+
+        // this.evform.ContactHistory = this.evform.EpidemiProb.replace(/\r\n/g, "<br>")
+        // this.evform.EpidemiProb = this.evform.EpidemiProb.replace(/\r\n/g, "<br>")
       })
         .catch(function (error) {
           console.log('error', error)
@@ -302,9 +339,12 @@ export default {
 .cardheader {
   margin-top: 5px;
   border-radius: 8px 8px 0px 0px;
-  background: red;
+  /* background: red; */
   width: 100%;
   height: 10px;
+}
+.iconside {
+  padding-left: 10px;
 }
 .cardcontainer {
   padding: 10px;
@@ -334,15 +374,6 @@ export default {
   width: 90%;
   height: 200px;
   margin: auto;
-}
-.mint-popup {
-  width: 100%;
-  height: 50px;
-  text-align: center;
-  background-color: rgba(0,0,0,.7);
-  backface-visibility: hidden;
-  line-height: 50px;
-  color: #fff;
 }
     
 </style>
